@@ -1,0 +1,2557 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page-node-id="KYqpgtMiaGxCZI7IHJS9Mv">
+<head data-page-node-id="1etMGnlNwL12aMy9Hhn6YS">
+<meta charset="UTF-8" data-page-node-id="76A3aNON7M0zap6vHCurnc">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" data-page-node-id="IJG8PaBpRszjR4UVA0nCbq">
+<title>人生方向定制问卷 · 致迷茫的你</title>
+<style>
+  :root{
+    --bg:#f6f8fb;
+    --card:#ffffff;
+    --ink:#1f2a37;
+    --ink-soft:#5b6b7c;
+    --ink-faint:#8b98a8;
+    --line:#e7ecf2;
+    --brand:#3b82c4;
+    --brand-deep:#2c6ba6;
+    --brand-soft:#e8f2fb;
+    --mint:#37b39a;
+    --mint-soft:#e5f6f2;
+    --amber:#f0a13a;
+    --amber-soft:#fdf3e3;
+    --coral:#ef6a6a;
+    --coral-soft:#fdeaea;
+    --violet:#8b7bd8;
+    --violet-soft:#f0edfb;
+    --radius:18px;
+    --shadow:0 10px 30px rgba(31,42,55,.06);
+    --shadow-lg:0 18px 50px rgba(31,42,55,.10);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  #app{min-height:100%;display:flex;flex-direction:column;align-items:center;padding:24px 16px 60px}
+
+  /* progress */
+  .progress-wrap{position:fixed;top:0;left:0;right:0;height:5px;background:transparent;z-index:50}
+  .progress-bar{height:100%;background:linear-gradient(90deg,var(--mint),var(--brand));width:0%;transition:width .4s ease;border-radius:0 4px 4px 0}
+
+  .screen{width:100%;max-width:640px;animation:fadeUp .45s ease}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+
+  /* hero / welcome */
+  .hero{background:var(--card);border-radius:24px;padding:44px 34px;box-shadow:var(--shadow);text-align:center;margin-top:20px}
+  .hero .badge{display:inline-block;background:var(--mint-soft);color:var(--mint);font-size:13px;font-weight:600;padding:6px 14px;border-radius:999px;margin-bottom:20px;letter-spacing:.5px}
+  .hero h1{font-size:30px;line-height:1.3;margin-bottom:14px;font-weight:800}
+  .hero h1 em{font-style:normal;color:var(--brand)}
+  .hero p.sub{color:var(--ink-soft);font-size:15px;margin-bottom:28px}
+  .hero .meta{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:30px}
+  .hero .meta span{background:var(--bg);border:1px solid var(--line);color:var(--ink-soft);font-size:12.5px;padding:6px 12px;border-radius:999px}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    background:var(--brand);color:#fff;border:none;cursor:pointer;
+    font-size:16px;font-weight:600;padding:14px 34px;border-radius:14px;
+    transition:transform .15s ease,background .15s ease,box-shadow .15s ease;
+    box-shadow:0 8px 20px rgba(59,130,196,.28);
+  }
+  .btn:hover{background:var(--brand-deep);transform:translateY(-2px)}
+  .btn:active{transform:translateY(0)}
+  .btn.ghost{background:var(--bg);color:var(--ink-soft);box-shadow:none;border:1px solid var(--line)}
+  .btn.ghost:hover{background:#eef2f6}
+  .btn.mint{background:var(--mint);box-shadow:0 8px 20px rgba(55,179,154,.28)}
+  .btn.mint:hover{background:#2fa78e}
+
+  /* question card */
+  .q-card{background:var(--card);border-radius:24px;padding:34px 30px;box-shadow:var(--shadow);margin-top:20px}
+  .q-sec{font-size:12.5px;font-weight:700;letter-spacing:.5px;color:var(--brand);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+  .q-sec .dot{width:8px;height:8px;border-radius:50%;background:var(--brand)}
+  .q-sec.tone2{color:var(--mint)}.q-sec.tone2 .dot{background:var(--mint)}
+  .q-sec.tone3{color:var(--amber)}.q-sec.tone3 .dot{background:var(--amber)}
+  .q-sec.tone4{color:var(--violet)}.q-sec.tone4 .dot{background:var(--violet)}
+  .q-title{font-size:21px;font-weight:700;line-height:1.45;margin-bottom:6px}
+  .q-hint{font-size:14px;color:var(--ink-faint);margin-bottom:22px}
+  .q-index{color:var(--ink-faint);font-size:13px;margin-bottom:4px;font-weight:600}
+
+  /* options */
+  .opts{display:flex;flex-direction:column;gap:11px}
+  .opt{
+    display:flex;align-items:center;gap:14px;padding:14px 16px;
+    border:1.5px solid var(--line);border-radius:14px;cursor:pointer;
+    transition:border-color .15s ease,background .15s ease,transform .12s ease;
+    background:#fff;text-align:left;font-size:15.5px;color:var(--ink);width:100%;
+  }
+  .opt:hover{border-color:#c6d6e6;background:#fafcfe}
+  .opt.sel{border-color:var(--brand);background:var(--brand-soft)}
+  .opt .mark{
+    width:22px;height:22px;border-radius:50%;border:2px solid #cdd7e0;flex:none;
+    display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;
+    transition:all .15s ease;
+  }
+  .opt.sel .mark{background:var(--brand);border-color:var(--brand)}
+  .opt .mark::after{content:"✓";opacity:0;transition:opacity .15s}
+  .opt.sel .mark::after{opacity:1}
+  .opt.multi .mark{border-radius:6px}
+  .opt .emoji{font-size:22px;flex:none}
+
+  /* scale */
+  .scale{display:flex;flex-direction:column;gap:9px}
+  .scale .opt{padding:13px 16px}
+
+  /* tradeoffs */
+  .trade{display:flex;flex-direction:column;gap:16px;margin-top:4px}
+  .trade-item{background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:16px}
+  .trade-label{font-size:13px;color:var(--ink-faint);font-weight:600;margin-bottom:10px}
+  .trade-pair{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center}
+  .trade-opt{
+    padding:12px 12px;border:1.5px solid var(--line);border-radius:12px;cursor:pointer;
+    text-align:center;font-size:14px;background:#fff;transition:all .15s ease;color:var(--ink);
+  }
+  .trade-opt:hover{border-color:#c6d6e6}
+  .trade-opt.sel{border-color:var(--mint);background:var(--mint-soft);color:var(--ink);font-weight:600}
+  .trade-vs{color:var(--ink-faint);font-size:12px;font-weight:700;flex:none}
+
+  /* open */
+  textarea{
+    width:100%;min-height:110px;border:1.5px solid var(--line);border-radius:14px;
+    padding:14px 16px;font-size:15px;font-family:inherit;color:var(--ink);resize:vertical;
+    background:#fbfcfe;transition:border-color .15s ease;line-height:1.6;
+  }
+  textarea:focus{outline:none;border-color:var(--brand);background:#fff}
+  textarea::placeholder{color:#b6c0cc}
+
+  /* nav */
+  .nav{display:flex;justify-content:space-between;margin-top:26px;gap:12px}
+  .nav .btn{flex:1}
+  .nav .btn:only-child{max-width:200px;margin-left:auto}
+
+  /* echo 若隐若现的文艺提示 */
+  .echo{
+    position:fixed;left:50%;bottom:26px;transform:translateX(-50%);
+    max-width:min(84vw,560px);text-align:center;font-size:13.5px;
+    color:var(--ink-faint);font-style:italic;letter-spacing:.5px;line-height:1.7;
+    opacity:0;transition:opacity 1.3s ease;pointer-events:none;z-index:40;
+    background:rgba(255,255,255,.78);backdrop-filter:blur(5px);
+    padding:9px 18px;border-radius:999px;box-shadow:0 6px 24px rgba(31,42,55,.08);
+  }
+  .echo.show{opacity:.92}
+
+  /* result */
+  .result{width:100%;max-width:700px;animation:fadeUp .5s ease}
+  .r-hero{background:linear-gradient(135deg,#3b82c4,#37b39a);border-radius:24px;padding:40px 32px;color:#fff;text-align:center;box-shadow:var(--shadow-lg);margin-top:16px}
+  .r-hero .r-tag{font-size:13px;opacity:.9;letter-spacing:1px;font-weight:600;margin-bottom:10px}
+  .r-hero h2{font-size:27px;font-weight:800;margin-bottom:10px}
+  .r-hero .type-chip{display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);padding:8px 18px;border-radius:999px;font-size:15px;font-weight:700;margin:4px}
+  .r-hero p{font-size:14.5px;opacity:.92;margin-top:14px;max-width:480px;margin-left:auto;margin-right:auto}
+
+  .r-card{background:var(--card);border-radius:20px;padding:28px 26px;box-shadow:var(--shadow);margin-top:18px}
+  .r-card h3{font-size:17px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:9px}
+  .r-card h3 .ic{width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px}
+  .ic.mint{background:var(--mint-soft)} .ic.blue{background:var(--brand-soft)} .ic.amber{background:var(--amber-soft)} .ic.violet{background:var(--violet-soft)} .ic.coral{background:var(--coral-soft)}
+
+  .bars{display:flex;flex-direction:column;gap:11px}
+  .bar-row{display:grid;grid-template-columns:88px 1fr 40px;align-items:center;gap:10px}
+  .bar-name{font-size:13px;color:var(--ink-soft);text-align:right}
+  .bar-track{height:12px;background:var(--bg);border-radius:999px;overflow:hidden}
+  .bar-fill{height:100%;border-radius:999px;transition:width .8s cubic-bezier(.22,1,.36,1)}
+  .bar-val{font-size:12px;color:var(--ink-faint);font-weight:600}
+  .bar-row.top .bar-name{color:var(--ink);font-weight:700}
+  .bar-row.top .bar-val{color:var(--brand);font-weight:700}
+
+  .keywords{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px}
+  .kw{background:var(--violet-soft);color:#6a58c0;padding:8px 16px;border-radius:999px;font-size:14px;font-weight:700}
+  .kw.alt{background:var(--mint-soft);color:var(--mint)}
+
+  .list{display:flex;flex-direction:column;gap:10px}
+  .list-item{display:flex;gap:12px;align-items:flex-start;font-size:14.5px;color:var(--ink-soft)}
+  .list-item .n{flex:none;width:24px;height:24px;border-radius:8px;background:var(--brand-soft);color:var(--brand);font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:2px}
+
+  .quote{background:var(--bg);border-left:4px solid var(--mint);border-radius:12px;padding:16px 18px;font-size:14.5px;color:var(--ink-soft);margin-bottom:12px;white-space:pre-wrap}
+  .quote .ql{color:var(--ink-faint);font-size:12.5px;font-weight:700;margin-bottom:6px;letter-spacing:.5px}
+
+  .res-item{display:flex;gap:12px;align-items:flex-start;padding:13px 14px;border:1px solid var(--line);border-radius:14px;margin-bottom:10px}
+  .res-item .tag{flex:none;font-size:11.5px;font-weight:700;padding:3px 9px;border-radius:7px;margin-top:2px}
+  .tag.book{background:var(--brand-soft);color:var(--brand)}
+  .tag.film{background:var(--violet-soft);color:#6a58c0}
+  .tag.ex{background:var(--amber-soft);color:#c77f1a}
+  .res-item .txt{font-size:14px;color:var(--ink-soft)}
+
+  .assess{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+  .pill{font-size:13px;font-weight:600;padding:7px 14px;border-radius:999px;background:var(--bg);border:1px solid var(--line);color:var(--ink-soft)}
+  .pill strong{color:var(--ink)}
+
+  .r-foot{display:flex;gap:12px;justify-content:center;margin-top:26px;flex-wrap:wrap}
+  .foot-note{text-align:center;color:var(--ink-faint);font-size:12px;margin-top:18px;max-width:560px;margin-left:auto;margin-right:auto}
+
+  /* endings */
+  .ending{border:1px solid var(--line);border-radius:16px;padding:18px;margin-bottom:14px;background:#fff;transition:border-color .15s ease}
+  .ending.sel{border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-soft)}
+  .end-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+  .end-tag{font-size:12px;font-weight:700;padding:4px 10px;border-radius:7px;letter-spacing:.3px}
+  .end-tag.light{background:var(--mint-soft);color:var(--mint)}
+  .end-tag.warm{background:var(--amber-soft);color:#c77f1a}
+  .end-tag.dark{background:var(--coral-soft);color:var(--coral)}
+  .end-prob{font-size:13px;font-weight:700;color:var(--ink-soft)}
+  .end-track{height:8px;background:var(--bg);border-radius:999px;overflow:hidden;margin-bottom:12px}
+  .end-fill{height:100%;border-radius:999px;transition:width .8s cubic-bezier(.22,1,.36,1)}
+  .end-title{font-size:16px;font-weight:700;margin-bottom:6px}
+  .end-story{font-size:14px;color:var(--ink-soft);line-height:1.7}
+  .end-case{font-size:13px;color:var(--ink-faint);margin-top:9px;padding-top:9px;border-top:1px dashed var(--line);line-height:1.6}
+  /* 结局表格 */
+  .end-scroll{overflow-x:auto;margin:0 -4px;padding:0 4px}
+  .end-table{width:100%;border-collapse:separate;border-spacing:0;font-size:13.5px;min-width:600px}
+  .end-table th{background:var(--bg);color:var(--ink-faint);font-weight:700;padding:10px 12px;text-align:left;font-size:12.5px;letter-spacing:.3px;white-space:nowrap}
+  .end-table th:first-child{border-radius:10px 0 0 10px}
+  .end-table th:last-child{border-radius:0 10px 10px 0}
+  .end-table td{padding:12px;border-bottom:1px solid var(--line);vertical-align:top}
+  tr.end-group td{background:var(--bg);color:var(--ink-soft);font-weight:700;font-size:12.5px;padding:8px 12px;letter-spacing:.5px;border-bottom:none}
+  tr.end-row{cursor:pointer;transition:background .15s}
+  tr.end-row:hover td{background:#fafcfe}
+  tr.end-row.sel td{background:var(--brand-soft)}
+  .rank-badge{display:inline-block;font-size:11.5px;font-weight:700;padding:3px 8px;border-radius:6px;white-space:nowrap}
+  .rank-badge.perfect{background:var(--amber-soft);color:#c77f1a}
+  .rank-badge.good{background:var(--mint-soft);color:var(--mint)}
+  .rank-badge.hidden{background:var(--violet-soft);color:#6a58c0}
+  .rank-badge.normal{background:var(--bg);color:var(--ink-soft);border:1px solid var(--line)}
+  .rank-badge.bad{background:var(--coral-soft);color:var(--coral)}
+  .rank-badge.worst{background:#3b2730;color:#ffb3b3}
+  .end-name{font-weight:700;color:var(--ink);font-size:14px;white-space:nowrap}
+  .end-cond{color:var(--ink-soft);font-size:12.5px}
+  .end-prob-cell{color:var(--ink-faint);font-size:11.5px;font-weight:600;margin-top:6px}
+  .end-story-t{color:var(--ink-soft);line-height:1.6;font-size:13.5px}
+  .end-case-t{color:var(--ink-faint);font-size:12.5px;margin-top:5px;line-height:1.5}
+  /* MBTI 类型 */
+  .mbti{display:flex;justify-content:center;gap:10px;margin-bottom:6px}
+  .mbti-letter{background:var(--violet-soft);border-radius:14px;padding:10px 0;width:64px;text-align:center}
+  .mbti-ch{font-size:24px;font-weight:800;color:#6a58c0}
+  .mbti-lb{font-size:11.5px;color:#8b7bd8}
+  .advice{margin-top:12px;padding:12px 14px;background:var(--bg);border-radius:12px;font-size:14px;color:var(--ink-soft)}
+  .endings-note{font-size:12px;color:var(--ink-faint);margin-top:6px;line-height:1.6}
+  .reflect-q{font-size:14.5px;color:var(--ink-soft);margin-bottom:14px}
+  .reflect-reply{background:linear-gradient(135deg,var(--brand-soft),var(--mint-soft));border-radius:14px;padding:18px;font-size:14.5px;color:var(--ink);line-height:1.8}
+  /* 回顾答案 */
+  .review-summary{cursor:pointer;font-size:15px;font-weight:700;color:var(--ink);list-style:none;display:flex;align-items:center;gap:8px}
+  .review-summary::-webkit-details-marker{display:none}
+  .review-summary::after{content:"▾";color:var(--ink-faint);font-size:13px;transition:transform .2s}
+  details[open] .review-summary::after{transform:rotate(180deg)}
+  .review-list{margin-top:14px;display:flex;flex-direction:column;gap:10px;max-height:440px;overflow-y:auto;padding-right:4px}
+  .review-item{background:var(--bg);border-radius:12px;padding:12px 14px}
+  .review-q{font-size:13px;color:var(--ink-faint);margin-bottom:4px}
+  .review-a{font-size:14.5px;color:var(--ink);font-weight:600;line-height:1.6}
+
+  @media(max-width:480px){
+    .hero{padding:32px 22px}
+    .q-card{padding:26px 20px}
+    .q-title{font-size:19px}
+    .bar-row{grid-template-columns:72px 1fr 32px}
+  }
+</style>
+</head>
+<body data-page-node-id="sQsACyRLjYa3t6YWLH0SGT">
+<div class="progress-wrap" data-page-node-id="bVWALDT0xLwvCxEuL16h6c"><div class="progress-bar" id="progressBar" data-page-node-id="nPj0APeAry7ebnGxp0xaHH"></div></div>
+<div id="app" data-page-node-id="ADTiqMnN0EnoV8TQ23VdZ3"></div>
+<div class="echo" id="echo"></div>
+
+<script>
+/* ============ 类型定义 ============ */
+const BAD_KEYS = ['goal','meaning','involution','choice','gap','doubt','family','burnout','lonely','perfect','scattered','money'];
+const GOOD_KEYS = ['sunny','relaxed','grateful','clear','proactive','decisive','confident','independent','warm','resilient','energetic','curious'];
+const TYPE_KEYS = [...BAD_KEYS, ...GOOD_KEYS];
+const TYPE_NAMES = {
+  goal:'目标缺失', meaning:'意义缺失', involution:'内卷焦虑', choice:'选择困难',
+  gap:'现实落差', doubt:'自我怀疑', family:'家庭期待冲突', burnout:'倦怠麻木',
+  lonely:'社交孤独', perfect:'完美主义', scattered:'兴趣发散', money:'经济焦虑',
+  sunny:'阳光乐观', relaxed:'松弛从容', grateful:'知足感恩', clear:'清晰坚定',
+  proactive:'行动进取', decisive:'果断勇敢', confident:'自洽自信', independent:'独立自主',
+  warm:'温暖连接', resilient:'坚韧抗压', energetic:'能量充沛', curious:'探索好奇'
+};
+const TYPE_COLORS = {
+  goal:'#3b82c4', meaning:'#37b39a', involution:'#ef6a6a', choice:'#f0a13a',
+  gap:'#8b7bd8', doubt:'#5b6b7c', family:'#e0873f', burnout:'#9aa7b5',
+  lonely:'#5b8def', perfect:'#c06090', scattered:'#4caf7f', money:'#c9973b',
+  sunny:'#f6a623', relaxed:'#4db6ac', grateful:'#f28e6e', clear:'#2f9bd8',
+  proactive:'#e8674d', decisive:'#d97706', confident:'#7c5cbf', independent:'#3e7cb1',
+  warm:'#e05d7a', resilient:'#2f855a', energetic:'#f97316', curious:'#14b8a6'
+};
+
+const TYPE_CONTENT = {
+  goal:{
+    name:'目标缺失', tag:'方向模糊型', short:'你心里有方向感，只是还没找到具体的目标。',
+    insight:'你不是不想努力，而是不知道该往哪个方向使劲——没有靶子，箭就射不出去。这种迷茫往往来自"被安排惯了"：从小到大，升学、考试都是别人定好的路，一旦轮到你自己选，反而手足无措。',
+    actions:['做一次「兴趣 × 能力 × 价值」三圈交集练习，写下 5 个你既不讨厌、做得不差、又觉得有意义的方向','用「最小可行尝试」代替空想：选一个方向，花 1–2 周做个小项目/实习/旁听，用行动试错','别再等"想清楚再动"，方向是边走边清晰的','和 3 个你欣赏的人聊聊他们的路径，收集真实样本'],
+    resources:[{t:'book',x:'《斯坦福大学人生设计课》'},{t:'film',x:'电影《心灵奇旅》(Soul)'},{t:'ex',x:'练习：写下你的人生罗盘（价值观+兴趣+能力）'}]
+  },
+  meaning:{
+    name:'意义缺失', tag:'空心感型', short:'你不是不够好，是暂时找不到"为什么要做"。',
+    insight:'成绩、证书、offer 都有了，内心却空空的。这种"空"不是矫情，而是长期把外在评价当成内在动力后，真实的自己很久没被听见了。你需要的不是更多成就，而是重新和自己建立连接。',
+    actions:['停一停"应该做什么"，每天写一条"今天让我有一点点感觉的事"','从"别人的标准"里抽身，问自己：如果没有观众，我还想做这件事吗','尝试一件纯粹"没有用"、但让你开心的事','如果长期低落、对一切失去兴趣，请勇敢寻求心理咨询——这不是脆弱'],
+    resources:[{t:'book',x:'维克多·弗兰克尔《活出生命的意义》'},{t:'film',x:'电影《死亡诗社》'},{t:'ex',x:'练习：写给 5 年后的自己的一封信'}]
+  },
+  involution:{
+    name:'内卷焦虑', tag:'赛跑者型', short:'你不是懒，是太累了——累在"不得不比"。',
+    insight:'你被裹在一条别人定好的赛道上，时刻担心被落下。卷，卷不动；躺，躺不平。这种焦虑的本质，是把"别人的速度"当成了"自己的标准"。',
+    actions:['关掉一部分比较源：取关让你焦虑的账号，减少刷"别人的人生"','把"和别人比"换成"和昨天的自己比"，记录每周的小进步','找到你的"非竞争性空间"：一件不排名、不算分、只属于你的事','学会给努力设定边界，健康是第一生产力'],
+    resources:[{t:'book',x:'韩炳哲《倦怠社会》'},{t:'ex',x:'练习：写下"我的节奏清单"'}]
+  },
+  choice:{
+    name:'选择困难', tag:'抉择瘫痪型', short:'你不是没选项，是太怕选错。',
+    insight:'选项越多，越不敢选，因为每一个选择都意味着"放弃其他可能"。你缺的不是信息，而是"允许自己试错"的底气。没有一个选择能保证完美，但每个选择都能让你更了解自己。',
+    actions:['接受"没有完美选择"，用"足够好"替代"最好"','把大选择拆成小决定，先做能逆转、低成本的那个','用「10-10-10 法则」：这个选择 10 天 / 10 个月 / 10 年后还重要吗','给自己设截止日期，选完就向前看，别反复回头'],
+    resources:[{t:'book',x:'希思兄弟《决断力》'},{t:'film',x:'TED《如何做出艰难的选择》(Ruth Chang)'},{t:'ex',x:'练习：把纠结选项写成两栏，只列"事实"不列"情绪"'}]
+  },
+  gap:{
+    name:'现实落差', tag:'仰望型', short:'你的失望，恰恰说明你在乎。',
+    insight:'高考没考上理想的学校/专业、和同学拉开差距、理想职业遥不可及……落差让你怀疑自己。但失望的前提是"你心里有一个更高的期待"，这是珍贵的信号，不是包袱。',
+    actions:['把"我本可以"改成"我现在可以做什么"，聚焦当下可控的部分','重新定义"成功"：它可以是过程，而不只是结果','找一个"跳一跳够得着"的近期目标，重建掌控感','承认遗憾，但不让遗憾定义你'],
+    resources:[{t:'book',x:'塔拉·韦斯特弗《你当像鸟飞往你的山》'},{t:'film',x:'电影《当幸福来敲门》'},{t:'ex',x:'练习：写"我的现实 vs 我的可能"'}]
+  },
+  doubt:{
+    name:'自我怀疑', tag:'低估自己型', short:'你比自己以为的，好得多。',
+    insight:'你习惯性地否定自己，把成功归为运气、把失败归为自己。这种"冒充者"心态很常见，但它不是事实，只是你脑子里一个过时的声音。',
+    actions:['建立"成就清单"：写下你做成过的 10 件小事，每天看一遍','停止用"我不行"开头，改成"我还在学"','找信任的人，认真听一听他们眼中的你','把目标定小一点，用连续的小胜利喂养自信'],
+    resources:[{t:'book',x:'阿德勒《自卑与超越》'},{t:'film',x:'TED《肢体语言塑造你自己》'},{t:'ex',x:'练习：每天记 1 条"今天我做得不错的事"'}]
+  },
+  family:{
+    name:'家庭期待冲突', tag:'拉扯型', short:'你的纠结，是因为你在意家人，也在意自己。',
+    insight:'父母的期待和你想要的人生打架，让你既不想辜负他们，又不想辜负自己。这不是你的错，而是两代人价值观的碰撞。你可以爱他们，同时成为你自己。',
+    actions:['先厘清"我的想法"和"父母的想法"，把它们分开写下来','用非对抗的方式沟通：先表达理解，再说出你的感受和计划','记住：你的人生最终由你自己负责，父母希望你"好"，而"好"可以有多种定义','如果暂时无法说服，先证明自己——用行动和结果争取理解'],
+    resources:[{t:'book',x:'《被讨厌的勇气》'},{t:'film',x:'电影《健听女孩》(CODA)'},{t:'ex',x:'练习：给父母写一封"不寄出的信"'}]
+  },
+  burnout:{
+    name:'倦怠麻木', tag:'省电模式型', short:'你不是废了，是电量耗尽了。',
+    insight:'长期高压让你进入"省电模式"——对什么都不太提得起兴趣，只想躺着。这往往是身体和情绪在向你报警，而不是你"变懒"。',
+    actions:['先照顾身体：规律睡眠、吃饭、晒太阳、散步，别小看这些','从「5 分钟启动法」开始，只做 5 分钟，允许随时停','给自己"合法休息"，休息不是浪费时间','若持续超过两周、影响生活，请务必寻求专业帮助'],
+    resources:[{t:'book',x:'洛莉·戈特利布《也许你该找个人聊聊》'},{t:'film',x:'电影《心灵奇旅》(Soul)'},{t:'ex',x:'练习：记录"能量日记"，找到什么消耗你、什么滋养你'}]
+  },
+  lonely:{
+    name:'社交孤独', tag:'独行者型', short:'你不是不合群，是还没遇到懂你的人。',
+    insight:'你身边人来人往，却总觉得没人真正走进你心里。这种「人越多越孤单」的感觉不是矫情，而是你渴望更深度的连接，却还没找到。',
+    actions:['从「被动等被懂」转为「主动说出真实感受」，哪怕只对一个人','加入一个兴趣社群/社团，用共同爱好降低社交门槛','学会独处，但不把孤独当宿命——两者可以共存','别再比较「别人的热闹」，那多是表面'],
+    resources:[{t:'book',x:'罗兰·米勒《亲密关系》'},{t:'film',x:'电影《如晴天，似雨天》'},{t:'ex',x:'练习：给一个久未联系的朋友发条消息'}]
+  },
+  perfect:{
+    name:'完美主义', tag:'高标准型', short:'你不是要求太高，是太害怕"不够好"。',
+    insight:'你对自己高标准严要求，常把「还没准备好」当借口拖延，因为怕结果配不上期待。完美主义让你优秀，也让你疲惫。',
+    actions:['用「先完成再完美」替代「要么不做、要么做到最好」','给任务设一条「及格线」，到线就交付，别无限打磨','区分「高标准」和「自我苛责」，允许自己犯错','记录「不完美但成功」的经历，打破完美幻觉'],
+    resources:[{t:'book',x:'《被讨厌的勇气》'},{t:'film',x:'TED《教导女孩勇敢，而不是完美》'},{t:'ex',x:'练习：故意做一件「不完美」的小事'}]
+  },
+  scattered:{
+    name:'兴趣发散', tag:'多潜力型', short:'你不是三分钟热度，是还没找到"都想要"的活法。',
+    insight:'你兴趣广泛、什么都想试，但样样浅尝辄止，反而陷入「我是不是不够专注」的自我怀疑。其实多潜力不是缺陷，只是需要不同的活法。',
+    actions:['接受自己是「多潜力者」，不必逼自己只选一条路','用「主副业/多线程」同时养几个兴趣，找一个能变现的锚点','给每个兴趣设「最低持续期」，到期再决定去留','别用「专注」绑架自己，斜杠本身也是一种人生'],
+    resources:[{t:'book',x:'埃米莉·韦普尼克《多重潜能者》'},{t:'book',x:'《你的降落伞是什么颜色》'},{t:'ex',x:'练习：画一张「兴趣地图」，找交叉点'}]
+  },
+  money:{
+    name:'经济焦虑', tag:'现实压力型', short:'你的焦虑很现实，别急着怪自己。',
+    insight:'你担心将来赚不到钱、养不活自己、买不起想要的生活。这份焦虑不是拜金，而是对安全感的合理渴望，尤其在一个竞争激烈的时代。',
+    actions:['把模糊的「怕没钱」具体化：算一笔账，看真实缺口到底多大','提前规划职业的「变现路径」，别等到毕业才想','学点基础理财，从小额储蓄和记账开始建立掌控感','记住：钱是工具不是目的，别让它成为你唯一的人生尺度'],
+    resources:[{t:'book',x:'《小狗钱钱》'},{t:'book',x:'埃里克·乔根森《纳瓦尔宝典》'},{t:'ex',x:'练习：写「我的 3 条收入可能性」'}]
+  },
+  sunny:{
+    name:'阳光乐观', tag:'小太阳型', short:'你自带光芒，也照亮了身边的人。',
+    insight:'你习惯看向事情好的一面，情绪自愈力强，是人群里的情绪补给站。这份阳光不是没心没肺，而是你选择了相信。',
+    actions:['允许自己也有阴天，不必强迫永远明媚','把你的乐观变成具体行动，而不只是心态','把能量分给值得的人，也记得给自己充电','偶尔停下来照顾自己，别让阳光只照亮别人'],
+    resources:[{t:'book',x:'塞利格曼《活出最乐观的自己》'},{t:'film',x:'电影《头脑特工队》'},{t:'ex',x:'练习：每天写 1 件「今天的好事」'}]
+  },
+  relaxed:{
+    name:'松弛从容', tag:'松弛型', short:'你活得通透，不跟自己较劲。',
+    insight:'你遇事不慌、不爱内耗，压力感知低，是「最会生活的一类人」。松弛是你最稀缺的天赋。',
+    actions:['保持「事缓则圆」的节奏，但别把松弛变成拖延','给重要的事设个「启动点」，松而不散','把松弛分享给紧绷的朋友，但别被别人的焦虑带走','在松弛里也给自己留一点「向上的张力」'],
+    resources:[{t:'book',x:'《松弛感》'},{t:'film',x:'电影《心灵奇旅》(Soul)'},{t:'ex',x:'练习：每天留 10 分钟「无目的放空」'}]
+  },
+  grateful:{
+    name:'知足感恩', tag:'知足型', short:'你懂得珍惜，幸福感藏在小事里。',
+    insight:'你能在平凡里发现值得感恩的细节，幸福感天生比别人高。知足不是躺平，是一种「选择看见」的能力。',
+    actions:['把感恩写下来，让它从「感觉」变成「证据」','用感恩滋养关系，主动说谢谢','知足但不自满，留一点向上的空间','在低谷时翻看你的「感恩清单」给自己充电'],
+    resources:[{t:'book',x:'泰勒·本-沙哈尔《幸福的方法》'},{t:'film',x:'电影《生活多美好》'},{t:'ex',x:'练习：写一份「感恩清单」'}]
+  },
+  clear:{
+    name:'清晰坚定', tag:'有方向型', short:'你心里有方向，脚步也稳。',
+    insight:'你目标清晰、内心笃定，很少被外界噪音带偏。这是很多人求而不得的底气，请珍惜。',
+    actions:['定期校准方向，别让「清晰」变成「固化」','把大方向拆成里程碑，稳步推进','保持开放，允许方向微调、但别轻易放弃','把你的清晰分享给迷茫的伙伴，教学相长'],
+    resources:[{t:'book',x:'《斯坦福大学人生设计课》'},{t:'film',x:'电影《当幸福来敲门》'},{t:'ex',x:'练习：写「我的五年愿景」'}]
+  },
+  proactive:{
+    name:'行动进取', tag:'行动派', short:'你说干就干，用行动说话。',
+    insight:'你不等不靠，想到就做，执行力是你的护城河。迷茫的人缺的，正是你这股「先动起来」的劲儿。',
+    actions:['行动前花一点时间定方向，别用忙碌代替思考','在「行动」和「复盘」之间建立循环','给冲动加个「冷静期」，避免无谓试错','把你的行动力，用在真正重要的事上'],
+    resources:[{t:'book',x:'《高效能人士的七个习惯》'},{t:'film',x:'TED《马上开始》'},{t:'ex',x:'练习：用「两分钟法则」启动拖延的事'}]
+  },
+  decisive:{
+    name:'果断勇敢', tag:'果敢型', short:'你敢选择，也敢承担。',
+    insight:'你面对选择不拖泥带水，敢拍板、敢担责。这份果敢，是很多人被困在选择焦虑里最缺的东西。',
+    actions:['大事上仍可多听意见，但保留「最终拍板」的魄力','把「敢做决定」和「愿担后果」绑在一起，落子无悔','在果敢里加一点审慎，避免冲动','用自己的果断，去帮身边纠结的朋友'],
+    resources:[{t:'book',x:'希思兄弟《决断力》'},{t:'film',x:'TED《如何做出艰难的选择》'},{t:'ex',x:'练习：练「10 秒小决定」'}]
+  },
+  confident:{
+    name:'自洽自信', tag:'笃定型', short:'你认可自己，不靠外界评分。',
+    insight:'你对自己的评价稳定，不因外界的褒贬大起大落。这种「自洽」是稀缺的心理资产。',
+    actions:['把自信建立在事实和行动上，而非空喊','允许自己不完美，自信不等于无所不能','用你的笃定去承接偶尔的低谷','给别人真诚的肯定，你会更自信'],
+    resources:[{t:'book',x:'阿德勒《自卑与超越》'},{t:'film',x:'TED《肢体语言塑造你自己》'},{t:'ex',x:'练习：写「我做成过的 10 件事」'}]
+  },
+  independent:{
+    name:'独立自主', tag:'独立型', short:'你有主见，不被裹挟。',
+    insight:'你清楚自己要什么，不轻易被他人和潮流左右。独立让你自由，也让你清醒。',
+    actions:['独立不是拒绝连接，学会「借力」但不「依赖」','在坚持自我和听取建议之间找平衡','把独立延伸到经济和情绪的双重自立','尊重他人的不同，别让独立变成封闭'],
+    resources:[{t:'book',x:'《被讨厌的勇气》'},{t:'film',x:'电影《健听女孩》(CODA)'},{t:'ex',x:'练习：列「我的原则清单」'}]
+  },
+  warm:{
+    name:'温暖连接', tag:'暖光型', short:'你是很多人愿意靠近的那束暖光。',
+    insight:'你善于共情、真诚待人，身边总有人愿意靠近你。良好的人际连接，是你最宝贵的支撑系统。',
+    actions:['温暖别人时也给自己留边界，别过度付出','把「倾听」和「表达」都用起来，关系是双向的','主动维护几段深度关系，而非泛泛之交','在需要时也勇敢地向他人求助'],
+    resources:[{t:'book',x:'罗兰·米勒《亲密关系》'},{t:'film',x:'电影《触不可及》'},{t:'ex',x:'练习：给一个重要的人认真道谢'}]
+  },
+  resilient:{
+    name:'坚韧抗压', tag:'硬核型', short:'你越挫越勇，能扛事。',
+    insight:'你面对挫折不容易被打垮，能咬住不放。这种「扛得住」的能力，比一时的聪明更值钱。',
+    actions:['别把「能扛」当「必须扛」，该求助时就求助','在坚持和灵活之间切换，别硬撑成内伤','把每次挫折复盘成经验，而非伤疤','给自己设「情绪出口」，定期泄压'],
+    resources:[{t:'book',x:'纳西姆·塔勒布《反脆弱》'},{t:'film',x:'电影《肖申克的救赎》'},{t:'ex',x:'练习：写「我的抗压故事」'}]
+  },
+  energetic:{
+    name:'能量充沛', tag:'满电型', short:'你活力满满，热气腾腾。',
+    insight:'你精力旺盛、热气腾腾，对生活有股使不完的劲儿。这份生命力是你的天然优势。',
+    actions:['把能量用在刀刃上，避免「忙而无果」','学会休息，别把电量透支成「倦怠」','规律作息和运动，是能量的底盘','用你的能量带动周围，也吸收他人的力量'],
+    resources:[{t:'book',x:'《精力管理》'},{t:'film',x:'电影《当幸福来敲门》'},{t:'ex',x:'练习：记录「什么给我充电/耗电」'}]
+  },
+  curious:{
+    name:'探索好奇', tag:'好奇型', short:'你眼里有光，爱折腾、爱新东西。',
+    insight:'你对世界保持好奇，愿意尝试新事物，这份「眼里有光」让你的人生充满可能性。',
+    actions:['把广泛好奇收敛成 1-2 个「深耕点」，避免浅尝辄止','用「最小体验」快速试新，控制试错成本','把好奇沉淀成作品或成果，而非停留在「感兴趣」','保持终身学习，让好奇变成复利'],
+    resources:[{t:'book',x:'卡罗尔·德韦克《终身成长》'},{t:'film',x:'纪录片《宇宙时空之旅》'},{t:'ex',x:'练习：每月体验一件没做过的事'}]
+  }
+};
+
+/* ============ 可能结局 ============ */
+const ENDINGS = {
+  goal:[
+    {tone:'light', prob:18, title:'雾海寻灯', story:'几次「最小尝试」后看清了方向，进了既喜欢又擅长的领域。你大二试了运营、剪辑、编程三段实习，大三锁定产品方向，毕业进大厂，说「路是试出来的」。愿你回望时，眼里有光。'},
+    {tone:'light', prob:12, title:'迂回致远', story:'没一步到位，但每次试错都攒下了筹码。你考研失败后转行做UI，靠自学的作品集拿到offer，三年后成了小团队负责人。有些路，走过了才算数。'},
+    {tone:'light', prob:10, title:'所爱成业', story:'把「副业、爱好」慢慢做成了主业。你喜欢拍照，从接同学写真做到独立摄影师，收入比上班还稳。你值得，也配得上更好的结局。'},
+    {tone:'warm', prob:15, title:'且行且明', story:'跟着大部队考研、就业，日子平稳。你随大流考研上岸，读完发现还是迷茫，但至少多了一张入场券。平凡里，也藏着不动声色的温柔。'},
+    {tone:'warm', prob:15, title:'先立后择', story:'先找份工作安定下来，边干边想。你毕业先做行政，两年后内部转岗到自己感兴趣的运营，绕了点路但没白走。慢慢来，也是一种抵达。'},
+    {tone:'warm', prob:10, title:'岁月静好', story:'选了稳妥的考编、国企，安稳却偶尔空落。你考上家乡公务员，朋友都羡慕，你自己常想「如果当初选另一条路会怎样」。日子是自己的，不必活给谁看。'},
+    {tone:'dark', prob:8, title:'原地盘旋', story:'频繁换方向，每份都「没感觉」。你四年换了四份工作，从销售到教培到带货，每份干不到一年，越来越怀疑自己。别让麻木，成了你的常态。'},
+    {tone:'dark', prob:7, title:'空待流年', story:'等着「想清楚再做」，结果一直没开始。你毕业两年没正经找工作，总说「还没想好」，最后被家里催着随便找了个班。所有的迷路，都还来得及回头。'},
+    {tone:'dark', prob:5, title:'就此沉沦', story:'放弃寻找，用「躺平」逃避。你说「努力也没用」，宅家打游戏两年，与社会脱节后才后悔。答案不在别处，就在你脚下的路里。'}
+  ],
+  meaning:[
+    {tone:'light', prob:18, title:'重拾本心', story:'记录「有感觉的瞬间」，找到「没用但喜欢」的事，重获生命力。你开始写日记和画画，靠这两件小事走出了持续半年的低落。愿你回望时，眼里有光。'},
+    {tone:'light', prob:12, title:'使命在肩', story:'把「帮助别人」变成意义支点。你去做支教和公益，在「被需要」里找到了活着的重量。有些路，走过了才算数。'},
+    {tone:'light', prob:10, title:'与己和解', story:'接受「不必活成别人期待的样子」。你放弃光环满满的投行offer，去小城市开书店，第一次觉得「安心」。你值得，也配得上更好的结局。'},
+    {tone:'warm', prob:15, title:'以忙自蔽', story:'用满日程填空虚，暂时不痛。你疯狂考证、刷实习，表面优秀，独处时依然觉得空。平凡里，也藏着不动声色的温柔。'},
+    {tone:'warm', prob:15, title:'偶问其心', story:'偶尔停下来追问，问完又继续卷。你每到换季就emo一次，深夜发「人为什么活着」，第二天照常上课。慢慢来，也是一种抵达。'},
+    {tone:'warm', prob:10, title:'寄情他物', story:'把意义寄托在恋爱、追星、消费上。你靠追星和买买买续命，快乐很短暂，停不下来。日子是自己的，不必活给谁看。'},
+    {tone:'dark', prob:8, title:'越忙越空', story:'长期不理会这个「空」，情绪持续走低。你以为「忙起来就好」，结果越忙越空，最后确诊中度抑郁才开始求助。别让麻木，成了你的常态。'},
+    {tone:'dark', prob:7, title:'讨好而失', story:'一直满足别人，忘了自己要什么。你总说「都可以」，填志愿全听父母的，工作后发现自己谁都不认识。所有的迷路，都还来得及回头。'},
+    {tone:'dark', prob:5, title:'虚无沉沦', story:'觉得「一切没意义」，放弃一切努力。你常说「反正最后都是死」，挂科、翘课，直到差点毕不了业才惊醒。答案不在别处，就在你脚下的路里。'}
+  ],
+  involution:[
+    {tone:'light', prob:18, title:'自成赛道', story:'关掉比较源，按自己的节奏走。你退出几个「焦虑群」，专注自己的节奏，反而保研成功。愿你回望时，眼里有光。'},
+    {tone:'light', prob:12, title:'错位突围', story:'不跟大流卷，找到独特优势。你不卷绩点，深耕一个小众技能，靠差异化拿到了好机会。有些路，走过了才算数。'},
+    {tone:'light', prob:10, title:'懂得叫停', story:'及时止损，换条不卷的路。你从996大厂裸辞，去二线城市，薪资降了但人活了。你值得，也配得上更好的结局。'},
+    {tone:'warm', prob:15, title:'永不停歇', story:'还在跑，偶尔赢、偶尔喘。你是「卷王」，绩点实习竞赛全都要，深夜常常失眠，但不敢停。平凡里，也藏着不动声色的温柔。'},
+    {tone:'warm', prob:15, title:'胜而犹空', story:'赢了比赛，却不知道自己想要什么。你拿了国奖、保研，庆功宴上却突然想哭。慢慢来，也是一种抵达。'},
+    {tone:'warm', prob:10, title:'假寐实争', story:'嘴上说躺，身体还在卷。你天天喊「躺平」，却半夜偷偷刷题，焦虑一点没少。日子是自己的，不必活给谁看。'},
+    {tone:'dark', prob:8, title:'灯枯油尽', story:'身体先报警。你连续熬夜赶项目，突发心悸送医，才被迫停下来。别让麻木，成了你的常态。'},
+    {tone:'dark', prob:7, title:'自我消耗', story:'没赢也没输，只是把自己耗干了。你天天和同学比较，越比越焦虑，成绩没上去，人先垮了。所有的迷路，都还来得及回头。'},
+    {tone:'dark', prob:5, title:'反噬而颓', story:'卷不动后彻底反向。你拼了三年，一次失败后彻底放弃，用「躺平」报复过去的自己。答案不在别处，就在你脚下的路里。'}
+  ],
+  choice:[
+    {tone:'light', prob:18, title:'以试为舟', story:'把选择当「实验」，敢选、也敢改。你大二纠结考研还是就业，先去实习试了试，很快有了答案。愿你回望时，眼里有光。'},
+    {tone:'light', prob:12, title:'借智决断', story:'找导师、学长、工具帮自己理清。你用「决策清单」加学长访谈，两周搞定了纠结半年的方向。有些路，走过了才算数。'},
+    {tone:'light', prob:10, title:'悦纳不完美', story:'明白没有完美选项。你接受「够好就行」，选了一个80分的offer，过得挺好。你值得，也配得上更好的结局。'},
+    {tone:'warm', prob:15, title:'犹疑反复', story:'纠结中错过机会，也躲过了坑。你在两个offer间纠结一个月，最后两个都过期了，只能重投。平凡里，也藏着不动声色的温柔。'},
+    {tone:'warm', prob:15, title:'折中而安', story:'选个「保险」的，不算错也不算对。你怕选错，选了个大家口中的「稳妥选项」，安稳但提不起劲。慢慢来，也是一种抵达。'},
+    {tone:'warm', prob:10, title:'拱手让权', story:'让父母、朋友替自己决定。你的志愿、工作全是家人定的，省了纠结，也丢了主动权。日子是自己的，不必活给谁看。'},
+    {tone:'dark', prob:8, title:'被事推着走', story:'因为不选，现实替自己选了。你一直拖着不签，最后只剩一个不太想去的机会，只能硬着头皮去。别让麻木，成了你的常态。'},
+    {tone:'dark', prob:7, title:'抉择之惧', story:'越怕越不敢选，形成恶性循环。你连「中午吃什么」都要纠结半小时，大事更是一拖再拖。所有的迷路，都还来得及回头。'},
+    {tone:'dark', prob:5, title:'悔意内耗', story:'选了之后不断回头看「另一个选项」。你去了A，天天想「当初选B会不会更好」，两年都没踏实过。答案不在别处，就在你脚下的路里。'}
+  ],
+  gap:[
+    {tone:'light', prob:18, title:'另起一章', story:'从能做的开始，一点点缩小差距。你高考失利读普通院校，靠自学加项目逆袭进大厂，起点低但走得稳。愿你回望时，眼里有光。'},
+    {tone:'light', prob:12, title:'曲径圆梦', story:'换条路抵达想去的地方。你想当记者没成，改做新媒体，反而更早摸到了内容创作的门。有些路，走过了才算数。'},
+    {tone:'light', prob:10, title:'重定义成功', story:'不再用单一标准衡量自己。你放下「名校情结」，接受自己，在普通岗位里找到了价值感。你值得，也配得上更好的结局。'},
+    {tone:'warm', prob:15, title:'携憾前行', story:'学会和遗憾共处。你没考上理想专业，转专业又失败，后来在本专业里找到了乐趣。平凡里，也藏着不动声色的温柔。'},
+    {tone:'warm', prob:15, title:'放下执念', story:'把目标调低一点，反而轻松。你不再盯着「顶尖」，接受中等，日子过得舒坦多了。慢慢来，也是一种抵达。'},
+    {tone:'warm', prob:10, title:'以忙掩空', story:'用忙麻痹落差感。你用满课表掩盖失落，不让自己有空想「如果」。日子是自己的，不必活给谁看。'},
+    {tone:'dark', prob:8, title:'困于往昔', story:'活在对过去的懊悔里。你毕业三年还在说「当初要是复读就好了」，错过了眼前很多机会。别让麻木，成了你的常态。'},
+    {tone:'dark', prob:7, title:'归咎于己', story:'把落差归咎于自己。你总觉得「都是我考砸了」，越来越自卑，连尝试都不敢。所有的迷路，都还来得及回头。'},
+    {tone:'dark', prob:5, title:'怨天尤人', story:'把原因推给外界，停止成长。你怪学校、怪专业、怪社会，唯独不行动，几年原地踏步。答案不在别处，就在你脚下的路里。'}
+  ],
+  doubt:[
+    {tone:'light', prob:18, title:'看见自己', story:'记录「做得不错的事」，攒回自信。你每天写「成就清单」，半年后敢在组会上主动发言了。愿你回望时，眼里有光。'},
+    {tone:'light', prob:12, title:'借镜自照', story:'借他人的眼睛看见自己。你做了一次360度反馈，才发现同事眼中的自己远比自己想的好。有些路，走过了才算数。'},
+    {tone:'light', prob:10, title:'小步生根', story:'用小胜利喂养自信。你把目标定小，一个个完成，慢慢不觉得自己「不行」了。你值得，也配得上更好的结局。'},
+    {tone:'warm', prob:15, title:'谨小慎微', story:'低调，但慢慢被看见。你习惯说「我不行」，但活干得漂亮，领导慢慢开始重用你。平凡里，也藏着不动声色的温柔。'},
+    {tone:'warm', prob:15, title:'冒充者感', story:'成功了也觉得自己不配。你拿了奖却觉得「运气好」，总怕被戳穿。慢慢来，也是一种抵达。'},
+    {tone:'warm', prob:10, title:'外求认可', story:'需要别人肯定才安心。你每做一件事都要问「我做得对吗」，没有反馈就慌。日子是自己的，不必活给谁看。'},
+    {tone:'dark', prob:8, title:'越躲越小', story:'因为否定自己，主动放弃机会。你觉得「我不配」，放弃了两次升职机会，看着不如自己的人上去了。别让麻木，成了你的常态。'},
+    {tone:'dark', prob:7, title:'画地为牢', story:'还没试就认定自己不行。你想考研，还没报名就认定「我考不上」，最终真的没去考。所有的迷路，都还来得及回头。'},
+    {tone:'dark', prob:5, title:'自我贬抑', story:'把「我不行」当口头禅，活成了预言。你天天说「我就是废物」，久了身边人也信了，机会越来越少。答案不在别处，就在你脚下的路里。'}
+  ],
+  family:[
+    {tone:'light', prob:18, title:'寻得和解', story:'不背叛父母，也不背叛自己。你先按父母意愿试了半年，再带着成果去沟通，最终爸妈支持你转行。愿你回望时，眼里有光。'},
+    {tone:'light', prob:12, title:'以果证己', story:'先证明自己，再谈自由。你偷偷做副业，做出成绩后，父母从反对变成骄傲。有些路，走过了才算数。'},
+    {tone:'light', prob:10, title:'温柔划界', story:'学会「爱他们，但为自己活」。你用非暴力沟通和父母划清边界，关系反而更好了。你值得，也配得上更好的结局。'},
+    {tone:'warm', prob:15, title:'表面顺从', story:'顺着安排，心里有刺。你听父母考了公务员，安稳但常想「如果当初坚持会怎样」。平凡里，也藏着不动声色的温柔。'},
+    {tone:'warm', prob:15, title:'拖延对抗', story:'不正面冲突，用拖延表达不满。你嘴上答应，行动上拖，两边都不痛快。慢慢来，也是一种抵达。'},
+    {tone:'warm', prob:10, title:'阳奉阴违', story:'表面听，背地里按自己的来。你报父母喜欢的专业，私下自学喜欢的，内心很累。日子是自己的，不必活给谁看。'},
+    {tone:'dark', prob:8, title:'撕裂拉扯', story:'长期压抑，越来越疲惫。你既不敢违背父母，又不甘心，纠结多年，身心俱疲。别让麻木，成了你的常态。'},
+    {tone:'dark', prob:7, title:'顺从失己', story:'活成父母想要的样子，丢了自己。你一路按父母安排，工作婚姻都「听话」，人到中年发现自己谁都不是。所有的迷路，都还来得及回头。'},
+    {tone:'dark', prob:5, title:'激烈决裂', story:'忍无可忍，彻底爆发。你和父母大吵后搬走断绝联系，冷静后都很受伤，后悔方式太极端。答案不在别处，就在你脚下的路里。'}
+  ],
+  burnout:[
+    {tone:'light', prob:18, title:'缓缓回血', story:'合法休息，从五分钟散步开始。你允许自己休息，从每天散步10分钟开始，三个月找回状态。愿你回望时，眼里有光。'},
+    {tone:'light', prob:12, title:'求助专业', story:'寻求咨询，得到有效支持。你做了心理咨询，配合治疗，走出了持续一年的倦怠。有些路，走过了才算数。'},
+    {tone:'light', prob:10, title:'换境重启', story:'离开高压环境，重新充电。你休学gap半年，旅行加打工，回来后重新有了干劲。你值得，也配得上更好的结局。'},
+    {tone:'warm', prob:15, title:'持续低电', story:'硬撑，效率不高、快乐不多。你每天靠咖啡续命，能上班但很勉强，随时可能断电。平凡里，也藏着不动声色的温柔。'},
+    {tone:'warm', prob:15, title:'间歇复活', story:'假期回血，一上班就耗干。你每个周末「瘫着回血」，周一又被打回原形。慢慢来，也是一种抵达。'},
+    {tone:'warm', prob:10, title:'麻木度日', story:'对什么都没兴趣，机械地活着。你说「生活像一潭死水」，不快乐也不痛苦，只是麻木。日子是自己的，不必活给谁看。'},
+    {tone:'dark', prob:8, title:'彻底关机', story:'身体、情绪强制停机。你连续加班后病倒住院，才意识到自己早就透支了。别让麻木，成了你的常态。'},
+    {tone:'dark', prob:7, title:'抑郁阴翳', story:'倦怠拖成更严重的情绪问题。你长期对一切失去兴趣，确诊抑郁症后才开始重视。所有的迷路，都还来得及回头。'},
+    {tone:'dark', prob:5, title:'关系崩塌', story:'麻木让身边人渐行渐远。你越来越封闭，朋友都走了，只剩自己和手机。答案不在别处，就在你脚下的路里。'}
+  ],
+  lonely:[
+    {tone:'light', prob:18, title:'遇见同类', story:'你鼓起勇气走进一个兴趣社群，遇到了聊得来的人。你大二加入摄影社，认识了现在最好的几个朋友，孤独感淡了很多。愿你回望时，眼里有光。'},
+    {tone:'light', prob:12, title:'学会开口', story:'你开始主动说出真实感受，关系变深了。你第一次跟室友说「其实我挺孤单的」，没想到对方说「我也是」。有些路，走过了才算数。'},
+    {tone:'light', prob:10, title:'享受独处', story:'你和孤独和解，学会了一个人也能很充实。你学会独处后，反而不再急着找陪伴，朋友也自然多了起来。你值得，也配得上更好的结局。'},
+    {tone:'warm', prob:15, title:'表面热闹', story:'社交场合里笑得开心，散场后更空。你是聚会王，却没人知道你回家后一个人刷手机到凌晨。平凡里，也藏着不动声色的温柔。'},
+    {tone:'warm', prob:15, title:'泛泛之交', story:'认识很多人，却没几个能深聊。你微信好友几千，深夜难过时却不知道该发给谁。慢慢来，也是一种抵达。'},
+    {tone:'warm', prob:10, title:'线上取暖', story:'在网络里找陪伴，线下依旧孤独。你在游戏和弹幕里找存在感，关了电脑更孤单。日子是自己的，不必活给谁看。'},
+    {tone:'dark', prob:8, title:'愈发封闭', story:'越孤单越躲，越躲越孤单。你两年没主动交新朋友，连室友都不太说话，把自己活成了孤岛。别让麻木，成了你的常态。'},
+    {tone:'dark', prob:7, title:'讨好换暖', story:'用讨好维持关系，累且没安全感。你对谁都好，却总觉得别人不是真的喜欢自己，反而更累。所有的迷路，都还来得及回头。'},
+    {tone:'dark', prob:5, title:'情绪崩坏', story:'长期孤独拖垮了情绪。你长期没人倾诉，一件小事成了压垮你的最后一根稻草。答案不在别处，就在你脚下的路里。'}
+  ],
+  perfect:[
+    {tone:'light', prob:18, title:'学会交付', story:'你学会「先完成再完美」，行动力飙升。你从「改到最后一秒」变成「先交一版」，反而拿了更多机会。愿你回望时，眼里有光。'},
+    {tone:'light', prob:12, title:'接纳不完美', story:'你允许自己犯错，压力小了很多。你第一次主动交了个「差不多」的方案，发现天没塌，反而被夸效率高。有些路，走过了才算数。'},
+    {tone:'light', prob:10, title:'卓越不苛责', story:'高标准还在，但不再自我攻击。你把「必须最好」换成「尽力就好」，成绩没降，人轻松了。你值得，也配得上更好的结局。'},
+    {tone:'warm', prob:15, title:'完美拖延', story:'因为怕不完美，迟迟不开始。你论文拖到ddl，理由是「没准备好」，其实是被完美绑架。平凡里，也藏着不动声色的温柔。'},
+    {tone:'warm', prob:15, title:'优秀而绷', story:'你做得很好，却从不敢放松。你是别人眼里的学霸，自己却总觉得「还差得远」。慢慢来，也是一种抵达。'},
+    {tone:'warm', prob:10, title:'隐性内耗', story:'表面从容，内心时刻在自我审判。你完成任务也会自责「本可以更好」，很少真正开心。日子是自己的，不必活给谁看。'},
+    {tone:'dark', prob:8, title:'完美崩塌', story:'一次达不到标准就全盘否定自己。你一次考试失利就觉得自己「完了」，陷入长时间自我怀疑。别让麻木，成了你的常态。'},
+    {tone:'dark', prob:7, title:'错失良机', story:'因为「不够完美」放弃了本该抓住的机会。你放弃了两次实习，因为「觉得自己还不够格」。所有的迷路，都还来得及回头。'},
+    {tone:'dark', prob:5, title:'焦虑入体', story:'长期高标准压垮了身体。你常年失眠脱发，直到医生警告才意识到该松一松了。答案不在别处，就在你脚下的路里。'}
+  ],
+  scattered:[
+    {tone:'light', prob:18, title:'斜杠人生', story:'你把多个兴趣变成了复合优势。你同时做设计和自媒体，靠「交叉技能」找到了独特定位。愿你回望时，眼里有光。'},
+    {tone:'light', prob:12, title:'找到交集', story:'你画出兴趣地图，找到了能落地的交集。你把「喜欢写+喜欢游戏」结合，成了游戏文案。有些路，走过了才算数。'},
+    {tone:'light', prob:10, title:'聚焦一锚', story:'你保留兴趣，但选了一个主攻方向。你确定「教育」为主业，其他兴趣当副业滋养自己。你值得，也配得上更好的结局。'},
+    {tone:'warm', prob:15, title:'浅尝辄止', story:'每个兴趣都试了，没一个深入。你学过吉你、画画、编程，全停在入门，简历上写不出专长。平凡里，也藏着不动声色的温柔。'},
+    {tone:'warm', prob:15, title:'频繁转向', story:'一遇到枯燥就换新兴趣。你每年换一个「新目标」，年底回头看一个都没坚持下来。慢慢来，也是一种抵达。'},
+    {tone:'warm', prob:10, title:'兴趣焦虑', story:'因为「不够专注」而自我怀疑。你总怪自己「三分钟热度」，越自责越焦虑。日子是自己的，不必活给谁看。'},
+    {tone:'dark', prob:8, title:'一事无成', story:'样样会一点，样样不精，陷入自我否定。你毕业时发现没有一项拿得出手，开始怀疑自己。别让麻木，成了你的常态。'},
+    {tone:'dark', prob:7, title:'换道逃避', story:'用「换兴趣」逃避真正的困难。你一遇到瓶颈就换领域，几年下来还在起点。所有的迷路，都还来得及回头。'},
+    {tone:'dark', prob:5, title:'错付时光', story:'分散投入，错过了深耕的黄金期。你把时间摊得太薄，等想深耕时已错过最佳时机。答案不在别处，就在你脚下的路里。'}
+  ],
+  money:[
+    {tone:'light', prob:18, title:'提前规划', story:'你把焦虑变成规划，早早铺好变现路径。你大二就做职业调研+实习，毕业时手里好几个offer，焦虑变成了底气。愿你回望时，眼里有光。'},
+    {tone:'light', prob:12, title:'学会理财', story:'从记账和储蓄开始建立掌控感。你大一开始记账+定投，毕业时有了第一笔小金库，安全感满满。有些路，走过了才算数。'},
+    {tone:'light', prob:10, title:'开源副业', story:'你发展副业，多了一条收入来源。你靠接设计单子，大学就实现了经济半独立。你值得，也配得上更好的结局。'},
+    {tone:'warm', prob:15, title:'持续焦虑', story:'一直担心钱，却迟迟没行动。你天天喊「以后养不活自己」，却没去了解任何行业薪资。平凡里，也藏着不动声色的温柔。'},
+    {tone:'warm', prob:15, title:'消费裹挟', story:'越焦虑越消费，越消费越焦虑。你靠买买买缓解焦虑，月底又为账单焦虑，恶性循环。慢慢来，也是一种抵达。'},
+    {tone:'warm', prob:10, title:'盲目逐薪', story:'只想「什么赚钱学什么」，忽略了自己。你跟风转码，钱是多了点，却天天想辞职。日子是自己的，不必活给谁看。'},
+    {tone:'dark', prob:8, title:'焦虑内耗', story:'光焦虑不行动，精神先垮了。你天天刷「失业」新闻，越刷越慌，反而没心思提升自己。别让麻木，成了你的常态。'},
+    {tone:'dark', prob:7, title:'短视决策', story:'为了眼前一点钱，透支未来。你为了打工翘课挂科，结果延毕，得不偿失。所有的迷路，都还来得及回头。'},
+    {tone:'dark', prob:5, title:'唯钱是图', story:'把赚钱当人生唯一目标，丢了其他。你毕业几年眼里只剩钱，朋友家人都不顾了。答案不在别处，就在你脚下的路里。'}
+  ],
+  sunny:[
+    {tone:'light', prob:18, title:'恒久发光', story:'把乐观落到行动，越走越亮。你总能在低谷里找到下一步，一步步成了团队里最有感染力的人。愿你回望时，眼里有光。'},
+    {tone:'light', prob:12, title:'放大光华', story:'把阳光变成影响力。你靠真诚和乐观成了社群的主心骨，人脉越聚越广。有些路，走过了才算数。'},
+    {tone:'light', prob:10, title:'成为光源', story:'照亮自己，也照亮他人。你从「被治愈」到「治愈别人」，做了校园心理志愿者，成就感满满。你值得，也配得上更好的结局。'},
+    {tone:'warm', prob:15, title:'平稳守光', story:'心态不错，但少了点突破。你一直乐观，但也没太使劲，日子过得去，只是偶尔羡慕别人。平凡里，也藏着不动声色的温柔。'},
+    {tone:'warm', prob:15, title:'时明时暗', story:'顺境明、逆境淡。你顺利时阳光满满，一遇挫折就蔫一阵，情绪随外界起伏。慢慢来，也是一种抵达。'},
+    {tone:'warm', prob:10, title:'光华渐磨', story:'长期高压下，阳光被磨淡。你进了一个高压环境，渐渐从「小太阳」变成了「没脾气的人」。日子是自己的，不必活给谁看。'},
+    {tone:'dark', prob:8, title:'透支失衡', story:'只照亮别人，忘了自己。你对谁都好、从不诉苦，直到累倒才意识到自己也需要被照顾。别让麻木，成了你的常态。'},
+    {tone:'dark', prob:7, title:'反成负累', story:'过度正能量压抑了真实情绪。你天天「我没事」，负面情绪全憋着，最终爆发得更凶。所有的迷路，都还来得及回头。'},
+    {tone:'dark', prob:5, title:'光渐熄灭', story:'连续打击后放弃了乐观。你经历几次重创后，再也不相信「会好起来」，光熄了。答案不在别处，就在你脚下的路里。'}
+  ],
+  relaxed:[
+    {tone:'light', prob:18, title:'松而不散', story:'松弛里藏着行动力。你该放松放松、该发力发力，反而比天天紧绷的人走得远。愿你回望时，眼里有光。'},
+    {tone:'light', prob:12, title:'稳定输出', story:'靠「不内耗」持续稳定发挥。你从不为小事耗神，关键考试总比平时发挥得更好。有些路，走过了才算数。'},
+    {tone:'light', prob:10, title:'润物无声', story:'你的松弛感染了身边紧绷的人。你带着整个宿舍一起「慢下来」，大家状态都变好了。你值得，也配得上更好的结局。'},
+    {tone:'warm', prob:15, title:'过于佛系', story:'松弛过了头，变成了躺平。你「随缘」挂科，才发现松弛不等于不上进。平凡里，也藏着不动声色的温柔。'},
+    {tone:'warm', prob:15, title:'慢半拍', story:'节奏太慢，总差一口气。你什么都「不急」，结果好机会都让别人抢了先。慢慢来，也是一种抵达。'},
+    {tone:'warm', prob:10, title:'被动随缘', story:'顺其自然变成了「听天由命」。你从「不纠结」变成「无所谓」，对人生没了掌控欲。日子是自己的，不必活给谁看。'},
+    {tone:'dark', prob:8, title:'拖延成疾', story:'「慢慢来」拖垮了 deadline。你的「松弛」让你一次次拖到最后，差点毕不了业。别让麻木，成了你的常态。'},
+    {tone:'dark', prob:7, title:'避事而逃', story:'用「淡定」回避真正的问题。你遇到困难就「算了算了」，问题越积越多。所有的迷路，都还来得及回头。'},
+    {tone:'dark', prob:5, title:'松成麻木', story:'过度松弛变成了麻木。你从「不焦虑」滑向「不在乎」，生活像一潭死水。答案不在别处，就在你脚下的路里。'}
+  ],
+  grateful:[
+    {tone:'light', prob:18, title:'满格幸福', story:'感恩让你持续高幸福。你每天记「感恩清单」，一年后心态肉眼可见地更好了。愿你回望时，眼里有光。'},
+    {tone:'light', prob:12, title:'关系滋养', story:'主动道谢让关系更紧密。你常认真说谢谢，朋友都愿意对你好，人缘极好。有些路，走过了才算数。'},
+    {tone:'light', prob:10, title:'知足常乐', story:'在小日子里活出大满足。你不攀比、专注自己的小确幸，过得比很多「成功人士」更开心。你值得，也配得上更好的结局。'},
+    {tone:'warm', prob:15, title:'知足过度', story:'知足变成了不思进取。你「挺满足」成了口头禅，慢慢没了奋斗的劲头。平凡里，也藏着不动声色的温柔。'},
+    {tone:'warm', prob:15, title:'感恩内耗', story:'总怕亏欠别人，反而有负担。你对帮助过自己的人过分感激，总想着还人情，很累。慢慢来，也是一种抵达。'},
+    {tone:'warm', prob:10, title:'只看眼前', story:'满足于当下，忽略了长远。你「现在挺好」，却从不为未来打算。日子是自己的，不必活给谁看。'},
+    {tone:'dark', prob:8, title:'安于现状', story:'知足让你停在舒适区。你满足于现状，错过了多次成长机会，回头看有些后悔。别让麻木，成了你的常态。'},
+    {tone:'dark', prob:7, title:'过度自谦', story:'总觉得「已经很好」，不敢争取更多。你该争取的机会总说「我不贪心」，结果处处吃亏。所有的迷路，都还来得及回头。'},
+    {tone:'dark', prob:5, title:'麻木平庸', story:'知足变成了对一切都「无所谓」。你对好坏都「挺好挺好」，生活失去了方向感。答案不在别处，就在你脚下的路里。'}
+  ],
+  clear:[
+    {tone:'light', prob:18, title:'稳步抵达', story:'目标清晰，一步步走到想去的地方。你大学四年目标明确，保研、就业都按计划落地。愿你回望时，眼里有光。'},
+    {tone:'light', prob:12, title:'少走弯路', story:'因为清晰，省了大量试错。你早早定了方向，别人还在迷茫时你已在深耕。有些路，走过了才算数。'},
+    {tone:'light', prob:10, title:'成为标杆', story:'你的笃定影响了身边人。你的清晰让迷茫的室友也慢慢找到了方向。你值得，也配得上更好的结局。'},
+    {tone:'warm', prob:15, title:'固执己见', story:'清晰变成了固执，听不进建议。你认准一条路，即使明显不对也不肯调头。平凡里，也藏着不动声色的温柔。'},
+    {tone:'warm', prob:15, title:'压力自加', story:'目标太高，逼自己太紧。你的标准定得太高，长期焦虑，反而不如随性的人从容。慢慢来，也是一种抵达。'},
+    {tone:'warm', prob:10, title:'错失旁路', story:'太早锁定，错过了其他风景。你一心考研，错过了很好的就业机会，后来考研也没成。日子是自己的，不必活给谁看。'},
+    {tone:'dark', prob:8, title:'一错到底', story:'方向错了也硬走，撞了南墙。你选错专业还死撑，毕业时才发现浪费了四年。别让麻木，成了你的常态。'},
+    {tone:'dark', prob:7, title:'目标崩塌', story:'一旦目标受挫就全线崩溃。你考研失败后，感觉「人生计划全毁了」，消沉了很久。所有的迷路，都还来得及回头。'},
+    {tone:'dark', prob:5, title:'只见终点', story:'为了目标丢了过程和身边的人。你为了「成功」疏远了所有人，最后发现赢了也空虚。答案不在别处，就在你脚下的路里。'}
+  ],
+  proactive:[
+    {tone:'light', prob:18, title:'行动致富', story:'说干就干，机会越来越多。你从不拖延，别人还在想时你已做出成果，机会主动找上门。愿你回望时，眼里有光。'},
+    {tone:'light', prob:12, title:'快速迭代', story:'用行动快速试错、快速成长。你靠「先做再说」，一年里成长速度远超同龄人。有些路，走过了才算数。'},
+    {tone:'light', prob:10, title:'带动众人', story:'你的行动力感染了整个团队。你是团队的发动机，有你在，大家都不好意思偷懒。你值得，也配得上更好的结局。'},
+    {tone:'warm', prob:15, title:'忙而无果', story:'行动多但方向散，白忙活。你每天很忙，却从没在重要的事上深耕，一年下来没啥成果。平凡里，也藏着不动声色的温柔。'},
+    {tone:'warm', prob:15, title:'冲动行事', story:'想都不想就干，常踩坑。你说干就干，但没调研清楚，好几个项目都半途而废。慢慢来，也是一种抵达。'},
+    {tone:'warm', prob:10, title:'以忙逃避', story:'用「忙」来逃避真正要想清的事。你把自己排得满满的，其实是在回避「我到底想要什么」。日子是自己的，不必活给谁看。'},
+    {tone:'dark', prob:8, title:'过劳透支', story:'停不下来，身体先垮。你连轴转，直到病倒才发现自己绷了太久。别让麻木，成了你的常态。'},
+    {tone:'dark', prob:7, title:'低效内卷', story:'用力过猛却方向不对，白费力气。你拼命加班，做的事却毫无积累，越忙越焦虑。所有的迷路，都还来得及回头。'},
+    {tone:'dark', prob:5, title:'焦躁浮躁', story:'静不下来，什么都想速成。你学什么都想「三天见效」，结果一样都没学成。答案不在别处，就在你脚下的路里。'}
+  ],
+  decisive:[
+    {tone:'light', prob:18, title:'果敢夺机', story:'敢拍板，好机会一个不落。你看准就下手，几次关键抉择都踩对了点，顺风顺水。愿你回望时，眼里有光。'},
+    {tone:'light', prob:12, title:'落子无悔', story:'敢担后果，心态轻松。你选完就不回头，从不在「如果当初」里内耗。有些路，走过了才算数。'},
+    {tone:'light', prob:10, title:'成为定海针', story:'关键时刻，大家都靠你拿主意。你的果敢让团队在摇摆时总能快速定方向。你值得，也配得上更好的结局。'},
+    {tone:'warm', prob:15, title:'过于武断', story:'果断变成了草率。你拍板太快、没听意见，几次决定都吃了亏。平凡里，也藏着不动声色的温柔。'},
+    {tone:'warm', prob:15, title:'赌徒心态', story:'把果敢用在了冒险上。你总想「搏一把大的」，结果输多赢少。慢慢来，也是一种抵达。'},
+    {tone:'warm', prob:10, title:'表面果敢', story:'决定做得快，执行却犹豫。你嘴上果断，落实时却反复改主意，前后矛盾。日子是自己的，不必活给谁看。'},
+    {tone:'dark', prob:8, title:'冲动惹祸', story:'一言不合就决定，后果难收。你一气之下退学创业，没多久就撑不下去。别让麻木，成了你的常态。'},
+    {tone:'dark', prob:7, title:'不敢回头', story:'明知错了也硬撑，因为「不能后悔」。你走错了路却不肯认，越陷越深。所有的迷路，都还来得及回头。'},
+    {tone:'dark', prob:5, title:'独断专行', story:'果敢变成了听不进任何意见。你凡事自己拍板，把团队都得罪光了，孤立无援。答案不在别处，就在你脚下的路里。'}
+  ],
+  confident:[
+    {tone:'light', prob:18, title:'稳定内核', story:'不靠外界评分，越走越稳。你不因批评崩溃、不因夸奖飘，长期发挥稳定。愿你回望时，眼里有光。'},
+    {tone:'light', prob:12, title:'敢于争取', story:'自信让你敢要、敢上。你主动争取机会，很多资源都是自己「要」来的。有些路，走过了才算数。'},
+    {tone:'light', prob:10, title:'感染众人', story:'你的笃定让人安心。你的自信让团队更有底气，大家都愿意跟着你干。你值得，也配得上更好的结局。'},
+    {tone:'warm', prob:15, title:'自信过头', story:'变成了自负，看不见不足。你觉得自己「啥都行」，结果屡屡碰壁。平凡里，也藏着不动声色的温柔。'},
+    {tone:'warm', prob:15, title:'表面自信', story:'人前自信，人后自我怀疑。你台上气场全开，台下却常常怀疑自己。慢慢来，也是一种抵达。'},
+    {tone:'warm', prob:10, title:'只信自己', story:'自信到听不进别人。你觉得「我最懂」，错过了很多宝贵建议。日子是自己的，不必活给谁看。'},
+    {tone:'dark', prob:8, title:'盲目自信', story:'高估自己，摔得很重。你觉得自己稳了、没怎么准备，结果翻车。别让麻木，成了你的常态。'},
+    {tone:'dark', prob:7, title:'玻璃之心', story:'自信建立在「必须赢」上，输了就崩。你一帆风顺时自信满满，一次失利就彻底蔫了。所有的迷路，都还来得及回头。'},
+    {tone:'dark', prob:5, title:'傲慢孤立', story:'自信变成了看不起别人。你眼里「别人都不行」，朋友越来越少，很孤独。答案不在别处，就在你脚下的路里。'}
+  ],
+  independent:[
+    {tone:'light', prob:18, title:'活成自己', story:'不随大流，走出了自己的路。你顶住压力选了自己喜欢的路，过得比谁都自在。愿你回望时，眼里有光。'},
+    {tone:'light', prob:12, title:'自我驱动', story:'不靠督促，自己推动自己。你从不需要人管，目标自己定、自己完成。有些路，走过了才算数。'},
+    {tone:'light', prob:10, title:'独立获敬', story:'你的独立让人刮目相看。你的「有主见」让父母从担心变成了放心和骄傲。你值得，也配得上更好的结局。'},
+    {tone:'warm', prob:15, title:'过于独立', story:'独立变成了拒绝帮助。你凡事自己扛，累到崩溃也不肯开口。平凡里，也藏着不动声色的温柔。'},
+    {tone:'warm', prob:15, title:'倔强固执', story:'有主见变成了听不进劝。你认定的事十头牛拉不回，也吃过不少亏。慢慢来，也是一种抵达。'},
+    {tone:'warm', prob:10, title:'疏离之感', story:'太独立，和身边人有了距离。你总是一个人，连最好的朋友都觉得自己「走不进你」。日子是自己的，不必活给谁看。'},
+    {tone:'dark', prob:8, title:'孤立无援', story:'谁也不靠，最后谁也没有。你凡事靠自己，真遇大难时才发现孤立无援。别让麻木，成了你的常态。'},
+    {tone:'dark', prob:7, title:'叛逆对抗', story:'用「独立」对抗一切，为反对而反对。你谁的话都不听，连对的建议也本能排斥。所有的迷路，都还来得及回头。'},
+    {tone:'dark', prob:5, title:'孤独坚硬', story:'独立过头，心变得又冷又硬。你谁都不依赖，也渐渐失去了爱与被爱的能力。答案不在别处，就在你脚下的路里。'}
+  ],
+  warm:[
+    {tone:'light', prob:18, title:'人脉复利', story:'好人缘变成了资源和机会。你真诚待人，关键时刻总有人愿意拉你一把。愿你回望时，眼里有光。'},
+    {tone:'light', prob:12, title:'深度关系', story:'几段高质量关系，是最大的底气。你有三两个知心好友，难过时总有地方可去。有些路，走过了才算数。'},
+    {tone:'light', prob:10, title:'温暖回流', story:'你温暖别人，世界也温柔待你。你遇到困难，曾经帮过的人纷纷伸出援手。你值得，也配得上更好的结局。'},
+    {tone:'warm', prob:15, title:'过度付出', story:'对谁都好，累坏了自己。你不会拒绝，帮别人耗尽了自己的精力。平凡里，也藏着不动声色的温柔。'},
+    {tone:'warm', prob:15, title:'讨好成性', story:'怕得罪人，处处迁就。你总在迎合别人，自己憋了一肚子委屈。慢慢来，也是一种抵达。'},
+    {tone:'warm', prob:10, title:'知己难求', story:'朋友遍天下，知己无一人。你认识很多人，深夜却找不到一个能说心里话的。日子是自己的，不必活给谁看。'},
+    {tone:'dark', prob:8, title:'边界缺失', story:'不会拒绝，被不断索取。你总被当成「老好人」，帮不完的忙，苦不堪言。别让麻木，成了你的常态。'},
+    {tone:'dark', prob:7, title:'情感绑架', story:'用「对人好」来换取关注和爱。你的付出总带着「你必须回报我」，反而把关系搞僵了。所有的迷路，都还来得及回头。'},
+    {tone:'dark', prob:5, title:'失去自我', story:'只顾照顾别人，忘了自己是谁。你活成了所有人的「工具人」，唯独不是自己。答案不在别处，就在你脚下的路里。'}
+  ],
+  resilient:[
+    {tone:'light', prob:18, title:'越挫越勇', story:'每次挫折都让你更强。你考研二战上岸，抗压能力让你后来一路开挂。愿你回望时，眼里有光。'},
+    {tone:'light', prob:12, title:'反脆弱生长', story:'把打击变成了养料。你每次失败都认真复盘，进步速度惊人。有些路，走过了才算数。'},
+    {tone:'light', prob:10, title:'中流砥柱', story:'困难时刻，你是大家的主心骨。你在团队危机时扛住了，从此成了核心。你值得，也配得上更好的结局。'},
+    {tone:'warm', prob:15, title:'硬扛内伤', story:'能扛，但不懂得释放。你什么都自己扛，表面没事，身体却先出了问题。平凡里，也藏着不动声色的温柔。'},
+    {tone:'warm', prob:15, title:'麻木硬撑', story:'扛着扛着，心变麻木了。你不再喊疼、也不再快乐，只是机械地撑。慢慢来，也是一种抵达。'},
+    {tone:'warm', prob:10, title:'低效坚持', story:'方向错了还硬扛。你在一条走不通的路上死磕，浪费了好几年。日子是自己的，不必活给谁看。'},
+    {tone:'dark', prob:8, title:'彻底崩溃', story:'扛到极限，突然崩了。你一直很坚强，某天一点小事让你整个人垮了。别让麻木，成了你的常态。'},
+    {tone:'dark', prob:7, title:'习得无助', story:'扛了太多次，终于放弃挣扎。你被打击多次后，认定「再怎么努力也没用」。所有的迷路，都还来得及回头。'},
+    {tone:'dark', prob:5, title:'倔强成执', story:'把「不放弃」变成了执念，伤害自己。你为了一句「我不服」，搭上了健康和感情。答案不在别处，就在你脚下的路里。'}
+  ],
+  energetic:[
+    {tone:'light', prob:18, title:'高效产出', story:'精力旺盛，做什么都快人一步。你精力充沛，学习和副业两不误，样样出彩。愿你回望时，眼里有光。'},
+    {tone:'light', prob:12, title:'带动全场', story:'你的热气腾腾感染了所有人。你在哪都是气氛担当，团队因你而活。有些路，走过了才算数。'},
+    {tone:'light', prob:10, title:'多元并进', story:'能量支撑你同时做很多事。你学习、社团、创业多线推进，还都做得不错。你值得，也配得上更好的结局。'},
+    {tone:'warm', prob:15, title:'忙而无序', story:'精力多但没规划，乱忙。你一天到晚闲不住，却抓不住重点，效率反而不高。平凡里，也藏着不动声色的温柔。'},
+    {tone:'warm', prob:15, title:'透支健康', story:'仗着年轻挥霍精力。你长期熬夜连轴转，二十多岁身体就亮红灯。慢慢来，也是一种抵达。'},
+    {tone:'warm', prob:10, title:'三分钟热', story:'能量来得快去得也快。你干劲儿上来猛冲一阵，很快就泄气。日子是自己的，不必活给谁看。'},
+    {tone:'dark', prob:8, title:'倦怠反噬', story:'一直满电，突然就空了。你常年高强度，某天突然对一切都提不起劲。别让麻木，成了你的常态。'},
+    {tone:'dark', prob:7, title:'焦虑躁动', story:'能量无处安放，变成焦虑。你闲不下来，一停下来就慌，却不知道在慌什么。所有的迷路，都还来得及回头。'},
+    {tone:'dark', prob:5, title:'燃烧殆尽', story:'把自己烧干了。你拼命燃烧自己，最后人垮了、梦也熄了。答案不在别处，就在你脚下的路里。'}
+  ],
+  curious:[
+    {tone:'light', prob:18, title:'终身成长', story:'好奇心让你不断进化。你保持学习，几年下来能力远超同龄人。愿你回望时，眼里有光。'},
+    {tone:'light', prob:12, title:'发现热爱', story:'在探索中找到了真正想做的事。你试过很多领域，最终找到了愿意做一辈子的事。有些路，走过了才算数。'},
+    {tone:'light', prob:10, title:'跨界创新', story:'好奇心带来独特视角。你把不同领域的知识融会贯通，做出了独特的成果。你值得，也配得上更好的结局。'},
+    {tone:'warm', prob:15, title:'浮光掠影', story:'什么都好奇，什么都浅。你兴趣一堆，却没一个深入，样样半吊子。平凡里，也藏着不动声色的温柔。'},
+    {tone:'warm', prob:15, title:'不断分心', story:'好奇心让你无法专注。你做什么都容易跑神，正事反而耽误了。慢慢来，也是一种抵达。'},
+    {tone:'warm', prob:10, title:'贪多不烂', story:'想学的太多，反而一样没学透。你报了一堆课，最后全都没坚持下来。日子是自己的，不必活给谁看。'},
+    {tone:'dark', prob:8, title:'杂而不精', story:'折腾很多，却没沉淀。你兴趣广泛却无专长，求职时才发现没一样拿得出手。别让麻木，成了你的常态。'},
+    {tone:'dark', prob:7, title:'以探逃避', story:'不断开始新东西，逃避深入。你总在「尝试新方向」，其实是在逃避深耕的苦。所有的迷路，都还来得及回头。'},
+    {tone:'dark', prob:5, title:'迷失初心', story:'好奇太多，反而不知道自己想要什么。你什么都想试试，最后连初心都忘了。答案不在别处，就在你脚下的路里。'}
+  ]
+};
+
+/* ============ 追加结局（每类 +6，共15个） ============ */
+const EXTRA = {
+  goal:[
+    {tone:'light', prob:8, title:'伯乐引渡', story:'遇到贵人、导师指了条明路。你大三遇到愿意带你的学长，跟着做项目找到了方向。时间会替你把答案酿出来。'},
+    {tone:'warm', prob:7, title:'随波逐流', story:'稀里糊涂被推着走完了一段。你毕业后随大流进了公司，说不上喜欢，先干着。所有的平淡，都会在时光里酿出滋味。'},
+    {tone:'warm', prob:6, title:'浅尝无根', story:'试了不少，却没一个深入。你换了三个方向，都只碰了皮毛，还是没定下来。别怕走得慢，只怕停在原地。'},
+    {tone:'dark', prob:5, title:'久候成惧', story:'一直等「想清楚」，越等越焦虑。你gap一年找方向，结果更迷茫，还错过了应届身份。风起时，别忘了自己也曾是少年。'},
+    {tone:'dark', prob:4, title:'草率定局', story:'被逼到最后随便选，大概率后悔。你被家里催着随便找工作，半年就崩了。这一次，请一定好好照顾自己。'},
+    {tone:'dark', prob:3, title:'万念俱寂', story:'放弃挣扎，得过且过。你觉得「想也没用」，彻底不找了，日子越过越麻木。天总会亮，只要你还愿意等。'}
+  ],
+  meaning:[
+    {tone:'light', prob:8, title:'心有所依', story:'一件事、一个人让你重新觉得「值得」。你养了只猫，照顾它让你重新找到活着的实感。时间会替你把答案酿出来。'},
+    {tone:'warm', prob:7, title:'时醒时迷', story:'偶尔想通，偶尔又空。你每隔一阵就emo一次，想通了又继续卷。所有的平淡，都会在时光里酿出滋味。'},
+    {tone:'warm', prob:6, title:'以标填空', story:'定一堆目标对抗空虚。你给自己排满计划，忙起来不空了，停下来还是空。别怕走得慢，只怕停在原地。'},
+    {tone:'dark', prob:5, title:'麻木前行', story:'不再追问，也不再快乐。你放弃追问，每天机械上课，像行尸走肉。风起时，别忘了自己也曾是少年。'},
+    {tone:'dark', prob:4, title:'情绪渊薮', story:'空虚拖成长期低落。你的空虚持续一年多，确诊抑郁才正视。这一次，请一定好好照顾自己。'},
+    {tone:'dark', prob:3, title:'彻底迷失', story:'不知为何而活，也懒得找。你说「活着没意思」，对一切提不起劲。天总会亮，只要你还愿意等。'}
+  ],
+  involution:[
+    {tone:'light', prob:8, title:'主动降速', story:'主动选择慢一点，反而更稳。你从「必须赢」改成「持续进步」，焦虑少了，成绩更稳。时间会替你把答案酿出来。'},
+    {tone:'warm', prob:7, title:'卷躺反复', story:'在卷和躺之间反复横跳。你卷一阵躺一阵，两头都没落着。所有的平淡，都会在时光里酿出滋味。'},
+    {tone:'warm', prob:6, title:'口佛心争', story:'嘴上躺平，暗地里较劲。你天天说「佛系」，背地里却在偷偷比较。别怕走得慢，只怕停在原地。'},
+    {tone:'dark', prob:5, title:'比较成疾', story:'无时无刻不在比，焦虑失控。你刷到别人晒offer就心慌，越比越焦虑。风起时，别忘了自己也曾是少年。'},
+    {tone:'dark', prob:4, title:'焦灼入体', story:'焦虑变成失眠、心慌。你长期焦虑到失眠，一查是焦虑症。这一次，请一定好好照顾自己。'},
+    {tone:'dark', prob:3, title:'彻底掉队', story:'焦虑内耗后彻底放弃竞争。你内耗太久，最后索性不卷了，也失去了动力。天总会亮，只要你还愿意等。'}
+  ],
+  choice:[
+    {tone:'light', prob:8, title:'借力破局', story:'借助工具、他人快速做决定。你用「决策清单」两周搞定纠结半年的方向。时间会替你把答案酿出来。'},
+    {tone:'warm', prob:7, title:'一拖再拖', story:'大事小事都拖到最后一刻。你连选课都拖到截止前，只能捡剩下的。所有的平淡，都会在时光里酿出滋味。'},
+    {tone:'warm', prob:6, title:'让渡自我', story:'让别人替自己选，轻松但被动。你的志愿工作都让父母定，省心但没了主见。别怕走得慢，只怕停在原地。'},
+    {tone:'dark', prob:5, title:'错肩机遇', story:'纠结太久，好机会没了。你纠结一个月，两个offer都过期了。风起时，别忘了自己也曾是少年。'},
+    {tone:'dark', prob:4, title:'决策瘫痪', story:'越想越不敢选，死循环。你连「中午吃什么」都纠结半小时。这一次，请一定好好照顾自己。'},
+    {tone:'dark', prob:3, title:'后悔成瘾', story:'选了也后悔，活在内耗里。你每做一个决定都后悔，两年没睡踏实。天总会亮，只要你还愿意等。'}
+  ],
+  gap:[
+    {tone:'light', prob:8, title:'重新定位', story:'换了个更适合自己的赛道。你发现原专业不适合，果断转行，反而顺了。时间会替你把答案酿出来。'},
+    {tone:'warm', prob:7, title:'安于平凡', story:'调低目标，接受平凡。你不再执着「顶尖」，接受中等，过得舒坦。所有的平淡，都会在时光里酿出滋味。'},
+    {tone:'warm', prob:6, title:'以忙掩痛', story:'用忙碌麻痹落差感。你排满日程，不让自己有空想「如果」。别怕走得慢，只怕停在原地。'},
+    {tone:'dark', prob:5, title:'责怪世道', story:'把原因都推给外界。你怪学校怪专业怪社会，唯独不行动。风起时，别忘了自己也曾是少年。'},
+    {tone:'dark', prob:4, title:'自我攻讦', story:'把落差全怪到自己头上。你总觉得「是我太差」，越来越自卑。这一次，请一定好好照顾自己。'},
+    {tone:'dark', prob:3, title:'认命不前', story:'觉得努力也没用，躺平。你认定「出身决定一切」，再也不争取。天总会亮，只要你还愿意等。'}
+  ],
+  doubt:[
+    {tone:'light', prob:8, title:'重建自信', story:'通过小成功一点点找回自己。你从完成小目标开始，慢慢不再否定自己。时间会替你把答案酿出来。'},
+    {tone:'warm', prob:7, title:'反复摇摆', story:'时而自信时而怀疑。你被夸就自信，被否定就蔫，情绪不稳。所有的平淡，都会在时光里酿出滋味。'},
+    {tone:'warm', prob:6, title:'低调隐形', story:'太不自信，机会被抢。你明明能做好，却从不敢主动表现，长期被忽视。别怕走得慢，只怕停在原地。'},
+    {tone:'dark', prob:5, title:'画地自囚', story:'还没试就认定不行。你想考研，还没报名就认定「我考不上」。风起时，别忘了自己也曾是少年。'},
+    {tone:'dark', prob:4, title:'讨好换肯', story:'用讨好别人求肯定。你总迎合别人，渴望被认可，却更没安全感。这一次，请一定好好照顾自己。'},
+    {tone:'dark', prob:3, title:'自暴自弃', story:'否定到极点，索性放弃。你觉得自己「烂透了」，连试都不愿试。天总会亮，只要你还愿意等。'}
+  ],
+  family:[
+    {tone:'light', prob:8, title:'深度沟通', story:'一次坦诚沟通化解隔阂。你鼓起勇气和父母长谈，父母竟意外理解了你。时间会替你把答案酿出来。'},
+    {tone:'warm', prob:7, title:'表面和平', story:'不冲突但也不解决。你和父母维持表面和气，问题一直搁着。所有的平淡，都会在时光里酿出滋味。'},
+    {tone:'warm', prob:6, title:'两边讨好', story:'既想满足父母又想顾自己。你在父母和自我间来回讨好，身心俱疲。别怕走得慢，只怕停在原地。'},
+    {tone:'dark', prob:5, title:'长期压抑', story:'一直憋着，情绪崩溃。你从不表达，某天终于爆发和父母大吵。风起时，别忘了自己也曾是少年。'},
+    {tone:'dark', prob:4, title:'彻底顺从', story:'完全按父母意愿活，丢了自我。你一路听话，人到中年才发现没为自己活过。这一次，请一定好好照顾自己。'},
+    {tone:'dark', prob:3, title:'关系破裂', story:'冲突升级，关系僵到冰点。你和父母断绝联系，冷静后双方都很痛苦。天总会亮，只要你还愿意等。'}
+  ],
+  burnout:[
+    {tone:'light', prob:8, title:'主动休息', story:'学会暂停，慢慢回血。你主动请假休息一阵，回来后状态明显好转。时间会替你把答案酿出来。'},
+    {tone:'warm', prob:7, title:'靠假续命', story:'平时透支，假期回血。你每周靠周末「瘫着」续命，周一又被打回原形。所有的平淡，都会在时光里酿出滋味。'},
+    {tone:'warm', prob:6, title:'空转度日', story:'不快乐也不痛苦，只是麻木。你说「生活像一潭死水」，机械地过。别怕走得慢，只怕停在原地。'},
+    {tone:'dark', prob:5, title:'强制停机', story:'身体强制停机。你累到住院，才意识到早就透支了。风起时，别忘了自己也曾是少年。'},
+    {tone:'dark', prob:4, title:'抑郁阴云', story:'倦怠拖成抑郁。你长期提不起劲，确诊抑郁症。这一次，请一定好好照顾自己。'},
+    {tone:'dark', prob:3, title:'自我封闭', story:'对一切失去兴趣，封闭自己。你把自己关起来，朋友都走了。天总会亮，只要你还愿意等。'}
+  ],
+  lonely:[
+    {tone:'light', prob:8, title:'主动破冰', story:'迈出第一步，交到朋友。你鼓起勇气参加社团，认识了聊得来的朋友。时间会替你把答案酿出来。'},
+    {tone:'warm', prob:7, title:'社交疲惫', story:'想社交又累，常常独处。你偶尔想融入又嫌累，最后还是一个人。所有的平淡，都会在时光里酿出滋味。'},
+    {tone:'warm', prob:6, title:'线上热闹', story:'网上聊得欢，现实没朋友。你网上很多「好友」，现实中没人陪。别怕走得慢，只怕停在原地。'},
+    {tone:'dark', prob:5, title:'渐成孤岛', story:'越躲越孤单。你两年没交新朋友，活成了孤岛。风起时，别忘了自己也曾是少年。'},
+    {tone:'dark', prob:4, title:'委屈换暖', story:'用讨好维系关系，很累。你对谁都好，却总觉得没人真心对自己。这一次，请一定好好照顾自己。'},
+    {tone:'dark', prob:3, title:'情绪决堤', story:'孤独拖垮情绪。你长期没人倾诉，一件小事成了最后一根稻草。天总会亮，只要你还愿意等。'}
+  ],
+  perfect:[
+    {tone:'light', prob:8, title:'放过自己', story:'接受「够好就行」。你学会给自己设「及格线」，不再无限打磨，效率大涨。时间会替你把答案酿出来。'},
+    {tone:'warm', prob:7, title:'迟迟未始', story:'因怕不完美迟迟不开始。你论文拖到ddl，理由总是「还没准备好」。所有的平淡，都会在时光里酿出滋味。'},
+    {tone:'warm', prob:6, title:'光鲜紧绷', story:'做得好却不敢放松。你是学霸，却总觉得「还差得远」。别怕走得慢，只怕停在原地。'},
+    {tone:'dark', prob:5, title:'完美崩裂', story:'一次失败全盘否定自己。你一次失利就觉得「完了」，消沉很久。风起时，别忘了自己也曾是少年。'},
+    {tone:'dark', prob:4, title:'求全而失', story:'因「不够完美」放弃机会。你两次放弃实习，因为「觉得自己还不够格」。这一次，请一定好好照顾自己。'},
+    {tone:'dark', prob:3, title:'焦虑成疾', story:'高标准压垮身体。你常年失眠脱发，医生警告才停。天总会亮，只要你还愿意等。'}
+  ],
+  scattered:[
+    {tone:'light', prob:8, title:'聚焦深耕', story:'选定一个方向深耕，出成果。你从一堆兴趣里选一个深耕，一年后有了代表作。时间会替你把答案酿出来。'},
+    {tone:'warm', prob:7, title:'样样皆浅', story:'兴趣很多，没一个精。你学过一堆，简历写不出专长。所有的平淡，都会在时光里酿出滋味。'},
+    {tone:'warm', prob:6, title:'频繁换道', story:'一遇瓶颈就换。你每年换新目标，年底一个没成。别怕走得慢，只怕停在原地。'},
+    {tone:'dark', prob:5, title:'散而无获', story:'样样不精，自我否定。你毕业时发现没一样拿得出手。风起时，别忘了自己也曾是少年。'},
+    {tone:'dark', prob:4, title:'以换逃避', story:'不断换新逃避深入。你总在「尝试新方向」，其实在逃避深耕的苦。这一次，请一定好好照顾自己。'},
+    {tone:'dark', prob:3, title:'错失深耕', story:'分散投入，错过深耕时机。你时间摊太薄，想深耕时已晚。天总会亮，只要你还愿意等。'}
+  ],
+  money:[
+    {tone:'light', prob:8, title:'提前布局', story:'早规划早行动，焦虑变底气。你大二就规划职业，毕业时offer在手，心里有底。时间会替你把答案酿出来。'},
+    {tone:'warm', prob:7, title:'焦虑无为', story:'一直怕没钱，却从不了解行情。你天天喊「养不活自己」，却没查过任何薪资。所有的平淡，都会在时光里酿出滋味。'},
+    {tone:'warm', prob:6, title:'越忧越购', story:'用买买买缓解，月底更焦虑。你靠购物解压，陷入恶性循环。别怕走得慢，只怕停在原地。'},
+    {tone:'dark', prob:5, title:'忧而不动', story:'光焦虑不行动，精神先垮。你天天刷「失业」新闻，越刷越慌。风起时，别忘了自己也曾是少年。'},
+    {tone:'dark', prob:4, title:'短视决断', story:'为眼前小钱透支未来。你为打工翘课挂科，结果延毕。这一次，请一定好好照顾自己。'},
+    {tone:'dark', prob:3, title:'唯钱是命', story:'眼里只剩钱，丢了其他。你毕业几年只顾赚钱，朋友家人都疏远了。天总会亮，只要你还愿意等。'}
+  ],
+  sunny:[
+    {tone:'light', prob:8, title:'暖流成海', story:'你把乐观酿成了行动，一点一点，让身边的人也跟着明亮起来。真的有人做到过——你会在一次次低落时先扶起自己，再扶起别人，慢慢成了那个让人安心的存在。愿你回望时，眼里有光。'},
+    {tone:'light', prob:7, title:'向阳而生', story:'你总能在坏消息里，找到那一点点可以继续的理由。你会在普通的一天里发现细小的快乐，把它们攒成心里的灯，越走越亮。你值得，也配得上更好的结局。'},
+    {tone:'light', prob:6, title:'点灯之人', story:'你不再只是被光照亮，而是成了别人的光。你会在朋友最灰暗时递上一句真心话，也会在团队里做那个先笑的人，于是世界把温柔加倍还给你。有些路，走过了才算数。'},
+    {tone:'warm', prob:7, title:'晴时有云', story:'你的乐观还在，只是偶尔也会累。你会在独处时悄悄叹口气，第二天又笑着出门，把难过留在没人看见的地方。平凡里，也藏着不动声色的温柔。'},
+    {tone:'warm', prob:6, title:'报喜藏忧', story:'你习惯了把好的一面留给别人，把难处自己咽下。你总说「我没事」，其实也需要一个可以松一口气的角落。日子是自己的，不必活给谁看。'},
+    {tone:'dark', prob:4, title:'光熄之前', story:'如果一直照亮别人而不曾照顾自己，你的光也会慢慢耗尽。你会在某个深夜突然发现，自己已经很久没有真心笑过了。这一次，请一定好好照顾自己。'}
+  ],
+  relaxed:[
+    {tone:'light', prob:8, title:'松而有度', story:'你把松弛和方向捏在了一起，该努力时努力，该放下时放下，反而比谁都快活。你会在紧绷的人群里，做那个从容不迫的人。愿你活得从容，爱得坦荡。'},
+    {tone:'light', prob:7, title:'心定如磐', story:'你的稳，不是无所谓，而是想清楚之后的笃定。你会在关键时刻比平时更冷静，身边的人也因你而安心。此刻的每一步，都在塑造未来的你。'},
+    {tone:'light', prob:6, title:'以缓治愈', story:'你的慢，是一种温柔的节奏，能让周围紧绷的人也跟着松下来。你会在一个午后，带着朋友一起发呆，什么都不做。山河远阔，人间烟火，都值得你奔赴。'},
+    {tone:'warm', prob:7, title:'闲而不散', story:'你喜欢松弛，但有时也会拖得太久。你会在「再等等」里错过一些事，又在下一次提醒自己该动一动了。慢慢来，也是一种抵达。'},
+    {tone:'warm', prob:6, title:'慢人一步', story:'你凡事都不急，可机会有时不等人。你会在别人已经出发时，才刚把鞋穿好，心里有点慌，又不愿承认。别怕走得慢，只怕停在原地。'},
+    {tone:'dark', prob:4, title:'松弛成空', story:'当松弛变成对一切的「无所谓」，你会在某天回头，发现自己已经很久没有真正在意过什么。别让麻木，成了你的常态。'}
+  ],
+  grateful:[
+    {tone:'light', prob:8, title:'知足而丰', story:'你的感恩不是安于现状，而是把已经拥有的活成了富足。你会在平凡的一天里，认真说一句谢谢，然后发现快乐其实很便宜。愿你回望时，眼里有光。'},
+    {tone:'light', prob:7, title:'温柔有回声', story:'你记得别人的每一份好，也愿意把好传递下去。你会在别人需要时递上一杯水，多年后这些人又在你需要时出现。你值得，也配得上更好的结局。'},
+    {tone:'light', prob:6, title:'小满即安', story:'你懂得「小满」的智慧，不攀比、不贪心，把日子过得有滋有味。你会在一个普通的晚上，因为一顿热饭而觉得幸福。有些路，走过了才算数。'},
+    {tone:'warm', prob:7, title:'知足过了头', story:'你总说「已经很好了」，可有时也会因此停下脚步。你会在某个瞬间，羡慕那些还在往前冲的人。平凡里，也藏着不动声色的温柔。'},
+    {tone:'warm', prob:6, title:'感恩成债', story:'你怕欠人情，别人一点好你都想加倍还。你会在心里反复掂量「我是不是欠他的」，反而把自己弄得很累。日子是自己的，不必活给谁看。'},
+    {tone:'dark', prob:4, title:'止步于暖', story:'当知足变成对改变的不再渴望，你会在舒适里慢慢生锈。你会错过很多本可以够得着的机会。所有的迷路，都还来得及回头。'}
+  ],
+  clear:[
+    {tone:'light', prob:8, title:'行稳致远', story:'你的清晰让你少走了很多弯路，一步步走到想去的地方。你会在别人还在迷茫时，已经知道自己明天要做什么。此刻的每一步，都在塑造未来的你。'},
+    {tone:'light', prob:7, title:'心中有图', story:'你心里有一张地图，哪怕暂时迷路，也能很快找回方向。你会在岔路口快速判断，而不是原地打转。愿你活得从容，爱得坦荡。'},
+    {tone:'light', prob:6, title:'照人前行', story:'你的坚定会照亮身边的人，他们从你身上学会了不慌。你会在朋友犹豫时，替他们把路指清。山河远阔，人间烟火，都值得你奔赴。'},
+    {tone:'warm', prob:7, title:'执念太深', story:'你认准了一条路，哪怕它已经不太对，也不肯调头。你会在别人劝你时，回一句「你不懂」。慢慢来，也是一种抵达。'},
+    {tone:'warm', prob:6, title:'目标太沉', story:'你给自己定的目标太高，背着它走得气喘吁吁。你会在深夜还在盘算进度，忘了问自己累不累。别怕走得慢，只怕停在原地。'},
+    {tone:'dark', prob:4, title:'图碎成空', story:'当那个支撑你的目标轰然倒塌，你可能会觉得自己一无所有。你会在很长一段时间里，不知道下一步该往哪走。答案不在别处，就在你脚下的路里。'}
+  ],
+  proactive:[
+    {tone:'light', prob:8, title:'行者无疆', story:'你说干就干，把一个个想法变成了结果。你会在别人还在犹豫时，已经迈出了第一步，机会也乐意追着你跑。愿你回望时，眼里有光。'},
+    {tone:'light', prob:7, title:'先做再改', story:'你不怕做得不够好，先跑起来再调整。你会在一次次快速试错里，比同龄人更快地长大。你值得，也配得上更好的结局。'},
+    {tone:'light', prob:6, title:'点火之人', story:'你的行动力会点燃身边的人，有你在，大家都不好意思偷懒。你会在一个团队里，做那个先把事干起来的人。有些路，走过了才算数。'},
+    {tone:'warm', prob:7, title:'忙而无向', story:'你每天都很忙，可忙完却说不清忙出了什么。你会在深夜问自己：「我到底在为什么忙？」平凡里，也藏着不动声色的温柔。'},
+    {tone:'warm', prob:6, title:'想都不就干', story:'你行动太快，常常没想清楚就开干，于是踩了不少坑。你会在一次次返工里，才慢慢学会先停一停。慢慢来，也是一种抵达。'},
+    {tone:'dark', prob:4, title:'停不下来', story:'你习惯了连轴转，直到身体用一场病叫停了你。你会在病床上才第一次问：「这么拼，到底是为了谁？」这一次，请一定好好照顾自己。'}
+  ],
+  decisive:[
+    {tone:'light', prob:8, title:'当机立断', story:'你看准了就出手，很少让机会从指缝溜走。你会在别人还在权衡时，已经下了决定，并且为它负责到底。愿你活得从容，爱得坦荡。'},
+    {tone:'light', prob:7, title:'择定而安', story:'你选了就不再回头看，从不在「如果当初」里内耗。你会在每一个决定之后，把力气用在把路走好上。此刻的每一步，都在塑造未来的你。'},
+    {tone:'light', prob:6, title:'一锤定音', story:'关键时刻，大家都愿意听你拿主意。你会在团队摇摆不定时，说一句「就这么办」，让所有人安下心来。山河远阔，人间烟火，都值得你奔赴。'},
+    {tone:'warm', prob:7, title:'拍板太快', story:'你的果断有时成了草率，没听清就做了决定。你会在几次吃亏之后，才学会多问一句。慢慢来，也是一种抵达。'},
+    {tone:'warm', prob:6, title:'赌上一把', story:'你把果敢用在了冒险上，总想搏个大的。你会在输多赢少之后，才明白稳一点并不丢人。别怕走得慢，只怕停在原地。'},
+    {tone:'dark', prob:4, title:'一意孤行', story:'当果断变成听不进任何话，你会在某天发现，身边已经没有愿意提醒你的人了。别让麻木，成了你的常态。'}
+  ],
+  confident:[
+    {tone:'light', prob:8, title:'内核笃定', story:'你不靠外界的评分活着，夸不飘、骂不崩。你会在起起伏伏里，一直稳稳地做自己。愿你回望时，眼里有光。'},
+    {tone:'light', prob:7, title:'敢要敢上', story:'你相信自己配得上，所以敢去争取。你会在别人退缩时，主动站出去，把资源要到自己手里。你值得，也配得上更好的结局。'},
+    {tone:'light', prob:6, title:'笃定自安', story:'你的自信会传染，让身边的人也变得有底气。你会在一个团队里，做那个让人放心的人。有些路，走过了才算数。'},
+    {tone:'warm', prob:7, title:'自信过了头', story:'你觉得自己什么都能做好，有时会因此看不见自己的短板。你会在几次碰壁之后，才慢慢学会低头。平凡里，也藏着不动声色的温柔。'},
+    {tone:'warm', prob:6, title:'人前逞强', story:'你在人前气场全开，独处时却会悄悄怀疑自己。你会在深夜问：「我是不是其实没那么厉害？」日子是自己的，不必活给谁看。'},
+    {tone:'dark', prob:4, title:'一败即碎', story:'当自信全部建立在「必须赢」上，一次失败就可能让你整个人垮掉。你会很久都不再敢尝试。天总会亮，只要你还愿意等。'}
+  ],
+  independent:[
+    {tone:'light', prob:8, title:'自成一方', story:'你不随大流，走出了自己的路。你会在别人都往一处挤时，安静地走向自己的方向，并且越走越自在。愿你活得从容，爱得坦荡。'},
+    {tone:'light', prob:7, title:'不待扬鞭', story:'你不需要别人催促，目标自己定、自己完成。你会在别人还在等指令时，已经把事情做完了。此刻的每一步，都在塑造未来的你。'},
+    {tone:'light', prob:6, title:'有主自成', story:'你的有主见，让一开始担心你的人，最终变成了放心和骄傲。你会在一次次坚持里，赢得真正的尊重。山河远阔，人间烟火，都值得你奔赴。'},
+    {tone:'warm', prob:7, title:'独扛一切', story:'你凡事都自己扛，累到崩溃也不肯开口求助。你会在某个深夜，一个人咬着牙硬撑。慢慢来，也是一种抵达。'},
+    {tone:'warm', prob:6, title:'疏而有距', story:'你太独立，独立到连最好的朋友都觉得走不进你。你会在需要人陪时，才发现身边空空的。别怕走得慢，只怕停在原地。'},
+    {tone:'dark', prob:4, title:'孤绝成壁', story:'当独立变成谁也不靠，你会在真正遇到难处时，发现自己孤立无援，也渐渐失去了爱与被爱的能力。这一次，请一定好好照顾自己。'}
+  ],
+  warm:[
+    {tone:'light', prob:8, title:'暖流成河', story:'你的真诚待人，让好人缘慢慢变成了资源和机会。你会在关键时刻，总有那么几个人愿意拉你一把。愿你回望时，眼里有光。'},
+    {tone:'light', prob:7, title:'知己二三', story:'你有几段很深的关系，那是你最大的底气。你会在难过时，有一个随时能拨通的电话。你值得，也配得上更好的结局。'},
+    {tone:'light', prob:6, title:'温柔回流', story:'你温暖了别人，世界也温柔待你。你会在自己需要帮助时，发现曾经帮过的人纷纷伸出了手。有些路，走过了才算数。'},
+    {tone:'warm', prob:7, title:'付出过度', story:'你对谁都好，好到忘了自己也需要休息。你会在一次次答应别人之后，累得只想逃离。平凡里，也藏着不动声色的温柔。'},
+    {tone:'warm', prob:6, title:'迁就成习', story:'你怕得罪人，处处迁就，把委屈都咽进肚子里。你会在深夜，才敢对自己说一句「其实我不愿意」。日子是自己的，不必活给谁看。'},
+    {tone:'dark', prob:4, title:'只余空壳', story:'当你只顾着照顾所有人，你会在某天照镜子时，发现自己已经想不起自己是谁。答案不在别处，就在你脚下的路里。'}
+  ],
+  resilient:[
+    {tone:'light', prob:8, title:'逆风生长', story:'每一次跌倒，都让你站得更稳。你会在别人以为你不行时，一次次重新站起来，把挫折变成养料。愿你回望时，眼里有光。'},
+    {tone:'light', prob:7, title:'淬火成钢', story:'你把打击当成了成长的机会，每次失败都认真复盘。你会在一次次的淬炼里，长出别人没有的韧性。你值得，也配得上更好的结局。'},
+    {tone:'light', prob:6, title:'危时定心', story:'在最难的时候，你是那个扛住的人。你会在团队最慌乱的时刻，站出来说「有我在」。有些路，走过了才算数。'},
+    {tone:'warm', prob:7, title:'硬扛不说', story:'你能扛，却不善于释放。你会在身体先发出警告时，才意识到自己撑太久了。慢慢来，也是一种抵达。'},
+    {tone:'warm', prob:6, title:'扛到失觉', story:'你扛着扛着，心就麻了，不再喊疼也不再快乐。你会在某个瞬间，突然忘了上次真心笑是什么时候。别怕走得慢，只怕停在原地。'},
+    {tone:'dark', prob:4, title:'崩塌一刻', story:'当压力堆到极限，一件小事就可能成为压垮你的最后一根稻草。你会在某天，突然就撑不下去了。天总会亮，只要你还愿意等。'}
+  ],
+  energetic:[
+    {tone:'light', prob:8, title:'马力全开', story:'你精力旺盛，学什么都快，做什么都带劲。你会在别人已经累趴时，还能再冲一程，把日子过得热气腾腾。愿你回望时，眼里有光。'},
+    {tone:'light', prob:7, title:'点燃全场', story:'你的热气腾腾会感染所有人，你在哪，哪里就有活力。你会在一个团队里，做那个先嗨起来的人。你值得，也配得上更好的结局。'},
+    {tone:'light', prob:6, title:'多线开花', story:'你的能量足以支撑你同时做很多事，学习、爱好、事业都照顾得到。你会在别人惊叹「你怎么做到的」时，一笑而过。有些路，走过了才算数。'},
+    {tone:'warm', prob:7, title:'空忙一场', story:'你一天到晚闲不住，却总抓不住重点。你会在深夜回顾一天，发现自己忙了个寂寞。慢慢来，也是一种抵达。'},
+    {tone:'warm', prob:6, title:'挥霍年轻', story:'你仗着年轻熬夜连轴转，二十几岁就把身体透支出了毛病。你会在体检单前，第一次感到后怕。别怕走得慢，只怕停在原地。'},
+    {tone:'dark', prob:4, title:'燃尽成灰', story:'当一直满电的你突然空了下来，你会在某天对一切都提不起劲，像一盏灯烧到了尽头。这一次，请一定好好照顾自己。'}
+  ],
+  curious:[
+    {tone:'light', prob:8, title:'终身精进', story:'你的好奇心让你一直在进化，几年下来，你已经把同龄人甩在了身后。你会在别人停下时，还在学新东西。愿你回望时，眼里有光。'},
+    {tone:'light', prob:7, title:'觅得所爱', story:'你在不断探索里，终于找到了愿意做一辈子的事。你会在某个瞬间，突然明白「就是它了」。你值得，也配得上更好的结局。'},
+    {tone:'light', prob:6, title:'跨界出新', story:'你把不同领域的知识揉在一起，做出了别人想不到的东西。你会在别人眼里「不相关」的两件事之间，找到奇妙的连接。有些路，走过了才算数。'},
+    {tone:'warm', prob:7, title:'处处皆浅', story:'你什么都好奇，什么都只沾了一点。你会在需要拿出真本事时，才发现自己样样半吊子。平凡里，也藏着不动声色的温柔。'},
+    {tone:'warm', prob:6, title:'心猿意马', story:'你的注意力总被新东西勾走，正事反而一拖再拖。你会在一次次跑神之后，懊恼地重新开始。慢慢来，也是一种抵达。'},
+    {tone:'dark', prob:4, title:'忘了初心', story:'当好奇变成不断追逐新鲜，你会在某天发现，自己连最初想要什么都想不起来了。答案不在别处，就在你脚下的路里。'}
+  ]
+};
+
+/* ============ 价值观 ============ */
+const VALUE_DESC = {
+  freedom:'你渴望拥有选择权、不被定义的人生',
+  meaning:'你希望所做之事发自内心、值得投入',
+  relation:'你在意被爱、被理解，重视人与人的深度连接',
+  achievement:'你想做出成绩、被认可，成为更好的自己',
+  wealth:'你追求安全感与底气，希望生活可控',
+  impact:'你想留下印记、创造价值、影响他人',
+  explore:'你想见识更大的世界，活得多姿多彩',
+  balance:'你向往内心安宁、张弛有度的生活'
+};
+
+/* ============ 问卷题目 ============ */
+const QUESTIONS = [
+  // —— 当下状态 ——
+  {id:'q1', sec:'当下状态', secTone:1, title:'最近一周，你整个人更像哪一种天气？', type:'single',
+   options:[
+     {label:'充满能量，干劲十足'},
+     {label:'还行，能正常运转'},
+     {label:'一般，有点提不起劲', map:{burnout:1}},
+     {label:'挺累的，经常想躺平', map:{burnout:2, meaning:1}},
+     {label:'很糟糕，几乎没什么动力', map:{burnout:3, meaning:2}}
+   ]},
+  {id:'q2', sec:'当下状态', secTone:1, title:'夜深人静时，你脑海里最常回响的一句话是？', hint:'可多选，别怕，这里没有标准答案', type:'multi',
+   options:[
+     {label:'我到底喜欢什么、想做什么？', map:{goal:2, meaning:1}},
+     {label:'我这么卷下去到底图什么？', map:{involution:2, meaning:1}},
+     {label:'别人的路那么清楚，我怎么就找不到？', map:{goal:1, involution:1, doubt:1}},
+     {label:'选错一步，是不是就完了？', map:{choice:2, doubt:1}},
+     {label:'我好像什么都没做好', map:{doubt:2, gap:1}},
+     {label:'爸妈期望的和我想要的，不是一回事', map:{family:3}},
+     {label:'算了，想也没用', map:{burnout:2, meaning:1}}
+   ]},
+  {id:'q3', sec:'当下状态', secTone:1, title:'当「未来」两个字落在心上，你的第一反应是？', type:'single',
+   options:[
+     {label:'有点怕，一提起就焦虑', map:{involution:2, choice:1}},
+     {label:'一片空白，想不出画面', map:{goal:2, burnout:1}},
+     {label:'有向往，但觉得够不着', map:{gap:2, doubt:1}},
+     {label:'没感觉，懒得想', map:{burnout:2}},
+     {label:'有方向，但不知道从哪开始', map:{goal:2}}
+   ]},
+  {id:'q4', sec:'当下状态', secTone:1, title:'是什么，正推着此刻的你往前走？', type:'single',
+   options:[
+     {label:'自己真的想要'},
+     {label:'怕掉队、怕被比下去', map:{involution:2}},
+     {label:'家人、老师、同学的期待', map:{family:2}},
+     {label:'其实已经很久没真正努力了', map:{burnout:2, meaning:1}}
+   ]},
+
+  // —— 迷茫来源 ——
+  {id:'q5', sec:'迷茫来源', secTone:2, title:'如果给此刻的你拍一张照片，定格的是哪一幕？', hint:'凭直觉选', type:'scene',
+   options:[
+     {label:'🚦 站在十字路口，不知道该走哪条', map:{choice:2, goal:1}},
+     {label:'🏃 在跑步机上，停不下来也不敢停', map:{involution:3}},
+     {label:'🪑 坐在空房间里，问自己"我在干嘛"', map:{meaning:3}},
+     {label:'⛰️ 望着远处的高山，觉得爬不上去', map:{gap:2, doubt:1}},
+     {label:'🪞 低头看着自己，觉得"我不行"', map:{doubt:3}},
+     {label:'🚪 背对着家人的方向，左右为难', map:{family:3}},
+     {label:'🛏️ 瘫在床上，什么都不想动', map:{burnout:3}}
+   ]},
+  {id:'q6', sec:'迷茫来源', secTone:2, title:'最让你心头一沉、夜里睡不着的，是下面哪些事？', hint:'可多选', type:'multi',
+   options:[
+     {label:'看不清未来的方向', map:{goal:2}},
+     {label:'不知道自己真正喜欢什么', map:{goal:1, meaning:2}},
+     {label:'同辈都在往前冲，我好像原地踏步', map:{involution:3}},
+     {label:'怕做错选择，一步错步步错', map:{choice:2, doubt:1}},
+     {label:'现实和想象差距太大', map:{gap:2}},
+     {label:'总觉得自己不够好', map:{doubt:3}},
+     {label:'辜负了家人的期望', map:{family:3}},
+     {label:'对什么都没什么兴趣', map:{burnout:2, meaning:1}}
+   ]},
+  {id:'q7', sec:'迷茫来源', secTone:2, title:'此刻的你，最「卡」在哪个字上？', type:'single',
+   options:[
+     {label:'方向', map:{goal:3}},
+     {label:'意义', map:{meaning:3}},
+     {label:'比较', map:{involution:3}},
+     {label:'选择', map:{choice:3}},
+     {label:'落差', map:{gap:3}},
+     {label:'信心', map:{doubt:3}},
+     {label:'家人', map:{family:3}},
+     {label:'动力', map:{burnout:3}}
+   ]},
+
+  // —— 价值观排序 ——
+  {id:'q8', sec:'价值观排序', secTone:3, title:'这一生，你最舍不得放下的三样是什么？', hint:'选 3 个，按直觉选就好', type:'multi', max:3,
+   options:[
+     {label:'自由自在', valueKey:'freedom'},
+     {label:'意义与热爱', valueKey:'meaning'},
+     {label:'亲密关系', valueKey:'relation'},
+     {label:'成就与卓越', valueKey:'achievement'},
+     {label:'财富与稳定', valueKey:'wealth'},
+     {label:'影响力与创造', valueKey:'impact'},
+     {label:'体验与探索', valueKey:'explore'},
+     {label:'平衡与宁静', valueKey:'balance'}
+   ]},
+  {id:'q9', sec:'价值观排序', secTone:3, title:'三组快速抉择，别权衡太久，选更心动的那一边。', type:'tradeoffs',
+   pairs:[
+     {a:{label:'高薪但不喜欢的工作', valueKey:'wealth'}, b:{label:'喜欢但收入一般', valueKey:'meaning'}},
+     {a:{label:'安稳可控的人生', valueKey:'balance'}, b:{label:'冒险但精彩的人生', valueKey:'explore'}},
+     {a:{label:'被很多人认可', valueKey:'achievement'}, b:{label:'做真实的自己', valueKey:'freedom'}}
+   ]},
+
+  // —— 理想人生画像 ——
+  {id:'q10', sec:'理想人生画像', secTone:4, title:'闭上眼睛——你理想中「最棒的一天」，长什么样？', hint:'可以写得具体点，比如几点起、和谁、做什么', type:'open', placeholder:'例如：睡到自然醒，下午和喜欢的人去海边，晚上做一顿饭给自己……'},
+  {id:'q11', sec:'理想人生画像', secTone:4, title:'很多年后，你希望别人提起你时，说的是哪一句？', type:'single',
+   options:[
+     {label:'一个有趣、活得明白的人'},
+     {label:'在热爱的领域做出成绩的人'},
+     {label:'让身边人幸福、被需要的人'},
+     {label:'自由自在、不被定义的人'},
+     {label:'影响了很多人的人'}
+   ]},
+  {id:'q12', sec:'理想人生画像', secTone:4, title:'你理想的日子，最接近下面哪一种质地？', type:'single',
+   options:[
+     {label:'有热爱的事，忙而有意义'},
+     {label:'有充足自由，想干嘛就干嘛'},
+     {label:'安稳踏实，家人朋友常在身边'},
+     {label:'不断探索，见识更大的世界'}
+   ]},
+
+  // —— 自我认知 ——
+  {id:'q13', sec:'自我认知', secTone:2, title:'别人夸你、或你自己也认可的那束光，是哪些？', hint:'可多选', type:'multi',
+   options:[
+     {label:'有耐心、能共情'},
+     {label:'逻辑清晰、爱思考'},
+     {label:'创意多、点子不断'},
+     {label:'行动力、执行力强'},
+     {label:'会表达、能写'},
+     {label:'会组织、能带人'}
+   ]},
+  {id:'q14', sec:'自我认知', secTone:2, title:'做什么事的时候，你会忘了时间在走？', type:'single',
+   options:[
+     {label:'动手做东西、创作'},
+     {label:'和人深度聊天'},
+     {label:'打游戏、刷剧、看视频'},
+     {label:'运动、户外'},
+     {label:'钻研某个感兴趣的领域'},
+     {label:'好像没有过'}
+   ]},
+  {id:'q15', sec:'自我认知', secTone:2, title:'夜深回看自己，你心里常常响起的那句话是？', type:'single',
+   options:[
+     {label:'我挺认可自己的'},
+     {label:'一般，时好时坏', map:{doubt:1}},
+     {label:'我经常怀疑自己', map:{doubt:3}},
+     {label:'我基本看不上自己', map:{doubt:4, meaning:1}}
+   ]},
+
+  // —— 行动意愿 ——
+  {id:'q16', sec:'行动意愿', secTone:3, title:'面对眼前这团雾，你更想？', type:'single',
+   options:[
+     {label:'想立刻做点什么，哪怕很小'},
+     {label:'想先想清楚，再行动'},
+     {label:'想有人带带我、给点方向'},
+     {label:'什么都不想做', map:{burnout:2}}
+   ]},
+  {id:'q17', sec:'行动意愿', secTone:3, title:'为了把日子拨回你想要的方向，你愿意付出多少？', type:'single',
+   options:[
+     {label:'很愿意，可以持续投入'},
+     {label:'愿意，但时间精力有限'},
+     {label:'有点犹豫，怕白费力气', map:{doubt:1, burnout:1}},
+     {label:'暂时不太想动', map:{burnout:2}}
+   ]},
+  {id:'q18', sec:'行动意愿', secTone:3, title:'如果只做一件小事，就能让今天的你好一点，那会是什么？', type:'open', placeholder:'例如：给老友发条消息、出门走 20 分钟、整理一下书桌……'},
+
+  // —— 支持系统 ——
+  {id:'q19', sec:'支持系统', secTone:4, title:'有没有一个人，能接住你所有的狼狈？', type:'single',
+   options:[
+     {label:'有，好几个'},
+     {label:'有一两个'},
+     {label:'有，但不太敢说'},
+     {label:'基本没有'}
+   ]},
+  {id:'q20', sec:'支持系统', secTone:4, title:'真的扛不住时，你会朝谁伸出手？', hint:'可多选', type:'multi',
+   options:[
+     {label:'家人'},
+     {label:'朋友 / 同学'},
+     {label:'老师 / 导师 / 辅导员'},
+     {label:'基本自己扛着'},
+     {label:'网络 / 陌生社群'}
+   ]},
+
+  // —— 你的光（好类型评分） ——
+  {id:'q21', sec:'你的光', secTone:3, title:'在朋友眼里，你身上最亮的那几点是？', hint:'可多选，夸自己的时刻到了', type:'multi',
+   options:[
+     {label:'永远乐呵呵的小太阳', map:{sunny:3}},
+     {label:'遇事不慌的淡定型', map:{relaxed:3}},
+     {label:'懂感恩、总记得别人好', map:{grateful:3}},
+     {label:'目标明确、从不迷路', map:{clear:3}},
+     {label:'说干就干的行动派', map:{proactive:3}},
+     {label:'敢拍板的果断人', map:{decisive:3}},
+     {label:'自信笃定、不自我怀疑', map:{confident:3}},
+     {label:'有主见、不随大流', map:{independent:3}},
+     {label:'温暖好相处、人缘好', map:{warm:3}},
+     {label:'扛得住事、不轻易垮', map:{resilient:3}},
+     {label:'活力满满、精力旺盛', map:{energetic:3}},
+     {label:'好奇宝宝、爱探索', map:{curious:3}}
+   ]},
+  {id:'q22', sec:'你的光', secTone:3, title:'你身上，最让自己骄傲的一点是？', type:'single',
+   options:[
+     {label:'乐观，能自我调节', map:{sunny:3}},
+     {label:'松弛，不内耗', map:{relaxed:3}},
+     {label:'知足，容易幸福', map:{grateful:3}},
+     {label:'方向清晰', map:{clear:3}},
+     {label:'行动力强', map:{proactive:3}},
+     {label:'果断不纠结', map:{decisive:3}},
+     {label:'自信自洽', map:{confident:3}},
+     {label:'独立有主见', map:{independent:3}},
+     {label:'温暖会爱人', map:{warm:3}},
+     {label:'坚韧能扛', map:{resilient:3}},
+     {label:'精力充沛', map:{energetic:3}},
+     {label:'好奇爱学', map:{curious:3}}
+   ]},
+  {id:'q23', sec:'你的光', secTone:3, title:'风浪来临时，你习惯怎么撑过去？', type:'single',
+   options:[
+     {label:'相信会变好，给自己打气', map:{sunny:2}},
+     {label:'不慌，慢慢来', map:{relaxed:2}},
+     {label:'想想拥有的，调整心态', map:{grateful:2}},
+     {label:'盯着目标，咬牙推进', map:{clear:2, resilient:1}},
+     {label:'马上想办法解决', map:{proactive:2, decisive:1}},
+     {label:'冷静评估再出手', map:{decisive:2}},
+     {label:'相信自己能搞定', map:{confident:2}},
+     {label:'按自己的方式处理', map:{independent:2}},
+     {label:'找人一起扛、互相支撑', map:{warm:2}},
+     {label:'越挫越勇，死磕到底', map:{resilient:2}},
+     {label:'保持干劲，冲就完了', map:{energetic:2}},
+     {label:'当成一次有趣的挑战', map:{curious:2}}
+   ]},
+
+  // —— 校园现场（现实抉择） ——
+  {id:'q24', sec:'校园现场', secTone:2, title:'「分科 / 选科」摆在你面前时，你会怎么选？', type:'single',
+   options:[
+     {label:'选自己喜欢的，哪怕别人说"不好就业"', map:{independent:1, clear:1, meaning:1}},
+     {label:'选好就业、好拿分的', map:{choice:1, money:1, involution:1}},
+     {label:'听爸妈 / 老师的安排', map:{family:2, choice:1}},
+     {label:'完全没头绪，随大流', map:{goal:2, choice:1, doubt:1}}
+   ]},
+  {id:'q25', sec:'校园现场', secTone:2, title:'每次考试排名被贴在墙上、发进家长群，你的感受最接近？', type:'single',
+   options:[
+     {label:'无所谓，早就习惯了', map:{relaxed:1, resilient:1}},
+     {label:'有点压力，但还扛得住', map:{involution:1}},
+     {label:'很焦虑，像被当众审判', map:{involution:2, doubt:1, family:1}},
+     {label:'很羞耻，尤其怕爸妈看到', map:{family:2, doubt:1, gap:1}}
+   ]},
+  {id:'q26', sec:'校园现场', secTone:2, title:'周末和寒暑假，你的时间大多花在哪？', type:'single',
+   options:[
+     {label:'补习班、网课、刷卷子，几乎排满', map:{involution:2, burnout:1}},
+     {label:'一半学习、一半休息', map:{relaxed:1}},
+     {label:'基本在休息、玩，不想碰书本', map:{burnout:1, relaxed:1}},
+     {label:'想学，但总是提不起劲', map:{burnout:2, meaning:1}}
+   ]},
+  {id:'q27', sec:'校园现场', secTone:2, title:'面对刷不完的卷子、「五三」和错题本，你的态度是？', type:'single',
+   options:[
+     {label:'只能硬刷，不然就被落下', map:{involution:3}},
+     {label:'刷得很烦，觉得没什么意义', map:{meaning:2, involution:1}},
+     {label:'有选择地刷，抓重点就行', map:{clear:1, proactive:1}},
+     {label:'已经刷不动了', map:{burnout:2}}
+   ]},
+  {id:'q28', sec:'校园现场', secTone:2, title:'早上 6 点起床、晚上 10 点下晚自习的节奏，你的身体怎么反应？', type:'single',
+   options:[
+     {label:'挺精神，扛得住', map:{energetic:2, resilient:1}},
+     {label:'勉强撑，靠咖啡和功能饮料续命', map:{burnout:1, involution:1}},
+     {label:'经常犯困，上课打盹', map:{burnout:2}},
+     {label:'已经有点吃不消了', map:{burnout:3, meaning:1}}
+   ]},
+  {id:'q29', sec:'校园现场', secTone:2, title:'别人午休、课间都在刷题，你通常会？', type:'single',
+   options:[
+     {label:'也跟着刷，不敢停', map:{involution:2}},
+     {label:'该休息就休息，不慌', map:{relaxed:2, confident:1}},
+     {label:'想歇又内疚，特别拧巴', map:{involution:1, doubt:1, perfect:1}},
+     {label:'根本学不进去，只剩发呆', map:{burnout:1, scattered:1}}
+   ]},
+
+  // —— 高考岔路口（现实抉择） ——
+  {id:'q30', sec:'高考岔路口', secTone:1, title:'假如高考 / 考研结果不理想，你的第一反应会是？', type:'single',
+   options:[
+     {label:'认了，想办法找别的路', map:{resilient:2, proactive:1}},
+     {label:'不甘心，想复读 / 二战', map:{resilient:1, gap:1, involution:1}},
+     {label:'觉得"我完了"，很久缓不过来', map:{gap:2, doubt:2}},
+     {label:'不敢想，先逃避一下', map:{choice:1, burnout:1}}
+   ]},
+  {id:'q31', sec:'高考岔路口', secTone:1, title:'「复读还是将就」这道题，你更倾向？', type:'single',
+   options:[
+     {label:'一定要考到理想的，复读也在所不惜', map:{gap:2, resilient:1, involution:1}},
+     {label:'能走就走，不折腾', map:{relaxed:1, choice:1}},
+     {label:'听父母的', map:{family:2, choice:1}},
+     {label:'纠结到无法决定', map:{choice:3}}
+   ]},
+  {id:'q32', sec:'高考岔路口', secTone:1, title:'高考填志愿，你希望谁来拍板？', type:'single',
+   options:[
+     {label:'我自己', map:{independent:2, clear:1}},
+     {label:'我和家人一起商量', map:{family:1, warm:1}},
+     {label:'主要听爸妈 / 老师的', map:{family:2, choice:1}},
+     {label:'谁懂听谁的，我没什么概念', map:{goal:1, doubt:1, choice:1}}
+   ]},
+  {id:'q33', sec:'高考岔路口', secTone:1, title:'选专业时，「热门好就业」和「冷门但我热爱」，你倾向？', type:'single',
+   options:[
+     {label:'热门好就业，先活下来', map:{money:2, involution:1}},
+     {label:'冷门但热爱，赌一把', map:{meaning:2, independent:1}},
+     {label:'折中，找一个平衡点', map:{choice:1}},
+     {label:'完全不知道选什么', map:{goal:1, doubt:1}}
+   ]},
+  {id:'q34', sec:'高考岔路口', secTone:1, title:'本科 / 研究生毕业后的岔路口，你更可能选？', type:'single',
+   options:[
+     {label:'继续深造，考研 / 考博', map:{involution:1, goal:1}},
+     {label:'直接工作，先赚钱', map:{money:1, proactive:1}},
+     {label:'考公 / 考编，求个稳定', map:{money:1, choice:1}},
+     {label:'还没想，走一步看一步', map:{goal:1, choice:1}}
+   ]},
+  {id:'q35', sec:'高考岔路口', secTone:1, title:'毕业后去「大城市打拼」还是「回老家 / 小城市安稳」？', type:'single',
+   options:[
+     {label:'大城市打拼，机会多', map:{gap:1, proactive:1}},
+     {label:'回老家 / 小城市，安稳陪家人', map:{family:1, warm:1}},
+     {label:'看钱和工作机会再定', map:{money:1, choice:1}},
+     {label:'从没认真想过', map:{goal:1}}
+   ]},
+
+  // —— 校园里的感情（友情 · 爱情萌芽 · 亲情） ——
+  {id:'q36', sec:'校园感情', secTone:4, title:'在校园里，你遇到过"真正懂你"的朋友吗？', type:'single',
+   options:[
+     {label:'有，是学生时代最珍贵的收获之一', map:{warm:2, grateful:1}},
+     {label:'有一两个，但后来慢慢走散了', map:{warm:1, lonely:1}},
+     {label:'表面热闹，其实没几个真心的', map:{lonely:2}},
+     {label:'基本没有，一直是独自一人', map:{lonely:3}}
+   ]},
+  {id:'q37', sec:'校园感情', secTone:4, title:'学生时代那种懵懂的喜欢 / 暗恋，你是怎样经历的？', type:'single',
+   options:[
+     {label:'有过，很美好，成了青春里最温柔的回忆', map:{warm:1, sunny:1}},
+     {label:'一直藏在心里，没敢说出口', map:{lonely:1, doubt:1}},
+     {label:'因为"禁止早恋"，把这份心思压了下去', map:{family:1, lonely:1}},
+     {label:'没经历过，或根本没想过', map:{}}
+   ]},
+  {id:'q38', sec:'校园感情', secTone:4, title:'求学这些年，父母 / 家人给你的感觉更像？', type:'single',
+   options:[
+     {label:'无条件的后盾，想起来就安心', map:{grateful:2, warm:1, sunny:1}},
+     {label:'爱是真的，但期待也压得我喘不过气', map:{family:2, grateful:1}},
+     {label:'他们很辛苦，我不忍心让他们失望', map:{family:2, money:1, doubt:1}},
+     {label:'关系比较疏远，各忙各的', map:{lonely:1}}
+   ]},
+  {id:'q39', sec:'校园感情', secTone:4, title:'学生时代，最让你心头一暖的一件小事是什么？', hint:'可以写得具体点，越细越动人', type:'open', placeholder:'例如：同桌悄悄帮你带的早餐 / 妈妈半夜起来给你热牛奶 / 毕业那天老师说的那句话……'},
+  {id:'q40', sec:'校园感情', secTone:4, title:'关于"一个人长大"这件事，你的感受是？', type:'single',
+   options:[
+     {label:'习惯了，一个人也挺好、挺自由', map:{independent:1}},
+     {label:'有点孤单，羡慕有兄弟姐妹的人', map:{lonely:2}},
+     {label:'不孤单，父母和朋友给了我很多爱', map:{warm:1, grateful:1}},
+     {label:'没认真想过', map:{}}
+   ]},
+
+  // —— 家庭期待（现实抉择） ——
+  {id:'q41', sec:'家庭期待', secTone:2, title:'父母坚持让你走他们安排的路（专业 / 工作 / 婚姻），你会？', type:'single',
+   options:[
+     {label:'先听话，但心里委屈', map:{family:2, doubt:1}},
+     {label:'明确反对，坚持自己', map:{independent:2, decisive:1}},
+     {label:'表面答应，私下按自己的来', map:{family:1, independent:1, choice:1}},
+     {label:'努力沟通，寻求理解', map:{warm:1, resilient:1, family:1}}
+   ]},
+  {id:'q42', sec:'家庭期待', secTone:2, title:'父母总拿"别人家的孩子"和你比，你的感受是？', type:'single',
+   options:[
+     {label:'很烦，但懒得说', map:{family:1, burnout:1}},
+     {label:'又气又自卑', map:{family:2, doubt:2, involution:1}},
+     {label:'无所谓，左耳进右耳出', map:{relaxed:1, confident:1}},
+     {label:'会顶回去、讲道理', map:{independent:1, decisive:1}}
+   ]},
+
+  // —— 金钱与未来（现实抉择） ——
+  {id:'q43', sec:'金钱与未来', secTone:3, title:'「稳定但无趣」和「喜欢但不确定」的饭碗，你更想要哪个？', type:'single',
+   options:[
+     {label:'稳定，先活着', map:{money:2, choice:1}},
+     {label:'喜欢，愿意赌一把', map:{meaning:2, independent:1}},
+     {label:'折中，先稳住再追梦', map:{choice:1, resilient:1}},
+     {label:'不知道，还没想', map:{goal:1, doubt:1}}
+   ]},
+  {id:'q44', sec:'金钱与未来', secTone:3, title:'你有多担心"将来赚不到钱、养不活自己"？', type:'single',
+   options:[
+     {label:'很担心，常因此焦虑', map:{money:3, involution:1}},
+     {label:'有点担心，但还能扛', map:{money:2}},
+     {label:'不太担心，船到桥头自然直', map:{relaxed:1, sunny:1}},
+     {label:'没想过钱的事', map:{}}
+   ]},
+  {id:'q45', sec:'金钱与未来', secTone:3, title:'面对"内卷"，你更认同哪一句？', type:'single',
+   options:[
+     {label:'卷不过，就换条赛道', map:{proactive:1, independent:1, relaxed:1}},
+     {label:'再卷一点，不能掉队', map:{involution:2}},
+     {label:'想躺平，但躺不平', map:{burnout:1, involution:1, doubt:1}},
+     {label:'该卷卷、该躺躺，看情况', map:{relaxed:1, choice:1}}
+   ]},
+  {id:'q46', sec:'金钱与未来', secTone:3, title:'"学历贬值、毕业即失业"这类声音，对你的影响是？', type:'single',
+   options:[
+     {label:'很慌，越听越焦虑', map:{money:1, involution:2, doubt:1}},
+     {label:'有点影响，但不至于', map:{involution:1}},
+     {label:'不太信，专注自己', map:{confident:1, clear:1}},
+     {label:'没怎么关注', map:{relaxed:1}}
+   ]},
+
+  // —— 你的光 · 现实版 ——
+  {id:'q47', sec:'你的光·现实版', secTone:3, title:'在学校里，你做过哪些"主动 / 勇敢"的事？', hint:'可多选，回忆一下你闪闪发光的时刻', type:'multi',
+   options:[
+     {label:'主动举手、竞选、当众发言', map:{proactive:2, decisive:1, confident:1}},
+     {label:'参加比赛 / 活动，敢去试', map:{proactive:1, curious:1, decisive:1}},
+     {label:'坚持一个兴趣很多年', map:{clear:1, resilient:1, curious:1}},
+     {label:'帮过同学、当过"和事佬"', map:{warm:2}},
+     {label:'情绪低落时能自己开导自己', map:{sunny:2, resilient:1}},
+     {label:'敢于反驳、坚持自己的观点', map:{independent:2, confident:1}},
+     {label:'熬夜也不累，精力旺盛', map:{energetic:2}},
+     {label:'好像都没做过', map:{}}
+   ]},
+  {id:'q48', sec:'你的光·现实版', secTone:3, title:'遇到"被比下去"的时刻，你通常会？', type:'single',
+   options:[
+     {label:'一笑了之，不放心上', map:{relaxed:2, sunny:1}},
+     {label:'当成动力，暗暗较劲', map:{proactive:1, resilient:1, involution:1}},
+     {label:'有点难受，但很快自我调节', map:{sunny:1, resilient:1}},
+     {label:'会怀疑自己好久', map:{doubt:2, involution:1}}
+   ]},
+
+  // —— 校园抉择（现实选择·中国教育） ——
+  {id:'q49', sec:'校园抉择', secTone:2, title:'清晨的早读课，你更常处在哪种状态？', type:'single',
+   options:[
+     {label:'精神抖擞，大声背书', map:{energetic:1, proactive:1}},
+     {label:'机械地张嘴，脑子还没醒', map:{burnout:1}},
+     {label:'实在太困，总在打盹', map:{burnout:2}},
+     {label:'偷偷做自己的事', map:{independent:1, scattered:1}}
+   ]},
+  {id:'q50', sec:'校园抉择', secTone:2, title:'晚上 11 点作业还没写完，你会怎么办？', type:'single',
+   options:[
+     {label:'熬夜也要赶完，怕被批评', map:{perfect:2, involution:1}},
+     {label:'先睡，明天再说', map:{relaxed:1, burnout:1}},
+     {label:'挑重要的写，其余抄一抄', map:{choice:1, scattered:1}},
+     {label:'干脆不写了', map:{burnout:2}}
+   ]},
+  {id:'q51', sec:'校园抉择', secTone:2, title:'考试时同桌偷偷塞纸条问你答案，你会？', type:'single',
+   options:[
+     {label:'假装没看见', map:{clear:1, confident:1}},
+     {label:'偷偷告诉他', map:{warm:1, choice:1}},
+     {label:'向老师报告', map:{decisive:1, independent:1}},
+     {label:'很纠结，怕得罪人', map:{doubt:1, choice:1, lonely:1}}
+   ]},
+  {id:'q52', sec:'校园抉择', secTone:2, title:'老师要求整理错题本，你通常怎么做？', type:'single',
+   options:[
+     {label:'认真分类整理，真的有用', map:{proactive:1, perfect:1, clear:1}},
+     {label:'应付了事，交了就行', map:{scattered:1, burnout:1}},
+     {label:'抄完就忘，从不回头看', map:{scattered:2}},
+     {label:'根本不想弄', map:{burnout:1}}
+   ]},
+  {id:'q53', sec:'校园抉择', secTone:2, title:'体育课、音乐课被主科老师占了，你心里怎么想？', type:'single',
+   options:[
+     {label:'很愤怒，感觉被剥夺了', map:{meaning:1, involution:1}},
+     {label:'麻木了，无所谓', map:{burnout:2}},
+     {label:'反而松口气，能多刷题', map:{involution:2}},
+     {label:'无所谓，反正也不爱上', map:{relaxed:1, scattered:1}}
+   ]},
+  {id:'q54', sec:'校园抉择', secTone:2, title:'老师点名让你当班干部、课代表，你会？', type:'single',
+   options:[
+     {label:'爽快接下，想锻炼自己', map:{proactive:2, confident:1}},
+     {label:'推掉，怕麻烦、怕担责', map:{choice:1, doubt:1}},
+     {label:'当吧，能帮到同学也好', map:{warm:1, grateful:1}},
+     {label:'无所谓，安排就做', map:{relaxed:1}}
+   ]},
+  {id:'q55', sec:'校园抉择', secTone:2, title:'申请助学金可能被同学议论，你会申请吗？', type:'single',
+   options:[
+     {label:'会，这是正当权益', map:{independent:1, confident:1}},
+     {label:'会，但心里有点难为情', map:{money:1, doubt:1}},
+     {label:'不会，怕被看不起', map:{doubt:1, money:1}},
+     {label:'家里还行，不需要', map:{}}
+   ]},
+  {id:'q56', sec:'校园抉择', secTone:2, title:'要不要参加学科竞赛冲保送，你更倾向？', type:'single',
+   options:[
+     {label:'全力冲，多一条路', map:{involution:1, proactive:1, clear:1}},
+     {label:'太卷了，不凑热闹', map:{relaxed:1, independent:1}},
+     {label:'看自己擅不擅长再定', map:{choice:1}},
+     {label:'没想过，听学校安排', map:{goal:1}}
+   ]},
+  {id:'q57', sec:'校园抉择', secTone:2, title:'成绩上不去，父母想给你转学、借读，你愿意吗？', type:'single',
+   options:[
+     {label:'愿意，换个环境试试', map:{proactive:1, resilient:1}},
+     {label:'不愿意，舍不得朋友和老师', map:{warm:1, family:1}},
+     {label:'听父母的，他们为我好', map:{family:2}},
+     {label:'很抗拒，但不敢反对', map:{family:2, doubt:1}}
+   ]},
+  {id:'q58', sec:'校园抉择', secTone:2, title:'你会选择住校还是走读？', type:'single',
+   options:[
+     {label:'住校，独立又自由', map:{independent:2}},
+     {label:'走读，想天天见到家人', map:{family:1, warm:1}},
+     {label:'住校，能交到朋友', map:{warm:1, lonely:1}},
+     {label:'无所谓，都行', map:{relaxed:1}}
+   ]},
+  {id:'q59', sec:'校园抉择', secTone:2, title:'晚自习班里有人小声说话，你会？', type:'single',
+   options:[
+     {label:'出声提醒，维持纪律', map:{decisive:1, clear:1, proactive:1}},
+     {label:'戴上耳机自己学', map:{independent:1}},
+     {label:'也跟着聊几句', map:{warm:1, scattered:1}},
+     {label:'很烦但懒得管', map:{burnout:1}}
+   ]},
+  {id:'q60', sec:'校园抉择', secTone:2, title:'感觉老师偏心成绩好的同学，你的反应是？', type:'single',
+   options:[
+     {label:'无所谓，做好自己', map:{confident:1, relaxed:1}},
+     {label:'有点失落，但能理解', map:{gap:1, grateful:1}},
+     {label:'很不服气，憋着一股劲', map:{involution:1, gap:1, resilient:1}},
+     {label:'觉得自己被忽视了', map:{doubt:2, lonely:1}}
+   ]},
+  {id:'q61', sec:'校园抉择', secTone:2, title:'学校强制统一校服、发型，你心里怎么想？', type:'single',
+   options:[
+     {label:'很烦，想保留个性', map:{independent:2, choice:1}},
+     {label:'无所谓，省得每天挑衣服', map:{relaxed:1}},
+     {label:'认同，整齐也是种秩序', map:{clear:1}},
+     {label:'表面遵守，私下搞点小动作', map:{independent:1, choice:1}}
+   ]},
+  {id:'q62', sec:'校园抉择', secTone:2, title:'教室黑板上挂着高考倒计时，你的心态是？', type:'single',
+   options:[
+     {label:'紧张，越看越焦虑', map:{involution:2, gap:1}},
+     {label:'有压力，但能转化成动力', map:{resilient:1, proactive:1}},
+     {label:'麻木了，没什么感觉', map:{burnout:2}},
+     {label:'干脆不看，眼不见心不烦', map:{relaxed:1, independent:1}}
+   ]},
+  {id:'q63', sec:'校园抉择', secTone:2, title:'填志愿时父母哭着劝你选某个专业，你会？', type:'single',
+   options:[
+     {label:'心软了，听他们的', map:{family:2}},
+     {label:'坚持自己，但会好好沟通', map:{independent:2, decisive:1}},
+     {label:'两边为难，纠结到崩溃', map:{family:2, choice:2, doubt:1}},
+     {label:'表面答应，后面再想办法', map:{choice:1, independent:1}}
+   ]},
+  {id:'q64', sec:'校园抉择', secTone:2, title:'多年后的同学聚会，你最希望自己？', type:'single',
+   options:[
+     {label:'有拿得出手的成就，被大家认可', map:{clear:1, confident:1, gap:1}},
+     {label:'还是那个真诚的自己，朋友没变', map:{warm:1, grateful:1}},
+     {label:'其实不太想去，怕被比较', map:{doubt:1, involution:1, gap:1}},
+     {label:'过得开心比什么都强', map:{sunny:1, meaning:1, relaxed:1}}
+   ]},
+  {id:'q65', sec:'校园抉择', secTone:2, title:'如果你或身边的同学被孤立、被嘲笑，你会？', type:'single',
+   options:[
+     {label:'主动站出来，帮 Ta 解围', map:{warm:2, decisive:1}},
+     {label:'私下安慰 Ta，但不敢公开', map:{warm:1, doubt:1}},
+     {label:'装作没看见，怕引火烧身', map:{choice:1, lonely:1}},
+     {label:'我自己就是被孤立过的人', map:{lonely:3, doubt:1}}
+   ]},
+  {id:'q66', sec:'校园抉择', secTone:2, title:'学校要求上交手机，你会偷偷留一部吗？', type:'single',
+   options:[
+     {label:'会，没手机真的不行', map:{independent:1, choice:1}},
+     {label:'不会，遵守规定', map:{clear:1}},
+     {label:'看别人留不留', map:{choice:1}},
+     {label:'无所谓，我本来也不怎么玩', map:{relaxed:1}}
+   ]},
+  {id:'q67', sec:'校园抉择', secTone:2, title:'家里花了不少钱给你补课，成绩却没起色，你会？', type:'single',
+   options:[
+     {label:'很内疚，觉得对不起家里', map:{family:2, money:1, doubt:1}},
+     {label:'想办法找到真正的问题', map:{proactive:1, resilient:1, clear:1}},
+     {label:'不想补了，但不敢说', map:{family:2, burnout:1}},
+     {label:'觉得补课本来就没什么用', map:{independent:1, meaning:1}}
+   ]},
+  {id:'q68', sec:'校园抉择', secTone:2, title:'教师节或毕业时，你会主动给老师写卡片、说感谢吗？', type:'single',
+   options:[
+     {label:'会，真心感谢的老师值得', map:{grateful:2, warm:1}},
+     {label:'会，但只是客套一下', map:{warm:1}},
+     {label:'不会，觉得是形式主义', map:{independent:1}},
+     {label:'想谢但不好意思开口', map:{doubt:1, lonely:1}}
+   ]},
+
+  // —— 人生·存在 ——
+  {id:'q69', sec:'人生·存在', secTone:4, title:'你觉得人生的意义，更多来自哪里？', type:'single',
+   options:[
+     {label:'自己赋予的，活成自己想要的样子', map:{meaning:1, independent:1, clear:1}},
+     {label:'体验和感受这一路的过程', map:{curious:1, meaning:1}},
+     {label:'对别人、对社会有点用', map:{warm:1, grateful:1}},
+     {label:'说实话，还没想明白', map:{goal:1, meaning:1, doubt:1}}
+   ]},
+  {id:'q70', sec:'人生·存在', secTone:4, title:'想到「死亡」这个话题，你更接近哪种感受？', type:'single',
+   options:[
+     {label:'有点害怕，所以想活得用力些', map:{meaning:1, proactive:1}},
+     {label:'坦然，是自然规律', map:{relaxed:1, clear:1}},
+     {label:'焦虑，觉得一切终将归零', map:{meaning:2, doubt:1}},
+     {label:'尽量不去想', map:{choice:1, burnout:1}}
+   ]},
+  {id:'q71', sec:'人生·存在', secTone:4, title:'你眼里的「成功」更接近哪一种？', type:'single',
+   options:[
+     {label:'外在：有钱、有名、有地位', map:{money:2, involution:1}},
+     {label:'内在：内心平静、活得自洽', map:{meaning:1, relaxed:1, grateful:1}},
+     {label:'做成了自己热爱的事', map:{meaning:2, clear:1}},
+     {label:'让家人过得好', map:{family:1, money:1, warm:1}}
+   ]},
+  {id:'q72', sec:'人生·存在', secTone:4, title:'你觉得幸福更多来自哪里？', type:'single',
+   options:[
+     {label:'亲密关系（家人、朋友、爱人）', map:{warm:2}},
+     {label:'自我实现与成就感', map:{proactive:1, confident:1, clear:1}},
+     {label:'自由地做想做的事', map:{independent:2}},
+     {label:'稳定、没有烦心事', map:{relaxed:1, money:1}}
+   ]},
+  {id:'q73', sec:'人生·存在', secTone:4, title:'夜深人静问自己「活着图什么」，你的答案更接近？', type:'single',
+   options:[
+     {label:'图一场体验，酸甜苦辣都算数', map:{meaning:1, curious:1, sunny:1}},
+     {label:'图被爱，也去爱别人', map:{warm:2}},
+     {label:'图做出点名堂，证明自己', map:{gap:1, proactive:1}},
+     {label:'暂时没有答案', map:{meaning:2, goal:1}}
+   ]},
+  {id:'q74', sec:'人生·存在', secTone:4, title:'面对人生的无常（意外、失去），你的态度是？', type:'single',
+   options:[
+     {label:'接受它，尽力过好当下', map:{resilient:2, relaxed:1}},
+     {label:'提前规划，降低风险', map:{clear:1, money:1}},
+     {label:'有点害怕，常常焦虑', map:{doubt:1, involution:1}},
+     {label:'不去想，想了也没用', map:{burnout:1}}
+   ]},
+  {id:'q75', sec:'人生·存在', secTone:4, title:'你会不会为「时间不够用」而焦虑？', type:'single',
+   options:[
+     {label:'经常，总怕来不及', map:{involution:2, perfect:1}},
+     {label:'偶尔，忙起来会', map:{involution:1}},
+     {label:'不会，按自己的节奏来', map:{relaxed:2}},
+     {label:'反正也追不上，懒得焦虑', map:{burnout:1, scattered:1}}
+   ]},
+  {id:'q76', sec:'人生·存在', secTone:4, title:'你会频繁为过去的选择后悔吗？', type:'single',
+   options:[
+     {label:'经常，总想「当初要是……」', map:{doubt:2, choice:1, gap:1}},
+     {label:'偶尔，但很快就翻篇', map:{resilient:1, relaxed:1}},
+     {label:'很少，选都选了', map:{decisive:1, confident:1}},
+     {label:'不后悔，但会复盘', map:{clear:1, proactive:1}}
+   ]},
+  {id:'q77', sec:'人生·存在', secTone:4, title:'你对自己的要求，更多来自？', type:'single',
+   options:[
+     {label:'自己内心的标准', map:{independent:1, clear:1}},
+     {label:'外界（父母、社会、同龄人）的标准', map:{involution:1, family:1, doubt:1}},
+     {label:'两者都有，常常打架', map:{choice:1, perfect:1, doubt:1}},
+     {label:'好像没什么要求', map:{burnout:1, scattered:1}}
+   ]},
+  {id:'q78', sec:'人生·存在', secTone:4, title:'你现在，还容易感到纯粹的快乐吗？', type:'single',
+   options:[
+     {label:'挺容易的，小事就能开心', map:{sunny:2, grateful:1}},
+     {label:'偶尔，得靠特定的事', map:{warm:1}},
+     {label:'越来越难了', map:{burnout:1, meaning:1}},
+     {label:'很久没有过那种感觉了', map:{burnout:2, meaning:1}}
+   ]},
+
+  // —— 三观·价值 ——
+  {id:'q79', sec:'三观·价值', secTone:1, title:'你相信「努力就有回报」吗？', type:'single',
+   options:[
+     {label:'相信，天道酬勤', map:{proactive:1, clear:1, resilient:1}},
+     {label:'半信半疑，努力不一定有回报', map:{gap:1, choice:1}},
+     {label:'不太信，出身和运气更关键', map:{gap:2, doubt:1}},
+     {label:'没想过', map:{}}
+   ]},
+  {id:'q80', sec:'三观·价值', secTone:1, title:'面对「不合理的规定」，你更倾向？', type:'single',
+   options:[
+     {label:'遵守，规则就是规则', map:{clear:1}},
+     {label:'灵活变通，绕过去', map:{independent:1, choice:1}},
+     {label:'想办法改变它', map:{proactive:1, decisive:1}},
+     {label:'内心反抗，但不敢动', map:{doubt:1, family:1}}
+   ]},
+  {id:'q81', sec:'三观·价值', secTone:1, title:'个人利益和集体利益冲突时，你更倾向？', type:'single',
+   options:[
+     {label:'优先集体，大局为重', map:{warm:1, clear:1}},
+     {label:'优先自己，先顾好自己', map:{independent:1}},
+     {label:'看情况，尽量两全', map:{choice:1}},
+     {label:'很纠结，都不愿牺牲', map:{choice:2, doubt:1}}
+   ]},
+  {id:'q82', sec:'三观·价值', secTone:1, title:'你理解的「自由」更多是？', type:'single',
+   options:[
+     {label:'想做什么就做什么', map:{independent:2}},
+     {label:'不想做什么就能不做', map:{independent:1, relaxed:1}},
+     {label:'心灵和思想不被束缚', map:{meaning:1, curious:1}},
+     {label:'有安全感、有底气的选择权', map:{money:1, relaxed:1}}
+   ]},
+  {id:'q83', sec:'三观·价值', secTone:1, title:'面对道德困境，你更看重？', type:'single',
+   options:[
+     {label:'结果好不好', map:{proactive:1, choice:1}},
+     {label:'过程对不对、合不合原则', map:{clear:1, decisive:1}},
+     {label:'别人的感受', map:{warm:1}},
+     {label:'自己良心上过得去', map:{meaning:1, confident:1}}
+   ]},
+  {id:'q84', sec:'三观·价值', secTone:1, title:'你觉得「善良」在现实里是？', type:'single',
+   options:[
+     {label:'是种力量，要坚守', map:{warm:2, grateful:1}},
+     {label:'容易被欺负，得带点锋芒', map:{independent:1, resilient:1}},
+     {label:'看对象，不值得对谁都好', map:{choice:1}},
+     {label:'说不好，社会太复杂', map:{doubt:1, scattered:1}}
+   ]},
+  {id:'q85', sec:'三观·价值', secTone:1, title:'你对钱的态度是？', type:'single',
+   options:[
+     {label:'很重要，是安全感和自由的底气', map:{money:2}},
+     {label:'够用就好，别被钱绑架', map:{relaxed:1, grateful:1, meaning:1}},
+     {label:'钱是工具，用于实现目标', map:{clear:1, proactive:1}},
+     {label:'说不清，又爱又怕', map:{money:1, doubt:1}}
+   ]},
+  {id:'q86', sec:'三观·价值', secTone:1, title:'面对「消费主义」和「买买买」，你？', type:'single',
+   options:[
+     {label:'容易被种草，靠消费解压', map:{money:1, burnout:1}},
+     {label:'理性消费，量入为出', map:{clear:1, money:1}},
+     {label:'极简，够用就行', map:{independent:1, relaxed:1}},
+     {label:'喜欢就买，开心最重要', map:{sunny:1, money:1}}
+   ]},
+  {id:'q87', sec:'三观·价值', secTone:1, title:'你对老师、长辈、权威的态度是？', type:'single',
+   options:[
+     {label:'尊重，但有自己的判断', map:{independent:1, clear:1}},
+     {label:'比较顺从，听话惯了', map:{family:1, choice:1}},
+     {label:'常质疑，不愿盲从', map:{independent:2, decisive:1}},
+     {label:'害怕，不敢违抗', map:{doubt:1, family:1}}
+   ]},
+  {id:'q88', sec:'三观·价值', secTone:1, title:'你怎么看「为你好，所以管着你」？', type:'single',
+   options:[
+     {label:'反感，我需要自己的空间', map:{independent:2}},
+     {label:'理解，但希望有边界', map:{warm:1, choice:1, family:1}},
+     {label:'接受，家人确实为我好', map:{family:1, grateful:1}},
+     {label:'习惯了，懒得争', map:{burnout:1, family:1}}
+   ]},
+  {id:'q89', sec:'三观·价值', secTone:1, title:'你认为很多事情有没有「标准答案」？', type:'single',
+   options:[
+     {label:'大多数有，非黑即白', map:{clear:1}},
+     {label:'多数没有，因人因境而异', map:{curious:1, choice:1}},
+     {label:'重要的事有，小事没有', map:{decisive:1, choice:1}},
+     {label:'越来越分不清对错了', map:{doubt:1, meaning:1}}
+   ]},
+  {id:'q90', sec:'三观·价值', secTone:1, title:'什么情况下，你愿意放弃自己的底线？', type:'single',
+   options:[
+     {label:'基本不会，底线就是底线', map:{clear:2, confident:1}},
+     {label:'为了家人，可能妥协', map:{family:1, warm:1}},
+     {label:'为了现实利益，可能松一点', map:{money:1, choice:1}},
+     {label:'说不清，没认真想过', map:{}}
+   ]},
+
+  // —— 理想·远方 ——
+  {id:'q91', sec:'理想·远方', secTone:4, title:'你理想中的人生，最核心的关键词是？', type:'single',
+   options:[
+     {label:'自由', map:{independent:2}},
+     {label:'热爱', map:{meaning:2}},
+     {label:'安稳', map:{relaxed:1, money:1}},
+     {label:'影响世界', map:{proactive:1, curious:1, clear:1}}
+   ]},
+  {id:'q92', sec:'理想·远方', secTone:4, title:'当理想撞上现实，你更可能？', type:'single',
+   options:[
+     {label:'死磕理想，哪怕吃苦', map:{meaning:2, resilient:1}},
+     {label:'先向现实低头，再曲线追梦', map:{choice:1, proactive:1}},
+     {label:'放弃理想，务实点', map:{money:1, gap:1}},
+     {label:'还没到必须选的时候，先拖着', map:{goal:1, choice:1}}
+   ]},
+  {id:'q93', sec:'理想·远方', secTone:4, title:'如果有一天不在了，你最希望留下什么？', type:'single',
+   options:[
+     {label:'作品、事业，让人记得', map:{clear:1, proactive:1, curious:1}},
+     {label:'一段段好的关系', map:{warm:2}},
+     {label:'一点改变，哪怕很小', map:{meaning:1, grateful:1}},
+     {label:'没想过，太远了', map:{}}
+   ]},
+  {id:'q94', sec:'理想·远方', secTone:4, title:'你怎么看「认清生活真相后依然热爱生活」？', type:'single',
+   options:[
+     {label:'认同，这是真正的勇敢', map:{resilient:2, meaning:1}},
+     {label:'美好，但太难做到了', map:{doubt:1}},
+     {label:'有点鸡汤，现实没这么浪漫', map:{scattered:1, money:1}},
+     {label:'我好像正缺这种热爱', map:{burnout:1, meaning:1}}
+   ]},
+  {id:'q95', sec:'理想·远方', secTone:4, title:'你相信「大器晚成」吗？', type:'single',
+   options:[
+     {label:'相信，人生是长跑', map:{resilient:1, relaxed:1}},
+     {label:'半信，但怕自己等不起', map:{gap:1, involution:1}},
+     {label:'不信，机会就那几年', map:{involution:1, money:1}},
+     {label:'无所谓，走一步看一步', map:{goal:1, choice:1}}
+   ]},
+  {id:'q96', sec:'理想·远方', secTone:4, title:'你能接受自己「平凡地过一生」吗？', type:'single',
+   options:[
+     {label:'能，平凡也有平凡的幸福', map:{grateful:2, relaxed:1, warm:1}},
+     {label:'能接受，但心有不甘', map:{gap:1, meaning:1}},
+     {label:'不太能，想要不平凡', map:{proactive:1, involution:1, gap:1}},
+     {label:'说不清，又怕平凡又怕折腾', map:{choice:1, doubt:1}}
+   ]},
+  {id:'q97', sec:'理想·远方', secTone:4, title:'你找到自己「真正热爱」的事了吗？', type:'single',
+   options:[
+     {label:'找到了，并且正在做', map:{clear:2, meaning:1}},
+     {label:'大概知道，但还没开始', map:{goal:1, proactive:1}},
+     {label:'还在找，越找越迷茫', map:{goal:2, meaning:1, doubt:1}},
+     {label:'好像对什么都不热爱', map:{burnout:1, meaning:1}}
+   ]},
+  {id:'q98', sec:'理想·远方', secTone:4, title:'你害怕自己将来有什么遗憾？', type:'single',
+   options:[
+     {label:'怕没做真正想做的事', map:{meaning:1, goal:1}},
+     {label:'怕辜负了家人的期待', map:{family:2}},
+     {label:'怕一事无成', map:{doubt:1, gap:1, money:1}},
+     {label:'怕孤独终老', map:{lonely:1, warm:1}}
+   ]},
+  {id:'q99', sec:'理想·远方', secTone:4, title:'想象十年后的自己，你更希望看到？', type:'single',
+   options:[
+     {label:'事业有成、财务自由', map:{money:1, clear:1, proactive:1}},
+     {label:'家庭和睦、内心安定', map:{warm:1, family:1, grateful:1}},
+     {label:'还在探索、不被定义', map:{curious:1, independent:1}},
+     {label:'只要能健康快乐就好', map:{sunny:1, relaxed:1}}
+   ]},
+  {id:'q100', sec:'理想·远方', secTone:4, title:'你觉得自己有「为梦想不顾一切」的勇气吗？', type:'single',
+   options:[
+     {label:'有，敢豁出去', map:{decisive:2, proactive:1}},
+     {label:'有，但会留后路', map:{choice:1, resilient:1}},
+     {label:'没有，顾虑太多', map:{doubt:1, family:1}},
+     {label:'没梦想，谈不上勇气', map:{goal:1, meaning:1}}
+   ]},
+
+  // —— 宏大叙事 ——
+  {id:'q101', sec:'宏大叙事', secTone:1, title:'你如何看待「我们所处的这个时代」？', type:'single',
+   options:[
+     {label:'机会多，大有可为', map:{proactive:1, sunny:1}},
+     {label:'竞争残酷，普通人太难', map:{involution:1, money:1, gap:1}},
+     {label:'混乱但充满可能', map:{curious:1, choice:1}},
+     {label:'说不清，感觉跟自己关系不大', map:{burnout:1, scattered:1}}
+   ]},
+  {id:'q102', sec:'宏大叙事', secTone:1, title:'个人的命运和国家的命运，你觉得？', type:'single',
+   options:[
+     {label:'紧密相连，国好家才好', map:{clear:1, grateful:1}},
+     {label:'有关系，但我更想顾好自己', map:{independent:1, choice:1}},
+     {label:'宏大叙事离普通人的生活有点远', map:{meaning:1, scattered:1}},
+     {label:'没想过', map:{}}
+   ]},
+  {id:'q103', sec:'宏大叙事', secTone:1, title:'你对「历史」的态度是？', type:'single',
+   options:[
+     {label:'感兴趣，读史能明智', map:{curious:1, clear:1}},
+     {label:'尊重，但离我太远', map:{relaxed:1}},
+     {label:'有点沉重，不想深究', map:{choice:1}},
+     {label:'没兴趣', map:{}}
+   ]},
+  {id:'q104', sec:'宏大叙事', secTone:1, title:'想到「人类文明几千年」，你的感受是？', type:'single',
+   options:[
+     {label:'震撼又渺小，更想活出点意义', map:{meaning:1, curious:1}},
+     {label:'敬畏，珍惜当下', map:{grateful:1, relaxed:1}},
+     {label:'宏大，但跟我没什么关系', map:{scattered:1, burnout:1}},
+     {label:'没感觉', map:{}}
+   ]},
+  {id:'q105', sec:'宏大叙事', secTone:1, title:'面对 AI 和科技浪潮，你更可能？', type:'single',
+   options:[
+     {label:'兴奋，想拥抱、学习它', map:{curious:2, proactive:1}},
+     {label:'焦虑，怕被取代', map:{involution:1, money:1, doubt:1}},
+     {label:'观望，看看再说', map:{choice:1, relaxed:1}},
+     {label:'无感，跟我关系不大', map:{scattered:1}}
+   ]},
+  {id:'q106', sec:'宏大叙事', secTone:1, title:'你对人类未来的判断是？', type:'single',
+   options:[
+     {label:'乐观，会越来越好', map:{sunny:2}},
+     {label:'悲观，问题只会更多', map:{doubt:1, meaning:1}},
+     {label:'不好不坏，且行且看', map:{relaxed:1, choice:1}},
+     {label:'不关心，过好当下', map:{burnout:1}}
+   ]},
+  {id:'q107', sec:'宏大叙事', secTone:1, title:'在时代洪流里，你觉得个人能做什么？', type:'single',
+   options:[
+     {label:'顺势而为，抓住机会', map:{proactive:1, clear:1}},
+     {label:'守住自己的一亩三分地', map:{independent:1, relaxed:1}},
+     {label:'尽力改变，哪怕微小', map:{meaning:1, warm:1}},
+     {label:'什么都做不了，很无力', map:{doubt:2, burnout:1}}
+   ]},
+  {id:'q108', sec:'宏大叙事', secTone:1, title:'你更愿意被「宏大叙事」感动，还是被「小确幸」打动？', type:'single',
+   options:[
+     {label:'宏大叙事，热血、有力量', map:{meaning:1, proactive:1}},
+     {label:'小确幸，具体、温暖', map:{warm:1, grateful:1, relaxed:1}},
+     {label:'都要，缺一不可', map:{choice:1}},
+     {label:'都不太能打动我', map:{burnout:1, scattered:1}}
+   ]},
+  {id:'q109', sec:'宏大叙事', secTone:1, title:'你怎么看「无名英雄」「平凡岗位上的坚守」？', type:'single',
+   options:[
+     {label:'很敬佩，平凡也伟大', map:{grateful:1, warm:1, clear:1}},
+     {label:'值得尊敬，但我不想那样过', map:{independent:1, proactive:1}},
+     {label:'是宣传需要，听听就好', map:{scattered:1, money:1}},
+     {label:'没感觉', map:{}}
+   ]},
+  {id:'q110', sec:'宏大叙事', secTone:1, title:'你觉得自己被「时代」裹挟着走吗？', type:'single',
+   options:[
+     {label:'是，身不由己', map:{involution:2, doubt:1}},
+     {label:'有点，但还在挣扎', map:{choice:1, gap:1}},
+     {label:'没有，我有自己的节奏', map:{independent:1, relaxed:1}},
+     {label:'没意识到', map:{}}
+   ]},
+
+  // —— 社会·问题 ——
+  {id:'q111', sec:'社会·问题', secTone:2, title:'想到「贫富差距」，你的感受是？', type:'single',
+   options:[
+     {label:'愤怒，觉得不公平', map:{gap:1, meaning:1}},
+     {label:'无奈，但也正常', map:{relaxed:1, choice:1}},
+     {label:'焦虑，怕自己掉到底层', map:{money:2, involution:1}},
+     {label:'想努力改变它', map:{proactive:1, warm:1, meaning:1}}
+   ]},
+  {id:'q112', sec:'社会·问题', secTone:2, title:'你怎么看「寒门难出贵子」？', type:'single',
+   options:[
+     {label:'认同，教育资源确实不均', map:{gap:2}},
+     {label:'不认同，努力仍有出路', map:{resilient:1, proactive:1}},
+     {label:'半认同，看个人也看环境', map:{choice:1}},
+     {label:'没想过', map:{}}
+   ]},
+  {id:'q113', sec:'社会·问题', secTone:2, title:'想到「房子、房贷」，你的感受是？', type:'single',
+   options:[
+     {label:'压力山大，喘不过气', map:{money:3, involution:1}},
+     {label:'顺其自然，量力而行', map:{relaxed:1, money:1}},
+     {label:'一定要有，是安全感', map:{money:2, family:1}},
+     {label:'想租房过，不被绑住', map:{independent:1, choice:1}}
+   ]},
+  {id:'q114', sec:'社会·问题', secTone:2, title:'看到「少子化、老龄化」的讨论，你？', type:'single',
+   options:[
+     {label:'有点焦虑，关系到未来', map:{money:1, involution:1}},
+     {label:'理解大家的难处，不生也正常', map:{choice:1, warm:1}},
+     {label:'无所谓，离我太远', map:{relaxed:1}},
+     {label:'反而松口气，竞争可能变少', map:{independent:1, curious:1}}
+   ]},
+  {id:'q115', sec:'社会·问题', secTone:2, title:'面对「就业难」，你的判断是？', type:'single',
+   options:[
+     {label:'确实难，得提前布局', map:{proactive:1, money:1, clear:1}},
+     {label:'很焦虑，看不到出路', map:{money:2, doubt:1, involution:1}},
+     {label:'总有口饭吃，不用太慌', map:{relaxed:1, sunny:1}},
+     {label:'走一步看一步', map:{goal:1, choice:1}}
+   ]},
+  {id:'q116', sec:'社会·问题', secTone:2, title:'看到青少年抑郁、心理健康问题增多，你？', type:'single',
+   options:[
+     {label:'感同身受，自己也在扛', map:{burnout:1, meaning:1, lonely:1}},
+     {label:'关注，也提醒自己别太拼', map:{resilient:1, warm:1}},
+     {label:'觉得要重视，但不了解', map:{choice:1}},
+     {label:'觉得有点被夸大了', map:{scattered:1, independent:1}}
+   ]},
+  {id:'q117', sec:'社会·问题', secTone:2, title:'对性别议题（职场、婚姻、平权），你的态度是？', type:'single',
+   options:[
+     {label:'关注，希望更公平', map:{meaning:1, warm:1, clear:1}},
+     {label:'有关注，但不站队', map:{choice:1, relaxed:1}},
+     {label:'觉得吵得太厉害，很累', map:{burnout:1, scattered:1}},
+     {label:'没想过', map:{}}
+   ]},
+  {id:'q118', sec:'社会·问题', secTone:2, title:'你如何看待网络上的戾气和争吵？', type:'single',
+   options:[
+     {label:'很反感，尽量少看', map:{meaning:1, clear:1}},
+     {label:'偶尔忍不住参与', map:{choice:1, involution:1}},
+     {label:'看个热闹，无所谓', map:{relaxed:1}},
+     {label:'有点被影响，容易生气', map:{doubt:1, involution:1}}
+   ]},
+  {id:'q119', sec:'社会·问题', secTone:2, title:'你对「陌生人、社会」的信任度是？', type:'single',
+   options:[
+     {label:'愿意相信，好人居多', map:{warm:1, sunny:1}},
+     {label:'谨慎，防人之心不可无', map:{choice:1, money:1}},
+     {label:'不太信任，社会复杂', map:{doubt:1, lonely:1}},
+     {label:'说不清', map:{}}
+   ]},
+  {id:'q120', sec:'社会·问题', secTone:2, title:'你期待的未来社会，最看重？', type:'single',
+   options:[
+     {label:'更公平', map:{meaning:1, clear:1}},
+     {label:'更自由', map:{independent:1}},
+     {label:'更有保障', map:{money:1, family:1}},
+     {label:'更有人情味', map:{warm:1}}
+   ]},
+  {id:'q121', sec:'社会·问题', secTone:2, title:'面对社会问题，你觉得个人该？', type:'single',
+   options:[
+     {label:'关注并力所能及地行动', map:{proactive:1, warm:1, meaning:1}},
+     {label:'管好自己就行', map:{independent:1}},
+     {label:'想参与但不知道怎么做', map:{goal:1, choice:1}},
+     {label:'不关我的事', map:{scattered:1}}
+   ]},
+  {id:'q122', sec:'社会·问题', secTone:2, title:'你相信「努力能改变阶层」吗？', type:'single',
+   options:[
+     {label:'相信，这是前进的动力', map:{proactive:2, resilient:1}},
+     {label:'越来越难，但不想放弃', map:{gap:1, involution:1}},
+     {label:'不太信，太靠命和资源', map:{gap:2, doubt:1}},
+     {label:'没想过阶层的事', map:{}}
+   ]},
+  {id:'q123', sec:'社会·问题', secTone:2, title:'你怎么看年轻人「躺平」现象？', type:'single',
+   options:[
+     {label:'理解，是无声的反抗', map:{meaning:1, choice:1}},
+     {label:'认同，我也想躺', map:{burnout:2, relaxed:1}},
+     {label:'不认同，是逃避和不负责', map:{proactive:1, clear:1}},
+     {label:'无所谓，各有各的活法', map:{relaxed:1}}
+   ]},
+  {id:'q124', sec:'社会·问题', secTone:2, title:'你怎么看「情绪价值」这个词的流行？', type:'single',
+   options:[
+     {label:'很有共鸣，情绪也需要被照顾', map:{warm:1, meaning:1}},
+     {label:'有点道理，但别过度依赖', map:{choice:1, independent:1}},
+     {label:'太矫情，不如来点实际的', map:{money:1, scattered:1}},
+     {label:'没关注', map:{}}
+   ]},
+
+  // —— 社会·热点 ——
+  {id:'q125', sec:'社会·热点', secTone:3, title:'你怎么看「考公考编热」？', type:'single',
+   options:[
+     {label:'理解，稳定压倒一切', map:{money:1, family:1, relaxed:1}},
+     {label:'我也在准备', map:{money:2, choice:1}},
+     {label:'不想，不想一眼望到头', map:{independent:1, curious:1}},
+     {label:'说不清，大家都在考', map:{involution:1, choice:1}}
+   ]},
+  {id:'q126', sec:'社会·热点', secTone:3, title:'对「全民考研」，你的看法是？', type:'single',
+   options:[
+     {label:'值得，学历还是敲门砖', map:{involution:1, money:1}},
+     {label:'是逃避就业的一种方式', map:{meaning:1, choice:1}},
+     {label:'我也在考研路上', map:{involution:1, goal:1}},
+     {label:'看个人，不必盲从', map:{independent:1, clear:1}}
+   ]},
+  {id:'q127', sec:'社会·热点', secTone:3, title:'你如何对待短视频、直播？', type:'single',
+   options:[
+     {label:'经常刷，停不下来', map:{burnout:1, scattered:1}},
+     {label:'当娱乐，会控制时间', map:{relaxed:1, choice:1}},
+     {label:'基本不刷，觉得浪费时间', map:{clear:1, proactive:1}},
+     {label:'想做，想靠它赚钱', map:{money:1, curious:1}}
+   ]},
+  {id:'q128', sec:'社会·热点', secTone:3, title:'想到 AI 可能取代很多工作，你？', type:'single',
+   options:[
+     {label:'赶紧学 AI，跟上', map:{proactive:1, curious:1}},
+     {label:'焦虑，不知道学什么才有用', map:{doubt:1, involution:1, money:1}},
+     {label:'觉得人的创造力取代不了', map:{confident:1, meaning:1}},
+     {label:'没想过', map:{}}
+   ]},
+  {id:'q129', sec:'社会·热点', secTone:3, title:'你怎么看待结婚生子？', type:'single',
+   options:[
+     {label:'向往，想拥有', map:{warm:1, family:1}},
+     {label:'随缘，不强求', map:{relaxed:1, choice:1}},
+     {label:'不太想，成本太高', map:{money:1, independent:1}},
+     {label:'没想过', map:{}}
+   ]},
+  {id:'q130', sec:'社会·热点', secTone:3, title:'你认为「原生家庭」对一个人的影响？', type:'single',
+   options:[
+     {label:'很大，甚至决定一生', map:{family:2, doubt:1}},
+     {label:'有影响，但可以自己走出来', map:{resilient:1, independent:1}},
+     {label:'有影响，但要学会和解', map:{warm:1, grateful:1}},
+     {label:'说不清', map:{choice:1}}
+   ]},
+  {id:'q131', sec:'社会·热点', secTone:3, title:'你怎么看「精致利己主义」？', type:'single',
+   options:[
+     {label:'反感，太算计了', map:{warm:1, meaning:1}},
+     {label:'现实所迫，可以理解', map:{money:1, choice:1}},
+     {label:'我也是，利己是本能', map:{money:1, independent:1}},
+     {label:'说不清', map:{}}
+   ]},
+  {id:'q132', sec:'社会·热点', secTone:3, title:'你对追星、饭圈文化的态度是？', type:'single',
+   options:[
+     {label:'投入，是精神寄托', map:{warm:1, meaning:1}},
+     {label:'适度，图个开心', map:{relaxed:1, sunny:1}},
+     {label:'不理解，觉得浪费时间', map:{clear:1, money:1}},
+     {label:'没感觉', map:{}}
+   ]},
+  {id:'q133', sec:'社会·热点', secTone:3, title:'「躺平」和「奋斗」，你更认同哪种活法？', type:'single',
+   options:[
+     {label:'奋斗，人生在于折腾', map:{proactive:1, meaning:1}},
+     {label:'躺平，怎么舒服怎么来', map:{relaxed:1, burnout:1}},
+     {label:'平衡，该拼拼该歇歇', map:{choice:1, resilient:1}},
+     {label:'还在摇摆', map:{goal:1, doubt:1}}
+   ]},
+  {id:'q134', sec:'社会·热点', secTone:3, title:'你怎么看「社交降级」「断亲」现象？', type:'single',
+   options:[
+     {label:'理解，无效社交不如独处', map:{independent:1, choice:1}},
+     {label:'有点担心，人情越来越淡', map:{warm:1, lonely:1}},
+     {label:'我也在主动减少社交', map:{lonely:1, burnout:1}},
+     {label:'没关注', map:{}}
+   ]},
+  {id:'q135', sec:'社会·热点', secTone:3, title:'你觉得「内卷」有解吗？', type:'single',
+   options:[
+     {label:'有，换赛道、找差异', map:{independent:1, proactive:1, curious:1}},
+     {label:'有，但需要制度改变', map:{meaning:1, clear:1}},
+     {label:'无解，只能跟着卷', map:{involution:2}},
+     {label:'我已经放弃思考了', map:{burnout:1}}
+   ]},
+  {id:'q136', sec:'社会·热点', secTone:3, title:'大城市高房价高压力，你会怎么选？', type:'single',
+   options:[
+     {label:'留下，机会比压力大', map:{proactive:1, money:1, gap:1}},
+     {label:'离开，回小城市或老家', map:{family:1, relaxed:1}},
+     {label:'纠结，走留都难', map:{choice:2, doubt:1}},
+     {label:'还没到这个阶段', map:{}}
+   ]},
+  {id:'q137', sec:'社会·热点', secTone:3, title:'你怎么看「人人做自媒体、搞个人 IP」？', type:'single',
+   options:[
+     {label:'也想做，是普通人的机会', map:{curious:1, proactive:1, money:1}},
+     {label:'太卷了，红海一片', map:{involution:1, money:1}},
+     {label:'不喜欢，不想把自己晒出来', map:{independent:1}},
+     {label:'没兴趣', map:{}}
+   ]},
+  {id:'q138', sec:'社会·热点', secTone:3, title:'你觉得「幸福」这件事，最重要的是？', type:'single',
+   options:[
+     {label:'健康的身心', map:{resilient:1, sunny:1}},
+     {label:'稳定的物质基础', map:{money:1, family:1}},
+     {label:'有爱和陪伴', map:{warm:2}},
+     {label:'有追求和意义', map:{meaning:1, clear:1}}
+   ]}
+];
+
+/* ============ 状态 ============ */
+const state = { idx:0, answers:{}, maxIdx:QUESTIONS.length-1, phase:'core', total:0 };
+const reflect = { picked:null, text:'', submitted:false };
+const app = document.getElementById('app');
+const progressBar = document.getElementById('progressBar');
+
+// 题序打乱：每次开始作答时随机排列题目顺序
+let order = QUESTIONS.slice();
+function shuffle(arr){ const a=arr.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+
+// —— 分支出题：核心题人人作答，后续题按前面选择动态生成 ——
+const CORE_SECS = ['当下状态','迷茫来源','价值观排序','理想人生画像','自我认知','行动意愿','支持系统','你的光'];
+const CORE_QUESTIONS = QUESTIONS.filter(q=>CORE_SECS.includes(q.sec));
+const BRANCH_QUESTIONS = QUESTIONS.filter(q=>!CORE_SECS.includes(q.sec));
+const BRANCH_COUNT = 27;
+
+// —— 文艺提示：犹豫时若隐若现，选择后贴合选项浮现 ——
+const HESITATE_LINES = [
+  '你也会犹豫吗？这没什么。',
+  '这一刻的沉默，也是一种回答。',
+  '不用急着选，慢慢想。',
+  '有些题，就是值得多想一会儿。',
+  '别怕选错，这里没有标准答案。',
+  '会犹豫，说明你在认真对待自己。',
+  '停一停，也没有关系。',
+  '如果它难住了你，那它大概很重要。'
+];
+const ECHO_GENERIC = [
+  '你的答案，只有你自己知道。',
+  '这一刻，你听见了心里的声音。',
+  '每一个选择，都是你走向自己的路。',
+  '选你所愿，而非你所怕。',
+  '有些坚定，是在选择里长出来的。',
+  '你比自己以为的更了解自己。'
+];
+const TYPE_ECHO = {
+  goal:'有些路，是先走了才慢慢清晰的。',
+  meaning:'意义不是找到的，是活出来的。',
+  involution:'你跑得太快，都忘了当初为什么出发。',
+  choice:'犹豫的代价，常常比选错更大。',
+  gap:'落差，是因为你心里还装着更高的山。',
+  doubt:'你比你以为的，更值得被相信。',
+  family:'爱他们，也可以成为你自己。',
+  burnout:'累了就先歇一歇，天不会塌。',
+  lonely:'孤独不是缺陷，是你在等一个懂你的人。',
+  perfect:'够好，就已经很好了。',
+  scattered:'兴趣多不是迷路，是另一种走法。',
+  money:'钱是渡河的船，不是河的终点。',
+  sunny:'你一笑，世界就亮了几分。',
+  relaxed:'松弛，是给自己留的一口气。',
+  grateful:'知足的人，走到哪里都是春天。',
+  clear:'眼里有光，脚下就有路。',
+  proactive:'出发，是治愈迷茫最好的药。',
+  decisive:'落子无悔，才是真的勇敢。',
+  confident:'你不需要所有人的掌声。',
+  independent:'你的节奏，由你自己来定。',
+  warm:'温柔的人，会先被世界温柔以待。',
+  resilient:'扛过去，你就又长高了一寸。',
+  energetic:'你的热气腾腾，就是你的光。',
+  curious:'好奇，是永不熄灭的少年气。'
+};
+let echoTimer = null, echoHideTimer = null;
+function pickRand(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+function echoForOption(o){
+  if(o && o.map){
+    let best=null, bestV=-1;
+    for(const k in o.map){ if(o.map[k]>bestV){ bestV=o.map[k]; best=k; } }
+    if(best && TYPE_ECHO[best]) return TYPE_ECHO[best];
+  }
+  return pickRand(ECHO_GENERIC);
+}
+function showEcho(text){
+  const el = document.getElementById('echo');
+  if(!el) return;
+  clearTimeout(echoTimer); clearTimeout(echoHideTimer);
+  el.textContent = text;
+  el.classList.add('show');
+  echoHideTimer = setTimeout(()=>{ el.classList.remove('show'); }, 3400);
+}
+function qById(id){ return QUESTIONS.find(q=>q.id===id); }
+
+function addMap(scores, map){ if(!map) return; for(const k in map){ scores[k]=(scores[k]||0)+map[k]; } }
+
+/* ============ 渲染 ============ */
+function renderWelcome(){
+  app.innerHTML = `
+  <div class="screen">
+    <div class="hero">
+      <div class="badge">给每一个正在迷茫的你</div>
+      <h1>你想要的，是什么样的人生？</h1>
+      <p class="sub" style="margin-bottom:8px">我们常常忙着赶路，却忘了问一句：<br>这条路的尽头，是不是自己想去的地方。</p>
+      <p class="sub">一份 <em style="color:#3b82c4;font-style:normal;font-weight:700">10–15 分钟</em> 的深度定制问卷。<br>不评判、不说教，只是帮你看清自己此刻的状态、三观，以及你想活出的样子。</p>
+      <div class="meta">
+        <span>约 50 题</span><span>分支出题 · 题序随机</span><span>全匿名 · 结果仅你可见</span>
+      </div>
+      <button class="btn" onclick="start()">开始，认识我自己 →</button>
+    </div>
+    <p class="foot-note">如果此刻的你情绪很低落、需要倾诉，请记得：求助不是软弱。<br>可拨打心理援助热线，或找信任的人聊聊。</p>
+  </div>`;
+}
+
+function start(){
+  state.idx=0; state.answers={}; state.phase='core';
+  state.total = CORE_QUESTIONS.length + BRANCH_COUNT;
+  reflect.picked=null; reflect.text=''; reflect.submitted=false;
+  order = shuffle(CORE_QUESTIONS);
+  state.maxIdx = order.length-1;
+  const e=document.getElementById('echo'); if(e){ e.classList.remove('show'); e.textContent=''; }
+  renderQuestion();
+}
+
+function renderQuestion(){
+  if(state.idx > state.maxIdx){ renderResult(); return; }
+  clearTimeout(echoTimer);
+  const q = order[state.idx];
+  const pct = Math.round((state.idx / state.total) * 100);
+  progressBar.style.width = pct + '%';
+  const tone = q.secTone===2?'tone2':q.secTone===3?'tone3':q.secTone===4?'tone4':'';
+  let body = '';
+  const ans = state.answers[q.id];
+
+  if(q.type==='single' || q.type==='scene'){
+    body = `<div class="opts">` + q.options.map((o,i)=>`
+      <button class="opt ${ans===i?'sel':''}" onclick="pick('${q.id}',${i})">
+        <span class="mark"></span><span>${o.label}</span>
+      </button>`).join('') + `</div>`;
+  } else if(q.type==='multi'){
+    const sel = ans || [];
+    body = `<div class="opts">` + q.options.map((o,i)=>`
+      <button class="opt multi ${sel.includes(i)?'sel':''}" onclick="pickMulti('${q.id}',${i},${q.max||999})">
+        <span class="mark"></span><span>${o.label}</span>
+      </button>`).join('') + `</div>`;
+  } else if(q.type==='tradeoffs'){
+    const sel = ans || [null,null,null];
+    body = `<div class="trade">` + q.pairs.map((p,pi)=>`
+      <div class="trade-item">
+        <div class="trade-label">第 ${pi+1} 组</div>
+        <div class="trade-pair">
+          <div class="trade-opt ${sel[pi]===0?'sel':''}" onclick="pickTrade('${q.id}',${pi},0)">${p.a.label}</div>
+          <div class="trade-vs">VS</div>
+          <div class="trade-opt ${sel[pi]===1?'sel':''}" onclick="pickTrade('${q.id}',${pi},1)">${p.b.label}</div>
+        </div>
+      </div>`).join('') + `</div>`;
+  } else if(q.type==='open'){
+    body = `<textarea placeholder="${q.placeholder||''}" oninput="pickOpen('${q.id}',this.value)">${ans||''}</textarea>`;
+  }
+
+  const isLast = state.idx===state.maxIdx && state.phase==='branch';
+  const canNext = isAnswered(q, ans);
+  app.innerHTML = `
+  <div class="screen">
+    <div class="q-card">
+      <div class="q-index">${state.idx+1} / ${state.total}</div>
+      <div class="q-sec ${tone}"><span class="dot"></span>${q.sec}</div>
+      <div class="q-title">${q.title}</div>
+      ${q.hint?`<div class="q-hint">${q.hint}</div>`:''}
+      ${body}
+      <div class="nav">
+        ${state.idx>0?`<button class="btn ghost" onclick="prev()">← 上一题</button>`:`<button class="btn ghost" style="visibility:hidden">←</button>`}
+        <button class="btn ${isLast?'mint':''}" ${canNext?'':`disabled style="opacity:.45;cursor:not-allowed"`} onclick="next()">${isLast?'生成我的报告 ✨':'下一题 →'}</button>
+      </div>
+    </div>
+  </div>`;
+
+  // 迟迟未选择时，若隐若现地浮出一句
+  echoTimer = setTimeout(()=>{
+    const el = document.getElementById('echo');
+    if(el && !el.classList.contains('show')){ el.textContent = pickRand(HESITATE_LINES); el.classList.add('show'); }
+  }, 4600);
+}
+
+function isAnswered(q, ans){
+  if(q.type==='open') return ans && ans.trim().length>0;
+  if(q.type==='tradeoffs') return (ans||[]).every(v=>v!==null && v!==undefined);
+  if(q.type==='multi') return (ans||[]).length>0;
+  return ans!==null && ans!==undefined;
+}
+
+function pick(id,i){ state.answers[id]=i; const q=qById(id); showEcho(echoForOption(q&&q.options[i])); renderQuestion(); }
+function pickMulti(id,i,max){ let a=state.answers[id]||[]; if(a.includes(i)){ a=a.filter(x=>x!==i); } else { if(a.length<max) a=[...a,i]; } state.answers[id]=a; const q=qById(id); showEcho(echoForOption(q&&q.options[i])); renderQuestion(); }
+function pickTrade(id,pi,val){ let a=state.answers[id]||[null,null,null]; a[pi]=val; state.answers[id]=a; const q=qById(id); const opt=q&&q.pairs[pi]&&(val===0?q.pairs[pi].a:q.pairs[pi].b); showEcho(echoForOption(opt)); renderQuestion(); }
+function pickOpen(id,val){
+  const wasEmpty = !(state.answers[id] && state.answers[id].trim());
+  state.answers[id]=val;
+  // 主观题输入时实时刷新「下一题」按钮状态，避免答完仍按不动
+  const btn = document.querySelector('.nav .btn:not(.ghost)');
+  if(btn){
+    const ok = val && val.trim().length>0;
+    btn.disabled = !ok;
+    btn.style.opacity = ok ? '' : '.45';
+    btn.style.cursor = ok ? '' : 'not-allowed';
+  }
+  if(wasEmpty && val && val.trim().length>0){ showEcho(pickRand(['你在写下自己的答案，很好。','有些话，说出来就是第一步。','写下来，它就不再只是情绪。'])); }
+}
+function next(){
+  state.idx++;
+  if(state.idx > state.maxIdx){
+    if(state.phase==='core'){ beginBranches(); return; }
+    renderResult(); return;
+  }
+  renderQuestion();
+}
+function prev(){ state.idx--; renderQuestion(); }
+
+function branchWeights(scores){
+  const w = {};
+  BAD_KEYS.slice().sort((a,b)=>scores[b]-scores[a]).slice(0,3).forEach((t,i)=> w[t]=[5,3,2][i]);
+  GOOD_KEYS.slice().sort((a,b)=>scores[b]-scores[a]).slice(0,3).forEach((t,i)=> w[t]=[5,3,2][i]);
+  return w;
+}
+function questionKeys(q){
+  const keys = new Set();
+  (q.options||[]).forEach(o=>{ if(o.map) Object.keys(o.map).forEach(k=>keys.add(k)); });
+  (q.pairs||[]).forEach(p=>{ [p.a,p.b].forEach(o=>{ if(o&&o.map) Object.keys(o.map).forEach(k=>keys.add(k)); }); });
+  return [...keys];
+}
+function selectBranches(w){
+  const scored = BRANCH_QUESTIONS.map(q=>{
+    let rel = 0; questionKeys(q).forEach(k=> rel += (w[k]||0));
+    return { q, rel };
+  });
+  scored.sort((a,b)=> b.rel - a.rel);
+  const chosen = scored.slice(0, BRANCH_COUNT).map(x=>x.q);
+  const rest = scored.slice(BRANCH_COUNT).map(x=>x.q);
+  let i = 0;
+  while(chosen.length < BRANCH_COUNT && i < rest.length){ chosen.push(rest[i++]); }
+  return chosen;
+}
+function beginBranches(){
+  const scores = computeScores();
+  const w = branchWeights(scores);
+  const selected = selectBranches(w);
+  state.phase = 'branch';
+  order = order.concat(shuffle(selected));
+  state.maxIdx = order.length - 1;
+  renderQuestion();
+}
+
+/* ============ 结果计算 ============ */
+function computeScores(){
+  const scores = {}; TYPE_KEYS.forEach(t=>scores[t]=0);
+  for(const q of QUESTIONS){
+    const ans = state.answers[q.id];
+    if(ans===null || ans===undefined) continue;
+    if(q.type==='single' || q.type==='scene'){ addMap(scores, q.options[ans]&&q.options[ans].map); }
+    else if(q.type==='multi'){ (ans||[]).forEach(i=>addMap(scores, q.options[i]&&q.options[i].map)); }
+  }
+  return scores;
+}
+
+function extractValues(){
+  const values = [];
+  const q8 = QUESTIONS.find(q=>q.id==='q8');
+  (state.answers['q8']||[]).forEach(i=>{ const o=q8.options[i]; if(o.valueKey) values.push({key:o.valueKey,label:o.label}); });
+  const q9 = QUESTIONS.find(q=>q.id==='q9');
+  (state.answers['q9']||[]).forEach((choice,pi)=>{ if(choice!==null && choice!==undefined){ const p=q9.pairs[pi][choice===0?'a':'b']; values.push({key:p.valueKey,label:p.label}); } });
+  return values;
+}
+
+function energyLevel(){
+  const a16 = state.answers['q16'], a17 = state.answers['q17'];
+  if(a16===0 || a17===0) return 'high';
+  if((a16===3) || (a17===3)) return 'low';
+  return 'mid';
+}
+
+function supportLevel(){
+  const a19 = state.answers['q19'], a20 = state.answers['q20']||[];
+  const selfOnly = a20.length===1 && a20[0]===3;
+  if(a19===0 || a19===1){ return selfOnly?'mid':'strong'; }
+  if(a19===3 || a19===2){ return 'weak'; }
+  return 'mid';
+}
+
+function renderResult(){
+  progressBar.style.width = '100%';
+  clearTimeout(echoTimer); clearTimeout(echoHideTimer);
+  const e0=document.getElementById('echo'); if(e0){ e0.classList.remove('show'); e0.textContent=''; }
+  const scores = computeScores();
+  const topGood = GOOD_KEYS.slice().sort((a,b)=>scores[b]-scores[a])[0];
+  const topBad = BAD_KEYS.slice().sort((a,b)=>scores[b]-scores[a])[0];
+  state.resultTop = topBad;
+
+  const values = extractValues();
+  const valueDedup = [];
+  const seen = new Set();
+  values.forEach(v=>{ if(!seen.has(v.key)){ seen.add(v.key); valueDedup.push(v); } });
+
+  const idealSelf = QUESTIONS.find(q=>q.id==='q11').options[state.answers['q11']];
+  const lifeState = QUESTIONS.find(q=>q.id==='q12').options[state.answers['q12']];
+  const flow = QUESTIONS.find(q=>q.id==='q14').options[state.answers['q14']];
+  const strengths = (state.answers['q13']||[]).map(i=>QUESTIONS.find(q=>q.id==='q13').options[i].label);
+  const openDay = state.answers['q10']||'';
+  const openAct = state.answers['q18']||'';
+
+  const energy = energyLevel();
+  const support = supportLevel();
+  const energyTxt = {high:'你的行动能量不错，趁热打铁，先迈出一小步。', mid:'你有改变的意愿，只是需要一点启动的推力。', low:'你眼下可能更需要先照顾好自己的状态，再谈行动。'}[energy];
+  const supportTxt = {strong:'你身边有可以依靠的人，善用这份支持。', mid:'你有一些支持，但或许可以再主动一点去连接。', weak:'你习惯了独自扛，试着向信任的人开口，会轻松很多。'}[support];
+
+  const kw = valueDedup.slice(0,5).map((v,i)=>`<span class="kw ${i>=3?'alt':''}">${v.label}</span>`).join('');
+  const kwDesc = valueDedup.slice(0,3).map(v=>VALUE_DESC[v.key]).join('；');
+
+  const goodC = TYPE_CONTENT[topGood];
+  const badC = TYPE_CONTENT[topBad];
+
+  app.innerHTML = `
+  <div class="result">
+    <div class="r-hero">
+      <div class="r-tag">你的专属 · 人生方向报告</div>
+      <h2>你的光与雾</h2>
+      <div>
+        <span class="type-chip">☀️ ${goodC.tag}</span>
+        <span class="type-chip">🌫️ ${badC.tag}</span>
+      </div>
+      <p>每个人心里都有一束光、也有一团雾。看见它们，才真正看清自己。</p>
+      <p style="font-size:13px;opacity:.78;margin-top:6px;font-style:italic;letter-spacing:.5px">「雾散时，光一直都在。」</p>
+    </div>
+
+    ${type16HTML()}
+
+    <div class="r-card">
+      <h3><span class="ic amber">☀️</span>你身上的光 · ${goodC.name}</h3>
+      <div style="font-size:15px;font-weight:700;color:var(--ink);margin-bottom:6px">${goodC.short}</div>
+      <div style="font-size:14.5px;color:var(--ink-soft)">${goodC.insight}</div>
+      ${actionsHTML(topGood,'让它持续发光')}
+      ${resourcesHTML(topGood)}
+    </div>
+
+    ${endingsHTML(topGood, false)}
+
+    <div class="r-card">
+      <h3><span class="ic coral">🌫️</span>你心里的雾 · ${badC.name}</h3>
+      <div style="font-size:15px;font-weight:700;color:var(--ink);margin-bottom:6px">${badC.short}</div>
+      <div style="font-size:14.5px;color:var(--ink-soft)">${badC.insight}</div>
+      ${actionsHTML(topBad,'给雾开一扇窗')}
+      ${resourcesHTML(topBad)}
+    </div>
+
+    ${endingsHTML(topBad, true)}
+
+    <div class="r-card" id="reflectCard">${reflectHTML(topBad)}</div>
+
+    <div class="r-card">
+      <h3><span class="ic violet">💜</span>你的人生关键词</h3>
+      <div class="keywords">${kw||'<span style="color:var(--ink-faint)">去选一选你真正在乎的东西吧</span>'}</div>
+      ${kwDesc?`<div style="font-size:14.5px;color:var(--ink-soft)">${kwDesc}。</div>`:''}
+    </div>
+
+    <div class="r-card">
+      <h3><span class="ic mint">🌱</span>你理想中的自己</h3>
+      ${idealSelf?`<div style="font-size:14.5px;color:var(--ink-soft);margin-bottom:10px">你想成为：<strong style="color:var(--ink)">「${idealSelf.label}」</strong>${lifeState?`，向往「${lifeState.label}」的生活`:'。'}</div>`:''}
+      ${openDay?`<div class="quote"><div class="ql">你写下的「最棒的一天」</div>${openDay}</div>`:''}
+      ${flow?`<div style="font-size:14px;color:var(--ink-faint)">你容易进入心流的时刻：${flow.label}——这往往藏着你的天赋线索。</div>`:''}
+      ${strengths.length?`<div style="font-size:14px;color:var(--ink-faint);margin-top:6px">你的优势：${strengths.join('、')}</div>`:''}
+      ${openAct?`<div class="quote" style="margin-top:10px"><div class="ql">你写下的「立刻能做的第一件小事」</div>${openAct}</div>`:''}
+    </div>
+
+    <div class="r-card">
+      <h3><span class="ic blue">🤝</span>关于你的状态</h3>
+      <div class="assess">
+        <span class="pill">行动能量：<strong>${energy==='high'?'较高':energy==='mid'?'中等':'偏低'}</strong></span>
+        <span class="pill">支持系统：<strong>${support==='strong'?'较完整':support==='mid'?'一般':'偏弱'}</strong></span>
+      </div>
+      <div style="font-size:14px;color:var(--ink-soft);margin-top:10px">${energyTxt}<br>${supportTxt}</div>
+    </div>
+
+    ${answersReviewHTML()}
+
+    <div class="r-foot">
+      <button class="btn" onclick="start()">再测一次</button>
+      <button class="btn ghost" onclick="copyReport()">复制报告</button>
+    </div>
+    <p class="foot-note">这份报告不是诊断，更不是判决。它是一面镜子，帮你看清此刻的你。<br>迷茫不是问题，它是你在认真思考"我到底要过怎样的人生"的证据。</p>
+  </div>`;
+}
+
+function actionsHTML(type, label){
+  const items = TYPE_CONTENT[type].actions.map((a,i)=>`<div class="list-item"><span class="n">${i+1}</span><span>${a}</span></div>`).join('');
+  return `<div style="font-size:13.5px;font-weight:700;color:var(--ink-soft);margin:16px 0 8px">${label}</div><div class="list">${items}</div>`;
+}
+function resourcesHTML(type){
+  const items = TYPE_CONTENT[type].resources.map(r=>{
+    const tag = r.t==='book'?'书':r.t==='film'?'影':'练';
+    const cls = r.t==='book'?'book':r.t==='film'?'film':'ex';
+    return `<div class="res-item"><span class="tag ${cls}">${tag}</span><span class="txt">${r.x}</span></div>`;
+  }).join('');
+  return `<div style="font-size:13.5px;font-weight:700;color:var(--ink-soft);margin:16px 0 8px">滋养与支持</div>${items}`;
+}
+function answerText(q){
+  const ans = state.answers[q.id];
+  if(ans===null || ans===undefined) return '（未作答）';
+  if(q.type==='open') return ans || '（空）';
+  if(q.type==='tradeoffs') return (ans||[]).map((c,pi)=>{ if(c===null||c===undefined) return `第${pi+1}组未选`; return q.pairs[pi][c===0?'a':'b'].label; }).join('；');
+  if(q.type==='multi') return (ans||[]).map(i=>q.options[i].label).join('、') || '（未选）';
+  return q.options[ans].label;
+}
+function answersReviewHTML(){
+  const items = order.map(q=>`
+    <div class="review-item">
+      <div class="review-q">${q.title}</div>
+      <div class="review-a">${answerText(q)}</div>
+    </div>`).join('');
+  return `
+    <div class="r-card">
+      <details>
+        <summary class="review-summary">📝 回顾我的答案</summary>
+        <div class="review-list">${items}</div>
+      </details>
+    </div>`;
+}
+
+function copyReport(){
+  const text = app.innerText;
+  if(navigator.clipboard){ navigator.clipboard.writeText(text).then(()=>alert('报告已复制到剪贴板 ✓')).catch(()=>alert('复制失败，请手动选择复制')); }
+  else { alert('浏览器不支持，请手动选择复制'); }
+}
+
+/* ============ MBTI 式人生取向类型 ============ */
+const TYPE16 = {
+  AVTE:{name:'开拓者', tag:'敢想敢闯，用行动验证理想', desc:'你既有想去的远方，也愿意立刻迈出第一步。你不怕试错，越动越清晰。', advice:'把你的理想拆成一个个小实验，边做边调整方向。'},
+  AVTS:{name:'战略家', tag:'有蓝图、有节奏地落地', desc:'你心里有清晰的图景，也懂得规划步骤、稳步推进。你缺的不是想法，是放手去做的勇气。', advice:'别让完美的计划拖住第一步，先跑起来再优化。'},
+  AVFE:{name:'追梦人', tag:'为热爱奔赴', desc:'驱动你的是内心真实的感受和热爱，你愿意为所爱倾注全力。', advice:'给热爱加上一点现实的地图，才能走得更远。'},
+  AVFS:{name:'筑梦者', tag:'远方与归处都要', desc:'你既向往诗和远方，也渴望一个安定的家，总在两者之间寻找平衡。', advice:'不必二选一，找到一份能滋养你、又能安放你的生活。'},
+  APTE:{name:'实干家', tag:'务实敢试错', desc:'你不好高骛远，走一步算一步，用行动积累底气。', advice:'偶尔抬头看看方向，别只顾埋头赶路。'},
+  APTS:{name:'稳重者', tag:'踏实可靠', desc:'你把日子过得稳稳当当，让人放心。你的安全感来自可控和秩序。', advice:'偶尔给自己留一点「失控」的空间，会有惊喜。'},
+  APFE:{name:'生活家', tag:'在具体生活里找乐趣', desc:'你擅长在日常的烟火气里发现乐趣和意义，注重感受和温度。', advice:'把你的生活热情，慢慢延展到事业上。'},
+  APFS:{name:'暖心者', tag:'重感情、重陪伴', desc:'你在意人与人的连接，愿意照顾身边人，价值感常来自关系。', advice:'记得先照顾好自己，才能更好地照顾别人。'},
+  RVTE:{name:'思想者', tag:'先想透再行动', desc:'你习惯把问题想清楚再动手，脑子里常有清晰的逻辑与图景。', advice:'想得够久时，给自己设一个「行动截止时间」。'},
+  RVTS:{name:'规划者', tag:'谋定而后动', desc:'你深思熟虑、讲究计划，追求稳妥和秩序。', advice:'计划再好也要落地，从最小的第一步开始。'},
+  RVFE:{name:'理想主义者', tag:'内心有光', desc:'你心中有一团理想之火，执着于意义和远方，不愿将就。', advice:'理想不是等来的，把每一步都走成通往它的路。'},
+  RVFS:{name:'守望者', tag:'温柔而坚定', desc:'你内敛但坚定，守护着内心的秩序与在意的人。', advice:'你的安静里藏着力量，需要时也请勇敢发声。'},
+  RPTE:{name:'精算师', tag:'谨慎小步试错', desc:'你谨慎务实，喜欢先评估风险，用小步尝试换取稳妥。', advice:'试错成本比你想象的低，给自己多一点容错。'},
+  RPTS:{name:'保守派', tag:'求稳务实', desc:'你不喜欢冒险，更愿意守住确定和安稳。', advice:'稳定是底气，但偶尔迈出舒适区才能成长。'},
+  RPFE:{name:'疗愈者', tag:'敏感细腻', desc:'你情感细腻、共情力强，能在平凡里找到温度。', advice:'你的温柔是天赋，也要学会保护自己的情绪能量。'},
+  RPFS:{name:'静谧者', tag:'内敛安好', desc:'你安静内敛，向往安稳的小日子，不喜欢喧嚣和变动。', advice:'安静是选择，不是退缩；需要时也请为自己争取。'}
+};
+const DIM_DEFS = [
+  ['A','行动派','R','沉思派'],
+  ['V','远见型','P','务实型'],
+  ['T','理性','F','感性'],
+  ['E','探索','S','安定']
+];
+function deriveType16(){
+  const a = state.answers;
+  let actionScore = 0;
+  if(a['q16']===0) actionScore++;
+  if(a['q17']===0) actionScore++;
+  const d1 = actionScore>=1 ? 'A':'R';
+  const d2 = (a['q3']===2 || a['q3']===4 || a['q12']===3) ? 'V':'P';
+  const T_KEYS = {wealth:1, achievement:1, impact:1};
+  const F_KEYS = {meaning:1, relation:1, explore:1, balance:1, freedom:1};
+  let t=0, f=0;
+  const q8 = QUESTIONS.find(q=>q.id==='q8');
+  (a['q8']||[]).forEach(i=>{ const k=q8.options[i].valueKey; if(T_KEYS[k])t++; if(F_KEYS[k])f++; });
+  const q9 = QUESTIONS.find(q=>q.id==='q9');
+  (a['q9']||[]).forEach((c,pi)=>{ if(c===0||c===1){ const k=q9.pairs[pi][c===0?'a':'b'].valueKey; if(T_KEYS[k])t++; if(F_KEYS[k])f++; } });
+  const d3 = t>=f ? 'T':'F';
+  let e=0, s=0;
+  if(a['q9'] && a['q9'][1]===1) e++;
+  if(a['q9'] && a['q9'][1]===0) s++;
+  if(a['q12']===3 || a['q12']===1) e++;
+  if(a['q12']===2) s++;
+  const d4 = e>=s ? 'E':'S';
+  const dims = [d1,d2,d3,d4];
+  const code = dims.join('');
+  return {code, dims, ...TYPE16[code]};
+}
+function type16HTML(){
+  const t = deriveType16();
+  const blocks = t.dims.map((d,i)=>{ const def=DIM_DEFS[i]; return `<div class="mbti-letter"><div class="mbti-ch">${d}</div><div class="mbti-lb">${d===def[0]?def[1]:def[3]}</div></div>`; }).join('');
+  return `
+    <div class="r-card">
+      <h3><span class="ic violet">🧬</span>你的「人生取向类型」（MBTI 式）</h3>
+      <div class="mbti">${blocks}</div>
+      <div style="text-align:center;margin:8px 0 14px">
+        <div style="font-size:20px;font-weight:800;color:var(--ink)">${t.name}</div>
+        <div style="font-size:14px;color:var(--ink-soft)">${t.tag}</div>
+      </div>
+      <div style="font-size:14.5px;color:var(--ink-soft)">${t.desc}</div>
+      <div class="advice"><strong>给你的建议：</strong>${t.advice}</div>
+    </div>`;
+}
+
+/* ============ 好/坏结局表 + 共鸣反思 ============ */
+function getAllEndings(type){
+  const all = [...(ENDINGS[type]||[]), ...(EXTRA[type]||[])];
+  const groups = {light:[], warm:[], dark:[]};
+  all.forEach(e=>{ (groups[e.tone]||(groups[e.tone]=[])).push(e); });
+  return groups;
+}
+function flatEndings(type){
+  const g = getAllEndings(type);
+  const out = [];
+  g.light.forEach(e=>out.push({...e, group:'light'}));
+  g.warm.forEach(e=>out.push({...e, group:'warm'}));
+  g.dark.forEach(e=>out.push({...e, group:'dark'}));
+  return out;
+}
+function isGoodType(type){ return GOOD_KEYS.indexOf(type)>=0; }
+function groupConfig(isGood){
+  return isGood ? [
+    {tone:'light', title:'保持 · 放大你的光', cond:'当你保持并放大这份特质'},
+    {tone:'warm', title:'顺其自然', cond:'当你顺其自然、不加经营'},
+    {tone:'dark', title:'失衡 · 透支警示', cond:'当你透支、失衡、忽视它'}
+  ] : [
+    {tone:'light', title:'向阳 · 主动改变', cond:'当你主动改变、持续行动'},
+    {tone:'warm', title:'主流 · 顺其自然', cond:'当你顺其自然、按部就班'},
+    {tone:'dark', title:'警示 · 放任不管', cond:'当你回避、拖延、放任不管'}
+  ];
+}
+function rankFor(tone, pos, len){
+  if(tone==='light'){
+    if(pos===0) return {label:'完美结局',cls:'perfect',emoji:'🌟'};
+    if(pos===len-1) return {label:'隐藏结局',cls:'hidden',emoji:'🔒'};
+    return {label:'好结局',cls:'good',emoji:'✨'};
+  }
+  if(tone==='warm') return {label:'普通结局',cls:'normal',emoji:'😐'};
+  return pos===len-1 ? {label:'最坏结局',cls:'worst',emoji:'💀'} : {label:'坏结局',cls:'bad',emoji:'😰'};
+}
+function endingsHTML(top, pickable){
+  if(pickable===undefined) pickable = true;
+  const isGood = isGoodType(top);
+  const flat = flatEndings(top);
+  const cfg = groupConfig(isGood);
+  const total = flat.reduce((s,e)=>s+e.prob, 0);
+  const counters = {light:0, warm:0, dark:0};
+  let rows = '';
+  flat.forEach((e,i)=>{
+    const pos = counters[e.group]++;
+    const groupLen = flat.filter(x=>x.group===e.group).length;
+    const c = cfg.find(x=>x.tone===e.group);
+    if(pos===0){ rows += `<tr class="end-group"><td colspan="4">${c.title}</td></tr>`; }
+    const r = rankFor(e.group, pos, groupLen);
+    const pct = Math.max(2, Math.round(e.prob/total*100));
+    rows += `
+      <tr class="${pickable?'end-row':'end-row-static'} ${pickable&&reflect.picked===i?'sel':''}" ${pickable?`onclick="pickEnding(${i})"`:''}>
+        <td><span class="rank-badge ${r.cls}">${r.emoji} ${r.label}</span><div class="end-prob-cell">约 ${pct}%</div></td>
+        <td><span class="end-name">${e.title}</span></td>
+        <td><span class="end-cond">${c.cond}</span></td>
+        <td><div class="end-story-t">${e.story}</div></td>
+      </tr>`;
+  });
+  return `
+    <div class="r-card">
+      <h3><span class="${isGood?'ic amber':'ic coral'}">🔮</span>${isGood?'你的光的 15 种结局':'你的雾的 15 种结局'}</h3>
+      <div class="reflect-q">作为「${TYPE_CONTENT[top].tag}」，同龄人里大致会走向这 15 种结局${pickable?'——点选一行最戳你的，写下共鸣':''}。</div>
+      <div class="end-scroll">
+        <table class="end-table">
+          <thead><tr><th>结局</th><th>名称</th><th>达成条件</th><th>结局走向（含案例）</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+      <p class="endings-note">* 概率为基于同龄人路径的启发式估计，非宿命；案例均为化名典型样本，如有雷同纯属巧合。路怎么走，握在你自己手里。</p>
+    </div>`;
+}
+function reflectMsg(group, isGood){
+  if(group==='light') return isGood
+    ? '你被「发光的状态」吸引——那是你本来的样子。守住它、放大它，就是你现在最该做的事。'
+    : '你被「好的可能」吸引——说明你心里已经有一个想去的方向。那就朝它走，把这份共鸣，变成今天就能做的一件小事。';
+  if(group==='warm') return '你看见的是「最真实的自己」——既不粉饰，也不绝望。真实的看见，是改变的开始。你已经比大多数人清醒了。';
+  return isGood
+    ? '你被「失衡的警示」击中——你在担心这份好会耗尽。这不是悲观，是提醒你：光也需要保养。'
+    : '你被「最担心的可能」击中——这不是悲观，是你心里那个清醒的声音在提醒你。听见它，就已经领先了一步。';
+}
+function reflectHTML(top){
+  const isGood = isGoodType(top);
+  const flat = flatEndings(top);
+  const CN = ['一','二','三','四','五','六','七','八','九','十','十一','十二','十三','十四','十五'];
+  if(reflect.submitted){
+    const e = flat[reflect.picked];
+    const msg = reflectMsg(e.group, isGood);
+    return `
+      <h3><span class="ic coral">💭</span>共鸣 · 反思</h3>
+      ${reflect.text?`<div class="quote"><div class="ql">你写下的共鸣</div>${reflect.text}</div>`:''}
+      <div class="reflect-reply">你选了「结局${CN[reflect.picked]} · ${e.title}」。<br>${msg}</div>`;
+  }
+  const opts = flat.map((e,i)=>`
+    <button class="opt ${reflect.picked===i?'sel':''}" onclick="pickEnding(${i})">
+      <span class="mark"></span><span>结局${CN[i]} · ${e.title}</span>
+    </button>`).join('');
+  return `
+    <h3><span class="ic coral">💭</span>共鸣 · 反思</h3>
+    <div class="reflect-q">哪一个结局最让你有共鸣？（可以是向往，也可以是害怕）</div>
+    <div class="opts" id="reflectOpts" style="margin-bottom:14px">${opts}</div>
+    <textarea id="reflectText" placeholder="为什么是它？写下你的感受，或想对自己说的一句话……" oninput="reflectInput(this.value)">${reflect.text}</textarea>
+    <div class="nav"><button class="btn mint" id="reflectSubmit" ${reflect.picked===null?'disabled style="opacity:.45;cursor:not-allowed"':''} onclick="submitReflect()">写下我的共鸣 →</button></div>`;
+}
+function pickEnding(i){
+  reflect.picked = (reflect.picked===i?null:i);
+  document.querySelectorAll('tr.end-row').forEach((el,idx)=>{ el.classList.toggle('sel', idx===reflect.picked); });
+  document.querySelectorAll('#reflectOpts .opt').forEach((el,idx)=>{ el.classList.toggle('sel', idx===reflect.picked); });
+  const btn = document.getElementById('reflectSubmit');
+  if(btn){ btn.disabled = (reflect.picked===null); btn.style.opacity = reflect.picked===null?'0.45':'1'; btn.style.cursor = reflect.picked===null?'not-allowed':'pointer'; }
+}
+function reflectInput(val){ reflect.text = val; }
+function submitReflect(){
+  reflect.text = (document.getElementById('reflectText')||{}).value || reflect.text;
+  reflect.submitted = true;
+  document.getElementById('reflectCard').innerHTML = reflectHTML(state.resultTop);
+}
+
+/* 启动 */
+renderWelcome();
+</script>
+</body>
+</html>
